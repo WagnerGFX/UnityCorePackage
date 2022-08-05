@@ -1,0 +1,14 @@
+{
+    "name": "CorePackage.ObjectGUIDs",
+    "rootNamespace": "CorePackage.ObjectGUIDs",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,20 @@
+{
+    "name": "CorePackage.Samples.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ee0e80d68134b644a8febac431f3a27d",
+        "GUID:0ca28ee7ba47f244398875cdf3090bad",
+        "GUID:e05a9835cc31ff24d9d24c6b72175fdf"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

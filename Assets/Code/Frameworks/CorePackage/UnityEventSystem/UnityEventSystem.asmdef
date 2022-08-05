@@ -1,0 +1,14 @@
+{
+    "name": "CorePackage.UnityEventSystem",
+    "rootNamespace": "CorePackage.UnityEventSystem",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

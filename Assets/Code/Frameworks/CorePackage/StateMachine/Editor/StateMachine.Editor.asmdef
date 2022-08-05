@@ -1,0 +1,18 @@
+{
+    "name": "CorePackage.StateMachine.Editor",
+    "rootNamespace": "CorePackage.StateMachine.Editor",
+    "references": [
+        "GUID:0d7cd993ee690494c9101ee29385580a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
