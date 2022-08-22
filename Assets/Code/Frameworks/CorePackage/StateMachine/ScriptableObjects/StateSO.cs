@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using CorePackage.Common;
 
 namespace CorePackage.StateMachine.ScriptableObjects
 {
-	[CreateAssetMenu(fileName = "NewState", menuName = "MyProjectName/State Machine/State",order =  1)]
+	[CreateAssetMenu(fileName = "NewState", menuName = Project.MenuName + "/State Machine/State", order = 1)]
 	public class StateSO : ScriptableObject
 	{
 		[SerializeField] private StateActionSO[] _actions = null;

@@ -1,7 +1,9 @@
 {
     "name": "CorePackage.Utilities",
     "rootNamespace": "CorePackage.Utilities",
-    "references": [],
+    "references": [
+        "GUID:22037f3666e71a84b8c09a35d459dd04"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

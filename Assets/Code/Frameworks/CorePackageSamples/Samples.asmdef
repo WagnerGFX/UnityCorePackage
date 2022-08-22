@@ -2,6 +2,7 @@
     "name": "CorePackage.Samples",
     "rootNamespace": "",
     "references": [
+        "GUID:22037f3666e71a84b8c09a35d459dd04",
         "GUID:d0f325059dfc6a0459defc83d1827240",
         "GUID:e05a9835cc31ff24d9d24c6b72175fdf",
         "GUID:ee0e80d68134b644a8febac431f3a27d",

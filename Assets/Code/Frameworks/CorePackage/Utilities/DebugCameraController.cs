@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using CorePackage.Common;
 
 namespace CorePackage.Utilities
 {
-    [AddComponentMenu("MyProjectName/Debug Camera Controller", 0)]
+    [AddComponentMenu(Project.MenuName + "/Debug Camera Controller", 0)]
     [RequireComponent(typeof(Camera))]
     public class DebugCameraController : MonoBehaviour
     {

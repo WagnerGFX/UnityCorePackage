@@ -2,7 +2,8 @@
     "name": "CorePackage.StateMachine.Editor",
     "rootNamespace": "CorePackage.StateMachine.Editor",
     "references": [
-        "GUID:0d7cd993ee690494c9101ee29385580a"
+        "GUID:0d7cd993ee690494c9101ee29385580a",
+        "GUID:22037f3666e71a84b8c09a35d459dd04"
     ],
     "includePlatforms": [
         "Editor"

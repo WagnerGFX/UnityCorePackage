@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using CorePackage.Common;
 using CorePackage.StateMachine.ScriptableObjects;
 
 namespace CorePackage.StateMachine.Editor
@@ -20,7 +21,7 @@ namespace CorePackage.StateMachine.Editor
 
 		private UnityEditor.Editor _transitionTableEditor;
 
-		[MenuItem("State Machine Editor", menuItem = "MyProjectName/State Machine Editor")]
+		[MenuItem("State Machine Editor", menuItem = Project.MenuName + "/State Machine Editor")]
 		internal static void Display()
 		{
 			if (_window == null)

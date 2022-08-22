@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using CorePackage.Common;
 
 namespace CorePackage.ClassicEventSystem
 {
-    [CreateAssetMenu(fileName = "GlobalEventManager", menuName = "MyProjectName/Managers/GlobalEventManager", order = 1)]
+    [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
     public class GlobalEventManager : ScriptableObject
     {
         private readonly EventHub globalEventHub = new EventHub();

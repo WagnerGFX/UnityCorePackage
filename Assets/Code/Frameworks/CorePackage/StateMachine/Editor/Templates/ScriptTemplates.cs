@@ -3,22 +3,26 @@ using System.Text;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
+using CorePackage.Common;
 
 internal class ScriptTemplates
 {
-	private static readonly string _path = "Assets/Scripts/StateMachine/Editor/Templates";
+	//TODO: Improve from this fixed path
+	private static readonly string _path = "Assets/Code/Frameworks/CorePackage/StateMachine/Editor/Templates";
 
-	[MenuItem("Assets/Create/MyProjectName/State Machine/Action Script", false, 1)]
+	[MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Action Script", false, 1)]
 	public static void CreateActionScript() =>
-		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
+		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+			0,
 			ScriptableObject.CreateInstance<DoCreateStateMachineScriptAsset>(),
 			"NewActionSO.cs",
 			(Texture2D)EditorGUIUtility.IconContent("cs Script Icon").image,
 			$"{_path}/StateAction.txt");
 
-	[MenuItem("Assets/Create/MyProjectName/State Machine/Condition Script", false, 1)]
+	[MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Condition Script", false, 1)]
 	public static void CreateConditionScript() =>
-		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
+		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+			0,
 			ScriptableObject.CreateInstance<DoCreateStateMachineScriptAsset>(),
 			"NewConditionSO.cs",
 			(Texture2D)EditorGUIUtility.IconContent("cs Script Icon").image,

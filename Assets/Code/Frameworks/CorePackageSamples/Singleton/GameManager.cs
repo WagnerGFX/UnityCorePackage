@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using CorePackage.Common;
 using CorePackage.Singleton;
 
 namespace MyProjectName.Management
 {
-    [CreateAssetMenu(fileName = "GameManager",menuName = "MyProjectName/Managers/GameManager", order = 1)]
+    [CreateAssetMenu(fileName = "GameManager", menuName = Project.MenuName + "/Managers/GameManager", order = 1)]
     public sealed class GameManager : ScriptableSingletonObject<GameManager>
     {
         public GameState CurrentGameState { get; private set; } = GameState.None;
