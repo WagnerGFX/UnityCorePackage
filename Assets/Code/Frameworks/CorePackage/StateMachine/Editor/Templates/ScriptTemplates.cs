@@ -5,30 +5,56 @@ using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
 using CorePackage.Common;
 
-internal class ScriptTemplates
+internal class ScriptTemplates : ScriptableObject
 {
-	//TODO: Improve from this fixed path
-	private static readonly string _path = "Assets/Code/Frameworks/CorePackage/StateMachine/Editor/Templates";
+	[SerializeField]
+	private TextAsset stateAction;
 
-	[MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Action Script", false, 1)]
+    [SerializeField]
+    private TextAsset stateCondition;
+
+	private static ScriptTemplates instance;
+
+    private static void LoadInstance()
+    {
+        if (!instance)
+        {
+            instance = CreateInstance<ScriptTemplates>();
+        }
+    }
+
+    private static string GetStateActionPath()
+    {
+        LoadInstance();
+        return AssetDatabase.GetAssetPath(instance.stateAction);
+    }
+
+    private static string GetStateConditionPath()
+    {
+        LoadInstance();
+        return AssetDatabase.GetAssetPath(instance.stateAction);
+    }
+
+
+    [MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Action Script", false, 1)]
 	public static void CreateActionScript() =>
 		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
 			0,
-			ScriptableObject.CreateInstance<DoCreateStateMachineScriptAsset>(),
+			CreateInstance<DoCreateStateMachineScriptAsset>(),
 			"NewActionSO.cs",
 			(Texture2D)EditorGUIUtility.IconContent("cs Script Icon").image,
-			$"{_path}/StateAction.txt");
+            GetStateActionPath());
 
 	[MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Condition Script", false, 1)]
 	public static void CreateConditionScript() =>
 		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
 			0,
-			ScriptableObject.CreateInstance<DoCreateStateMachineScriptAsset>(),
+			CreateInstance<DoCreateStateMachineScriptAsset>(),
 			"NewConditionSO.cs",
 			(Texture2D)EditorGUIUtility.IconContent("cs Script Icon").image,
-			$"{_path}/StateCondition.txt");
+            GetStateConditionPath());
 
-	private class DoCreateStateMachineScriptAsset : EndNameEditAction
+    private class DoCreateStateMachineScriptAsset : EndNameEditAction
 	{
 		public override void Action(int instanceId, string pathName, string resourceFile)
 		{
