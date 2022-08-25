@@ -1,0 +1,16 @@
+{
+    "name": "CorePackage.EventSystems.Classic",
+    "rootNamespace": "CorePackage.EventSystems.Classic",
+    "references": [
+        "GUID:22037f3666e71a84b8c09a35d459dd04"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
