@@ -9,7 +9,12 @@ public class ArrowSampleEditor : Editor
     {
         if (myScript.Target != null)
         {
-            DrawArrow.ForGizmoTwoPoints(myScript.transform.position, myScript.Target.position);
+            DrawArrow.ForGizmoTwoPoints(
+                myScript.transform.position,
+                myScript.Target.position,
+                DrawArrow.defaultArrowHeadLength,
+                DrawArrow.defaultArrowHeadAngle,
+                0.5f);
         }
     }
 }

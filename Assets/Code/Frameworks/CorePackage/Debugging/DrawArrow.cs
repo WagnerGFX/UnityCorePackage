@@ -1,78 +1,97 @@
 using UnityEngine;
 
-//Handles removed to avoid UnityEditor references
+//Handles not used to avoid UnityEditor references
 
 namespace CorePackage.Debugging
 {
+    /// <summary>
+    /// Draws arrows with lines using Gizmos or Debug.
+    /// </summary>
     public static class DrawArrow
     {
         public const float defaultArrowHeadLength = 0.25f;
         public const float defaultArrowHeadAngle = 20f;
-        public const float defaultNormalizedArrowPosition = 1f;
+        public const float defaultArrowHeadNormalizedPosition = 1f;
 
-
-        public static void ForGizmo(Vector3 pos, Vector3 direction, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        /// <summary>
+        /// Draw with Gizmos from origin towards direction, using the magnitude as arrow length.
+        /// </summary>
+        public static void ForGizmo(Vector3 origin, Vector3 direction, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
-            Arrow(DrawMode.Gizmo, pos, direction, Gizmos.color, arrowHeadLength, arrowHeadAngle, normalizedArrowPosition);
+            Arrow(DrawMode.Gizmo, origin, direction, Gizmos.color, arrowHeadLength, arrowHeadAngle, arrowHeadNormalizedPosition);
         }
 
-        public static void ForGizmoTwoPoints(Vector3 from, Vector3 to, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        /// <summary>
+        /// Draws with Gizmos for two points with the arrow head pointing towards the destination.
+        /// </summary>
+        public static void ForGizmoTwoPoints(Vector3 origin, Vector3 destination, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
-            Vector3 direction = to - from;
-            Arrow(DrawMode.Gizmo, from, direction, Gizmos.color, arrowHeadLength, arrowHeadAngle, normalizedArrowPosition);
+            Vector3 direction = destination - origin;
+            Arrow(DrawMode.Gizmo, origin, direction, Gizmos.color, arrowHeadLength, arrowHeadAngle, arrowHeadNormalizedPosition);
         }
 
-
-        public static void ForDebug(Vector3 pos, Vector3 direction, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        /// <summary>
+        /// Draw with Debug from origin towards direction, using the magnitude as arrow length.
+        /// </summary>
+        public static void ForDebug(Vector3 origin, Vector3 direction, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
-            ForDebug(pos, direction, Color.white, arrowHeadLength, arrowHeadAngle, normalizedArrowPosition);
+            ForDebug(origin, direction, Color.white, arrowHeadLength, arrowHeadAngle, arrowHeadNormalizedPosition);
         }
 
-        public static void ForDebug(Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        /// <summary>
+        /// Draw with Debug from origin towards direction, using the magnitude as arrow length.
+        /// </summary>
+        public static void ForDebug(Vector3 origin, Vector3 direction, Color color, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
-            Arrow(DrawMode.Debug, pos, direction, color, arrowHeadLength, arrowHeadAngle, normalizedArrowPosition);
+            Arrow(DrawMode.Debug, origin, direction, color, arrowHeadLength, arrowHeadAngle, arrowHeadNormalizedPosition);
         }
 
-
-        public static void ForDebugTwoPoints(Vector3 from, Vector3 to, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        /// <summary>
+        /// Draws with Debug for two points with the arrow head pointing towards the destination. Default color as white.
+        /// </summary>
+        public static void ForDebugTwoPoints(Vector3 origin, Vector3 destination, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
-            Vector3 direction = to - from;
-            Arrow(DrawMode.Gizmo, from, direction, Color.white, arrowHeadLength, arrowHeadAngle, normalizedArrowPosition);
+            Vector3 direction = destination - origin;
+            Arrow(DrawMode.Gizmo, origin, direction, Color.white, arrowHeadLength, arrowHeadAngle, arrowHeadNormalizedPosition);
         }
 
-        public static void ForDebugTwoPoints(Vector3 from, Vector3 to, Color color, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        /// <summary>
+        /// Draws with Debug for two points with the arrow head pointing towards the destination.
+        /// </summary>
+        public static void ForDebugTwoPoints(Vector3 origin, Vector3 destination, Color color, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
-            Vector3 direction = to - from;
-            Arrow(DrawMode.Gizmo, from, direction, color, arrowHeadLength, arrowHeadAngle, normalizedArrowPosition);
+            Vector3 direction = destination - origin;
+            Arrow(DrawMode.Gizmo, origin, direction, color, arrowHeadLength, arrowHeadAngle, arrowHeadNormalizedPosition);
         }
 
-
-        public static float GetNormalizedArrowPosition(Vector3 from, Vector3 to, float arrowDistance, bool toTarget = true)
+        /// <summary>
+        /// Returns a value between 0 and 1 for a position where the arrow head should be drawn in the arrow body.
+        /// <para>Used for arrowHeadNormalizedPosition.</para>
+        /// </summary>
+        /// <param name="toDestination">Should evaluate the distance to destination or origin?</param>
+        public static float GetNormalizedArrowPosition(Vector3 origin, Vector3 destination, float arrowHeadDistance, bool toDestination = true)
         {
-            float distance = (to - from).magnitude;
+            float arrowBodyLength = (destination - origin).magnitude;
 
-            if (distance == 0f)
+            if (arrowBodyLength == 0f)
                 return 0f;
 
-            if (distance < arrowDistance)
-                return toTarget ? 0f : 1f;
+            if (arrowBodyLength < arrowHeadDistance)
+                return toDestination ? 0f : 1f;
 
-            float normalizedDistance = (distance - arrowDistance) / distance;
+            float normalizedDistance = (arrowBodyLength - arrowHeadDistance) / arrowBodyLength;
 
-            if (toTarget)
-                return normalizedDistance;
-            else
-                return 1f - normalizedDistance;
+            return toDestination ? normalizedDistance : 1f - normalizedDistance;
         }
 
 
-        private static void Arrow(DrawMode drawMode, Vector3 pos, Vector3 direction, Color color, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float normalizedArrowPosition = defaultNormalizedArrowPosition)
+        private static void Arrow(DrawMode drawMode, Vector3 origin, Vector3 direction, Color color, float arrowHeadLength = defaultArrowHeadLength, float arrowHeadAngle = defaultArrowHeadAngle, float arrowHeadNormalizedPosition = defaultArrowHeadNormalizedPosition)
         {
             if (direction.magnitude == 0f)
                 return;
 
 
-            Vector3 arrowTip = pos + (direction * normalizedArrowPosition);
+            Vector3 arrowTip = origin + (direction * arrowHeadNormalizedPosition);
 
             Vector3 right = (Quaternion.LookRotation(direction) * Quaternion.Euler(arrowHeadAngle, 0, 0) * Vector3.back) * arrowHeadLength;
             Vector3 left = (Quaternion.LookRotation(direction) * Quaternion.Euler(-arrowHeadAngle, 0, 0) * Vector3.back) * arrowHeadLength;
@@ -82,14 +101,14 @@ namespace CorePackage.Debugging
             switch (drawMode)
             {
                 case DrawMode.Gizmo:
-                    Gizmos.DrawRay(pos, direction);
+                    Gizmos.DrawRay(origin, direction);
                     Gizmos.DrawRay(arrowTip, right);
                     Gizmos.DrawRay(arrowTip, left);
                     Gizmos.DrawRay(arrowTip, up);
                     Gizmos.DrawRay(arrowTip, down);
                     break;
                 case DrawMode.Debug:
-                    Debug.DrawRay(pos, direction, color);
+                    Debug.DrawRay(origin, direction, color);
                     Debug.DrawRay(arrowTip, right, color);
                     Debug.DrawRay(arrowTip, left, color);
                     Debug.DrawRay(arrowTip, up, color);
