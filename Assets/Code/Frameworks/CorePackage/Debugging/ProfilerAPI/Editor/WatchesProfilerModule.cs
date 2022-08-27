@@ -13,8 +13,8 @@ namespace CorePackage.Debugging.ProfilerAPI.Editor
     {
         private static readonly ProfilerCounterDescriptor[] k_Counters =
         {
-        new("WatchedScript Calls", ProfilerCategory.Scripts)
-    };
+            new("WatchedScript Calls", ProfilerCategory.Scripts)
+        };
 
         public WatchesProfilerModule() : base(k_Counters) { }
     }

@@ -2,13 +2,14 @@ using Unity.Profiling;
 using UnityEngine;
 
 
-//Package:              Unity Profiling Core API
-//Setup in:             Profiler Window > Profiler Modules > Settings > Availabe Counters > User
+//Package Needed:       Unity Profiling Core API
+//Setup:                Automatic through WatchesProfilerModule
+
 //Category:             Custom Category in the profiler settings, to organize Counters.
 //Module:               Displays a group of Counters on the Profiler
 //Marker:               Profile code blocks. (Exec time, GC Alloc, Calls)
 //Counter:              Add counters to be tracked by the Profiler window. (statistics)
-//ProfilerCounter:      Has not internal value. Needs to sample manually.
+//ProfilerCounter:      Has no internal value. Needs to sample manually.
 //ProfilerCounterValue: Manages the value internally. Can sample automatically.
 //Obs:                  Created Counters cannot be overridden, but they are removed when the Editor is restarted.
 
