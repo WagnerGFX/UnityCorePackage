@@ -7,24 +7,22 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEditor.Profiling;
 
-
-//Must use the full name to find
-
 namespace CorePackage.Debugging.ProfilerSearcher
 {
     public class FindProfilerSamplesInFrames : EditorWindow
     {
-        [MenuItem("Window/Analysis/Profiler Marker Search")]
-        public static void ShowWindow()
-        {
-            
-            EditorWindow.GetWindow<FindProfilerSamplesInFrames>("Profiler Marker Search");
-        }
-
         string m_SampleName = "";
         string previousSearch = string.Empty;
 
         List<Vector2Int> m_FoundFrames = new List<Vector2Int>();
+
+
+        [MenuItem("Window/Analysis/Profiler Marker Search")]
+        public static void ShowWindow()
+        {
+            GetWindow<FindProfilerSamplesInFrames>("Profiler Marker Search");
+        }
+        
         private void OnGUI()
         {
             EditorGUILayout.LabelField("Use the textbox to search for an specific Marker in all sampled frames.");
@@ -70,9 +68,8 @@ namespace CorePackage.Debugging.ProfilerSearcher
                     frameData.Dispose();
                 }
             }
+
 #if UNITY_2021_1_OR_NEWER
-
-
 
             if (previousSearch != string.Empty)
             {
@@ -99,7 +96,6 @@ namespace CorePackage.Debugging.ProfilerSearcher
                         cpuModule.SetSelection(m_SampleName, m_FoundFrames[i].x, threadId: frameData.threadId);
                     }
                 }
-
             }
             GUILayout.EndHorizontal();
 #else
@@ -113,7 +109,5 @@ namespace CorePackage.Debugging.ProfilerSearcher
 #endif
         }
     }
-
 }
-
 #endif
