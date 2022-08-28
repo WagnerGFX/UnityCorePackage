@@ -7,7 +7,7 @@ namespace CorePackage.ObjectGUIDs.Editor
     {
         SerializedProperty instanceGuid;
 
-        //Awake will throw errors when recompiling
+        // Awake will throw errors when recompiling
         private void OnEnable() 
         {
             instanceGuid = serializedObject.FindProperty("_instanceGuid");

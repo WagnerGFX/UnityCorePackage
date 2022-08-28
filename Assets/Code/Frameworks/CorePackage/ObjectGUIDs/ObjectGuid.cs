@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace CorePackage.ObjectGUIDs
 {
+    /// <summary>
+    /// Simple component to hold the Guid value. Internal behavior is controlled through Editor only classes.
+    /// </summary>
     [DisallowMultipleComponent]
     public partial class ObjectGuid : MonoBehaviour
     {

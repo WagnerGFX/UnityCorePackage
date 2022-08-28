@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace CorePackage.ObjectGUIDs
 {
+    // Author: Searous
+    // Link: https://forum.unity.com/threads/cannot-serialize-a-guid-field-in-class.156862/#post-6996680
+
     /// <summary>
-    /// Serializable wrapper for System.Guid.
-    /// Can be implicitly converted to/from System.Guid.
-    ///
-    /// Author: Searous
-    /// Link: https://forum.unity.com/threads/cannot-serialize-a-guid-field-in-class.156862/#post-6996680
+    /// Serializable wrapper for System.Guid. Can be implicitly converted to/from System.Guid.
     /// </summary>
     [Serializable]
     public struct SerializableGuid : ISerializationCallbackReceiver
