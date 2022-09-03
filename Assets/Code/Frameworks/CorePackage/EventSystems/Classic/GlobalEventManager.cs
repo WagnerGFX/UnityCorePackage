@@ -5,12 +5,15 @@ using CorePackage.Common;
 
 namespace CorePackage.EventSystems.Classic
 {
+    /// <summary>
+    /// Manages global events and a list of local event managers. Works better by having only a single instance.
+    /// </summary>
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
     public class GlobalEventManager : ScriptableObject
     {
-        private readonly EventHub globalEventHub = new EventHub();
+        private readonly EventHub globalEventHub = new();
 
-        private readonly List<EventHub> localEventHubList = new List<EventHub>();
+        private readonly List<EventHub> localEventHubList = new();
 
         internal void SubscribeLocalEventHub(EventHub localEventHub)
         {

@@ -4,34 +4,34 @@ using System.Linq;
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Encapsulates the event handler to allow dynamic instancing for implemented IEventArgs types.
+    /// Encapsulates a generic event to allow dynamic instancing for different IEventArgs implementations.
     /// </summary>
-    /// <typeparam name="T">Type must inherit from IEventArgs</typeparam>
+    /// <typeparam name="T">Must inherit from IEventArgs. Can be a class or struct.</typeparam>
     internal class EventHolder<T> : IEventHolderClear where T : IEventArgs
     {
-        private event Action<T> evHandler;
+        private event Action<T> EventHandler;
 
         public void Subscribe(Action<T> listener)
         {
-            if (evHandler == null || !evHandler.GetInvocationList().Contains(listener))
+            if (EventHandler == null || !EventHandler.GetInvocationList().Contains(listener))
             {
-                evHandler += listener;
+                EventHandler += listener;
             }
         }
 
         public void Unsubscribe(Action<T> listener)
         {
-            evHandler -= listener;
+            EventHandler -= listener;
         }
 
         public void Invoke(T eventArgs)
         {
-            evHandler?.Invoke(eventArgs);
+            EventHandler?.Invoke(eventArgs);
         }
 
         public void UnsubscribeAll()
         {
-            evHandler = null;
+            EventHandler = null;
         }
     }
 }

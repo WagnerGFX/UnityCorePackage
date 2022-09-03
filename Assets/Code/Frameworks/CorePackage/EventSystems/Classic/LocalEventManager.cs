@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace CorePackage.EventSystems.Classic
 {
+    /// <summary>
+    /// Instance-based event manager. Can fire and receive events locally or globally.
+    /// </summary>
     public class LocalEventManager : MonoBehaviour
     {
         [SerializeField]
