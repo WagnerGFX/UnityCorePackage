@@ -2,7 +2,7 @@
 using CorePackage.Common;
 using CorePackage.Singleton;
 
-namespace MyProjectName.Management
+namespace CorePackageSamples
 {
     [CreateAssetMenu(fileName = "GameManager", menuName = Project.MenuName + "/Managers/GameManager", order = 1)]
     public sealed class GameManager : ScriptableSingletonObject<GameManager>
@@ -14,7 +14,7 @@ namespace MyProjectName.Management
             GameState previousGameState = CurrentGameState;
             CurrentGameState = newState;
 
-            //OnGameStateChanged
+            // Fire OnGameStateChanged Event
         }
     }
 }

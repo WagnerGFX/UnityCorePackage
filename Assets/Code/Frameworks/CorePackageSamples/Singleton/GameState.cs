@@ -1,4 +1,4 @@
-﻿namespace MyProjectName
+﻿namespace CorePackageSamples
 {
     public enum GameState
     {

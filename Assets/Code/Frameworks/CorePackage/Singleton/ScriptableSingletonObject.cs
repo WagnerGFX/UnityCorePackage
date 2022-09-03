@@ -9,14 +9,15 @@ namespace CorePackage.Singleton
     /// <typeparam name="T">The class being implemented.</typeparam>
     public abstract class ScriptableSingletonObject<T> : ScriptableObject where T : ScriptableSingletonObject<T>
     {
-        public static T Instance { get; private set; }
+        // The object can only be found by searching the scene, preventing the access of a static member.
+        private static T Instance { get; set; }
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             if (Instance == null)
             {
                 Instance = Resources.FindObjectsOfTypeAll<T>().FirstOrDefault();
-                OnEnabled();
+                OnEnableSingleton();
             }
             else if (Resources.FindObjectsOfTypeAll<T>().Count() > 1)
             {
@@ -27,6 +28,6 @@ namespace CorePackage.Singleton
         /// <summary>
         /// Replacement for OnEnable(). Only called when the instance is valid.
         /// </summary>
-        protected virtual void OnEnabled() { }
+        protected virtual void OnEnableSingleton() { }
     } 
 }
