@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 namespace CorePackage.EventSystems.Unity
 {
+    /// <summary>
+    /// Event Channel with a single parameter for value or sender. Easy to connect in the inspector for basic values and useful for complex data like EventArgs.
+    /// </summary>
     public abstract class BaseEventChannelSO<TValue> : ScriptableObject
     {
 #if UNITY_EDITOR

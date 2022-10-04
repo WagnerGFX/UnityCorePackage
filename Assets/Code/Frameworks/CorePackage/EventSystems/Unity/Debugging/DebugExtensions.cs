@@ -40,6 +40,7 @@ namespace CorePackage.EventSystems.Unity.Debugging
                              target.ToString());
 
         /*
+        // Commented to avoid InputSystem references.
         public static string GetDebugInfo(this UnityEngine.InputSystem.PlayerInput target)
             => string.Format(debugTemplate,
                             "PINPUT",

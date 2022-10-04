@@ -4,7 +4,10 @@ using CorePackage.EventSystems.Unity;
 
 namespace MyProjectName.Events
 {
-    [AddComponentMenu(Project.MenuName + "/Event Listeners/Int", 1)]
+    /// <summary>
+    /// Listener for events with two arguments: int, object
+    /// </summary>
+    [AddComponentMenu(Project.MenuName + "/Event Listeners/Int Listener", 1)]
     public class IntEventListener : BaseEventListener<IntEventChannelSO, int, object>
     {
 

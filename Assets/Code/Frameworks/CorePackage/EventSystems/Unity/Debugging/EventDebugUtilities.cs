@@ -1,9 +1,12 @@
 using System;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Analytics;
+using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 /// <summary>
-/// Used to debug the CorePackage.UnityEventSystem.
+/// Used to debug events by subscribing to BaseEventChannelSO debugging events.
 /// </summary>
 namespace CorePackage.EventSystems.Unity.Debugging
 {
@@ -28,12 +31,13 @@ namespace CorePackage.EventSystems.Unity.Debugging
             //Event Channel
             debugInfo.Append($"Raised Event Channel: {GetUnityObjectInfo(eventChannel)}");
 
-            //Sender
+            //Sender and Value
             if (sender is not null)
                 debugInfo.Append($"\nSender: ");
 
             if (value is not null and UnityEngine.Object)
                 debugInfo.Append($"\nValue: {GetUnityObjectInfo(value)}");
+
             else if (value is not null)
                 debugInfo.Append($"\nValue: {value}");
 
@@ -48,21 +52,23 @@ namespace CorePackage.EventSystems.Unity.Debugging
                     debugInfo.Append($"\n    => {targetOwnerInfo}{del.Target.GetType().FullName} :: {del.Method}");
                 }
             }
+            else
+            {
+                debugInfo.Append($"\nNo Listeners...");
+            }
+            
 
             Debug.Log(debugInfo.ToString());
         }
 
-        private static string GetUnityObjectInfo(object target)
-        {
-            //Extension methods don't follow Inheritance. Actual class must be define.
-            return target switch
-            {
-                MonoBehaviour typedTarget => typedTarget.GetDebugInfo(),
-                GameObject typedTarget => typedTarget.GetDebugInfo(),
-                ScriptableObject typedTarget => typedTarget.GetDebugInfo(),
-                UnityEngine.Object typedTarget => typedTarget.GetDebugInfo(),
-                _ => target.GetDebugInfo(),
-            };
-        }
+        private static string GetUnityObjectInfo(object target) => target switch
+        {   // Extension methods don't follow Inheritance. Actual class must be defined.
+            MonoBehaviour typedTarget => typedTarget.GetDebugInfo(),
+            GameObject typedTarget => typedTarget.GetDebugInfo(),
+            ScriptableObject typedTarget => typedTarget.GetDebugInfo(),
+            UnityEngine.Object typedTarget => typedTarget.GetDebugInfo(),
+            _ => target.GetDebugInfo(),
+        };
+
     }
 }

@@ -4,7 +4,10 @@ using CorePackage.EventSystems.Unity;
 
 namespace MyProjectName.Events
 {
-    [AddComponentMenu(Project.MenuName + "/Event Listeners/Anonymous", 19)]
+    /// <summary>
+    /// Listener for events with no arguments.
+    /// </summary>
+    [AddComponentMenu(Project.MenuName + "/Event Listeners/Anonymous Listener", 21)]
     public class AnonymousEventListener : BaseEventListener<AnonymousEventChannelSO>
     {
 

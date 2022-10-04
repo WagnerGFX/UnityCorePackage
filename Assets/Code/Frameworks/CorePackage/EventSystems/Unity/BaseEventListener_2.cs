@@ -12,24 +12,31 @@ namespace CorePackage.EventSystems.Unity
         private TChannel _channel;
 
         [SerializeField]
-        private UnityAction<TValue, TSender> OnEventRaised;
+        private bool _disableWithObject;
+
+        [SerializeField]
+        private UnityEvent<TValue, TSender> OnEventRaised;
 
         private void OnEnable()
         {
-            if (_channel != null)
-                _channel?.Subscribe(Respond);
+            _channel?.Subscribe(Respond);
         }
 
         private void OnDisable()
         {
-            if (_channel != null)
+            if (_disableWithObject)
+                _channel?.Unsubscribe(Respond);
+        }
+
+        private void OnDestroy()
+        {
+            if (!_disableWithObject)
                 _channel?.Unsubscribe(Respond);
         }
 
         private void Respond(TValue value, TSender sender)
         {
-            if (OnEventRaised != null)
-                OnEventRaised.Invoke(value, sender);
+            OnEventRaised?.Invoke(value, sender);
         }
     }
 }

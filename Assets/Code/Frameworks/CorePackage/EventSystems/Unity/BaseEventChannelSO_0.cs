@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace CorePackage.EventSystems.Unity
 {
     /// <summary>
-    /// Anonymous Event Channel, preffer to use EventChannelBaseSO<object> with the sender data.
+    /// Event Channel with no parameters. Basic and useful, but lacks any data. Prefer another class to raise events with the sender info.
     /// </summary>
     public abstract class BaseEventChannelSO : ScriptableObject
     {

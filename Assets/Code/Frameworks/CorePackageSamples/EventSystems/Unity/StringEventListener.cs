@@ -4,7 +4,10 @@ using CorePackage.EventSystems.Unity;
 
 namespace MyProjectName.Events
 {
-    [AddComponentMenu(Project.MenuName + "/Event Listeners/String", 1)]
+    /// <summary>
+    /// Listener for events with two arguments: string, object
+    /// </summary>
+    [AddComponentMenu(Project.MenuName + "/Event Listeners/String Listener", 1)]
     public class StringEventListener : BaseEventListener<StringEventChannelSO, string, object>
     {
 

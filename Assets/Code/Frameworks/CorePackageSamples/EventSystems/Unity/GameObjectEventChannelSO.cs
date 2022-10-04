@@ -5,7 +5,7 @@ using CorePackage.EventSystems.Unity;
 namespace MyProjectName.Events
 {
     /// <summary>
-    /// This class is used for Events that have one GameObject argument.
+    /// Event SO that allows two arguments: GameObject, object
     /// </summary>
     [CreateAssetMenu(menuName = Project.MenuName + "/Event Channels/GameObject Event", order = 2)]
     public class GameObjectEventChannelSO : BaseEventChannelSO<GameObject, object> { } 
