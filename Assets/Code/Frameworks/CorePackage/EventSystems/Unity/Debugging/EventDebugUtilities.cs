@@ -13,31 +13,64 @@ namespace CorePackage.EventSystems.Unity.Debugging
     public static class EventDebugUtilities
     {
         public static void DebugRaisedEventWithNoListeners(ScriptableObject eventChannel)
-            => DebugRaisedEvent(eventChannel, null, null, null);
-        public static void DebugRaisedEventWithNoListeners(ScriptableObject eventChannel, object value)
-            => DebugRaisedEvent(eventChannel, value, null, null);
-        public static void DebugRaisedEventWithNoListeners(ScriptableObject eventChannel, object value, object sender)
-            => DebugRaisedEvent(eventChannel, value, sender, null);
+            => InnerDebugRaisedEvent(eventChannel, null, null, null);
+
+        public static void DebugRaisedEventWithNoListeners<TValue>(ScriptableObject eventChannel, TValue value)
+            => InnerDebugRaisedEvent(eventChannel, value, null, null);
+
+        public static void DebugRaisedEventWithNoListeners<TValue,TSender>(ScriptableObject eventChannel, TValue value, TSender sender)
+            => InnerDebugRaisedEvent(eventChannel, value, sender, null);
 
         public static void DebugRaisedEvent(ScriptableObject eventChannel, Delegate[] invocationList)
-            => DebugRaisedEvent(eventChannel, null, null, invocationList);
-        public static void DebugRaisedEvent(ScriptableObject eventChannel, object value, Delegate[] invocationList)
-            => DebugRaisedEvent(eventChannel, value, null, invocationList);
+            => InnerDebugRaisedEvent(eventChannel, null, null, invocationList);
 
-        public static void DebugRaisedEvent(ScriptableObject eventChannel, object value, object sender, Delegate[] invocationList)
+        public static void DebugRaisedEvent<TValue>(ScriptableObject eventChannel, TValue value, Delegate[] invocationList)
+            => InnerDebugRaisedEvent(eventChannel, value, null, invocationList);
+
+        public static void DebugRaisedEvent<TValue, TSender>(ScriptableObject eventChannel, TValue value, TSender sender, Delegate[] invocationList)
+            => InnerDebugRaisedEvent(eventChannel, value, sender, invocationList);
+
+        public static void DebugSubscribed(ScriptableObject eventChannel, UnityAction action, bool success)
+            => InnerDebugSubscription(eventChannel, true, action, success);
+
+        public static void DebugSubscribed<TValue>(ScriptableObject eventChannel, UnityAction<TValue> action, bool success)
+            => InnerDebugSubscription(eventChannel, true, action, success);
+
+        public static void DebugSubscribed<TValue, TSender>(ScriptableObject eventChannel, UnityAction<TValue, TSender> action, bool success)
+            => InnerDebugSubscription(eventChannel, true, action, success);
+
+        public static void DebugUnsubscribed(ScriptableObject eventChannel, UnityAction action, bool success)
+            => InnerDebugSubscription(eventChannel, false, action, success);
+
+        public static void DebugUnsubscribed<TValue>(ScriptableObject eventChannel, UnityAction<TValue> action, bool success)
+            => InnerDebugSubscription(eventChannel, false, action, success);
+
+        public static void DebugUnsubscribed<TValue, TSender>(ScriptableObject eventChannel, UnityAction<TValue, TSender> action, bool success)
+            => InnerDebugSubscription(eventChannel, false, action, success);
+
+
+        private static void InnerDebugRaisedEvent(ScriptableObject eventChannel, object value, object sender, Delegate[] invocationList)
         {
             var debugInfo = new StringBuilder();
 
             //Event Channel
-            debugInfo.Append($"Raised Event Channel: {GetUnityObjectInfo(eventChannel)}");
+            debugInfo.Append($"Event Channel: {GetUnityObjectInfo(eventChannel)}");
 
-            //Sender and Value
-            if (sender is not null)
-                debugInfo.Append($"\nSender: ");
+            //Status
+            if (invocationList is not null)
+                debugInfo.Append($"\nRaised event with {invocationList.Length} listener(s)");
+            else
+                debugInfo.Append("\nRaised event with no listeners");
 
+            //Sender
+            if (sender is not null and UnityEngine.Object)
+                debugInfo.Append($"\nSender: {GetUnityObjectInfo(sender)}");
+            else if (sender is not null)
+                debugInfo.Append($"\nSender: {sender}");
+
+            //Value
             if (value is not null and UnityEngine.Object)
                 debugInfo.Append($"\nValue: {GetUnityObjectInfo(value)}");
-
             else if (value is not null)
                 debugInfo.Append($"\nValue: {value}");
 
@@ -52,14 +85,29 @@ namespace CorePackage.EventSystems.Unity.Debugging
                     debugInfo.Append($"\n    => {targetOwnerInfo}{del.Target.GetType().FullName} :: {del.Method}");
                 }
             }
-            else
-            {
-                debugInfo.Append($"\nNo Listeners...");
-            }
-            
 
             Debug.Log(debugInfo.ToString());
         }
+
+        private static void InnerDebugSubscription(ScriptableObject eventChannel, bool isSubscribing, Delegate action, bool success)
+        {
+            var debugInfo = new StringBuilder();
+
+            //Event Channel
+            debugInfo.Append($"Event Channel: {GetUnityObjectInfo(eventChannel)}");
+
+            //Subscription State
+            debugInfo.Append(isSubscribing ? "\nSubscribed" : "\nUnsubscribed");
+            debugInfo.Append(" with the status: ");
+            debugInfo.Append(success ? "Success" : "Failed");
+
+            //Action
+            string targetOwnerInfo = GetUnityObjectInfo(action.Target);
+            debugInfo.Append($"\n    => {targetOwnerInfo}{action.Target.GetType().FullName} :: {action.Method}");
+
+            Debug.Log(debugInfo.ToString());
+        }
+
 
         private static string GetUnityObjectInfo(object target) => target switch
         {   // Extension methods don't follow Inheritance. Actual class must be defined.

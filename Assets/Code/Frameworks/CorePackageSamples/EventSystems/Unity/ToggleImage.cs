@@ -4,7 +4,7 @@ using UnityEngine;
 public class ToggleImage : MonoBehaviour
 {
     [SerializeField]
-    AnonymousEventChannelSO OnToggle;
+    BasicGameObjectEventChannelSO OnToggle;
 
     [SerializeField]
     private bool startDisabled = false;
@@ -15,7 +15,7 @@ public class ToggleImage : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    public void ToggleObject()
+    public void ToggleObject(GameObject sender)
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
