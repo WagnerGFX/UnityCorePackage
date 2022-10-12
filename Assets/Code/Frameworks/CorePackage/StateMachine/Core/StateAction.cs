@@ -2,10 +2,10 @@
 
 namespace CorePackage.StateMachine
 {
-	/// <summary>
-	/// An object representing an action.
-	/// </summary>
-	public abstract class StateAction : IStateComponent
+    /// <summary>
+    /// An action for the <see cref="State"/> to execute.
+    /// </summary>
+    public abstract class StateAction : IStateComponent
 	{
 		internal StateActionSO _originSO;
 

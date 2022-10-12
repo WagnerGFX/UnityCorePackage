@@ -2,7 +2,10 @@
 
 namespace CorePackage.StateMachine
 {
-	public class State
+    /// <summary>
+    /// A single state that executes <see cref="StateAction"/>s and evaluates <see cref="StateTransition"/>s
+    /// </summary>
+    public class State
 	{
 		internal StateSO _originSO;
 		internal StateMachine _stateMachine;

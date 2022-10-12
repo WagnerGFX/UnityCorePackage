@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace CorePackage.StateMachine
 {
-	public class StateMachine : MonoBehaviour
+    /// <summary>
+    /// The main FSM component. Holds the <see cref="TransitionTableSO"/> and caches component requests
+    /// </summary>
+    public class StateMachine : MonoBehaviour
 	{
 		[Tooltip("Set the initial state of this StateMachine")]
 		[SerializeField] private ScriptableObjects.TransitionTableSO _transitionTableSO = default;

@@ -1,5 +1,8 @@
 ﻿namespace CorePackage.StateMachine
 {
+	/// <summary>
+	/// Evaluates and executes all state transition logic
+	/// </summary>
 	public class StateTransition : IStateComponent
 	{
 		private State _targetState;

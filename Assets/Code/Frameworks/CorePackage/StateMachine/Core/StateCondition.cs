@@ -2,10 +2,10 @@
 
 namespace CorePackage.StateMachine
 {
-	/// <summary>
-	/// Class that represents a conditional statement.
-	/// </summary>
-	public abstract class Condition : IStateComponent
+    /// <summary>
+    /// Holds the logic evaluation that will be contained in <see cref="StateCondition"/>
+    /// </summary>
+    public abstract class Condition : IStateComponent
 	{
 		private bool _isCached = false;
 		private bool _cachedStatement = default;
@@ -23,7 +23,7 @@ namespace CorePackage.StateMachine
 		protected abstract bool Statement();
 
 		/// <summary>
-		/// Wrap the <see cref="Statement"/> so it can be cached.
+		/// Wraps the <see cref="Statement"/> so it can be cached.
 		/// </summary>
 		internal bool GetStatement()
 		{
@@ -50,10 +50,10 @@ namespace CorePackage.StateMachine
 		public virtual void OnStateExit() { }
 	}
 
-	/// <summary>
-	/// Struct containing a Condition and its expected result.
-	/// </summary>
-	public readonly struct StateCondition
+    /// <summary>
+    /// Struct containing a <see cref="Condition"/> and its expected result
+    /// </summary>
+    public readonly struct StateCondition
 	{
 		internal readonly StateMachine _stateMachine;
 		internal readonly Condition _condition;
