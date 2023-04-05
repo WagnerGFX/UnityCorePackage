@@ -3,9 +3,9 @@
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Encapsulates a generic event to allow dynamic instancing for different IEventArgs implementations.
+    /// Encapsulates a generic event to allow dynamic instancing for different <see cref="IEventArgs"/> implementations.
     /// </summary>
-    /// <typeparam name="T">Must inherit from IEventArgs. Can be a class or struct.</typeparam>
+    /// <typeparam name="T">Struct implementations are recommended.</typeparam>
     internal interface IEventContainer<T> : IEventContainer where T : IEventArgs
     {
         void Invoke(T eventArgs);

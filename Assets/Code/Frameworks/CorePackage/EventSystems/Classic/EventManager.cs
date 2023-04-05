@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Manages all listeners from different types
+    /// Instance-based event manager. Used internally by all other managers.
     /// </summary>
     public sealed class EventManager : IEventManager
     {

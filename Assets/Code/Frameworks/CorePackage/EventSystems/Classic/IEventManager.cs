@@ -3,7 +3,7 @@
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Common for all Event Managers.
+    /// Manages events grouped by implementatios of <see cref="IEventArgs"/>.
     /// </summary>
     public interface IEventManager
     {

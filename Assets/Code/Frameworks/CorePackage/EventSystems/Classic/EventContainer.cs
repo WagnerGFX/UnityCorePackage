@@ -4,9 +4,9 @@ using System.Linq;
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Default implementation of IEventContainer<T>.
+    /// Default implementation of <see cref="IEventContainer{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Must inherit from IEventArgs. Can be a class or struct.</typeparam>
+    /// <typeparam name="T">Struct implementations are recommended.</typeparam>
     internal sealed class EventContainer<T> : IEventContainer<T> where T : IEventArgs
     {
         private event Action<T> EventHandler;

@@ -5,8 +5,9 @@ using UnityEngine;
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Instance-based event manager. Can fire and receive events locally or globally.
+    /// Componenet-based event manager. Can fire and receive events locally or globally via a ScriptableObject.
     /// </summary>
+    [DisallowMultipleComponent]
     public sealed class EventManagerComponent : MonoBehaviour, IEventManagerLocal
     {
         [SerializeField]

@@ -6,7 +6,7 @@ using CorePackage.Common;
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Manages global events and a list of local event managers. Works better by having only a single instance.
+    /// ScriptableObject-based event manager. Manages global events and a list of local event managers. Works better by having only a single instance.
     /// </summary>
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
     public sealed class EventManagerSO : ScriptableObject, IEventManager
