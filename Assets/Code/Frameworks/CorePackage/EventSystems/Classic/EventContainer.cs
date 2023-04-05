@@ -4,10 +4,10 @@ using System.Linq;
 namespace CorePackage.EventSystems.Classic
 {
     /// <summary>
-    /// Encapsulates a generic event to allow dynamic instancing for different IEventArgs implementations.
+    /// Default implementation of IEventContainer<T>.
     /// </summary>
     /// <typeparam name="T">Must inherit from IEventArgs. Can be a class or struct.</typeparam>
-    internal sealed class EventContainer<T> : IEventContainerClear where T : IEventArgs
+    internal sealed class EventContainer<T> : IEventContainer<T> where T : IEventArgs
     {
         private event Action<T> EventHandler;
 

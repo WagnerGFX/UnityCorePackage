@@ -12,7 +12,7 @@ namespace CorePackage.EventSystems.Classic
         [SerializeField]
         private EventManagerSO globalEventManager = default;
 
-        private readonly EventManager localEventHub = new EventManager();
+        private readonly IEventManager localEventHub = new EventManager();
 
         private void Awake()
         {

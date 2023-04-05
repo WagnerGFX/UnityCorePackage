@@ -31,8 +31,8 @@ namespace CorePackage.EventSystems.Classic
 
             InstantiateListener<T>(eventType);
 
-            EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
-            oEvent.Subscribe(listener);
+            IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+            eventContainer.Subscribe(listener);
         }
 
         public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
@@ -41,8 +41,8 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
-                oEvent.Unsubscribe(listener);
+                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                eventContainer.Unsubscribe(listener);
             }
         }
 
@@ -52,8 +52,8 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
-                oEvent.UnsubscribeAll();
+                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                eventContainer.UnsubscribeAll();
             }
         }
 
@@ -61,20 +61,20 @@ namespace CorePackage.EventSystems.Classic
         {
             foreach (KeyValuePair<Type, object> entry in eventHolderList)
             {
-                IEventContainerClear oHolder = entry.Value as IEventContainerClear;
-                oHolder.UnsubscribeAll();
+                IEventContainer eventContainer = entry.Value as IEventContainer;
+                eventContainer.UnsubscribeAll();
             }
             eventHolderList.Clear();
         }
-
+        
         public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
             Type eventType = typeof(T);
 
             if (ContainsEventOfType(eventType))
             {
-                EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
-                oEvent.Invoke(eventArgs);
+                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                eventContainer.Invoke(eventArgs);
             }
         }
     }

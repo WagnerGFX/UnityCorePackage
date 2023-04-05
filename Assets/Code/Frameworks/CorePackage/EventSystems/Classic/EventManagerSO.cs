@@ -11,17 +11,17 @@ namespace CorePackage.EventSystems.Classic
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
     public sealed class EventManagerSO : ScriptableObject, IEventManager
     {
-        private readonly EventManager globalEventHub = new EventManager();
+        private readonly IEventManager globalEventHub = new EventManager();
 
-        private readonly List<EventManager> localEventHubList = new();
+        private readonly List<IEventManager> localEventHubList = new();
 
-        internal void SubscribeLocalEventHub(EventManager localEventHub)
+        internal void SubscribeLocalEventHub(IEventManager localEventHub)
         {
             if (!localEventHubList.Contains(localEventHub))
                 localEventHubList.Add(localEventHub);
         }
 
-        internal void UnsubscribeLocalEventHub(EventManager localEventHub)
+        internal void UnsubscribeLocalEventHub(IEventManager localEventHub)
         {
             localEventHubList.Remove(localEventHub);
         }
@@ -51,7 +51,7 @@ namespace CorePackage.EventSystems.Classic
         {
             globalEventHub.Invoke(eventArgs);
 
-            foreach (EventManager localEventHub in localEventHubList)
+            foreach (IEventManager localEventHub in localEventHubList)
             {
                 localEventHub.Invoke(eventArgs);
             }
