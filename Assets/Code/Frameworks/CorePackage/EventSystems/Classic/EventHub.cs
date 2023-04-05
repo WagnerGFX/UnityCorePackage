@@ -6,14 +6,9 @@ namespace CorePackage.EventSystems.Classic
     /// <summary>
     /// Manages all listeners from different types
     /// </summary>
-    internal class EventHub
+    internal sealed class EventHub : IEventManager
     {
-        private readonly Dictionary<Type, object> eventHolderList = new Dictionary<Type, object>();
-
-        protected void OnDestroy()
-        {
-            UnsubscribeAll();
-        }
+        private readonly Dictionary<Type, object> eventHolderList = new();
 
         private bool ContainsEventOfType(Type eventType)
         {

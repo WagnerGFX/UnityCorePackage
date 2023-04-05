@@ -7,7 +7,7 @@ namespace CorePackage.EventSystems.Classic
     /// <summary>
     /// Instance-based event manager. Can fire and receive events locally or globally.
     /// </summary>
-    public class LocalEventManager : MonoBehaviour
+    public sealed class LocalEventManager : MonoBehaviour, IEventManagerLocal
     {
         [SerializeField]
         private GlobalEventManager globalEventManager = default;
@@ -49,14 +49,30 @@ namespace CorePackage.EventSystems.Classic
             localEventHub.UnsubscribeAll();
         }
 
-        public void Invoke<T>(T eventArgs, bool global = false) where T : IEventArgs
+        public void Invoke<T>(T eventArgs, bool sendGoballly = false) where T : IEventArgs
         {
-            if (global)
+            if (sendGoballly)
                 globalEventManager?.Invoke(eventArgs);
             else
                 localEventHub.Invoke(eventArgs);
         }
 
+        public void Invoke<T>(T eventArgs) where T : IEventArgs
+        {
+            if (globalEventManager)
+                globalEventManager?.Invoke(eventArgs);
+            else
+                localEventHub.Invoke(eventArgs);
+        }
+
+        public void InvokeGlobal<T>(T eventArgs) where T : IEventArgs
+        {
+            globalEventManager?.Invoke(eventArgs);
+        }
+
+        public void InvokeLocal<T>(T eventArgs) where T : IEventArgs
+        {
+            localEventHub.Invoke(eventArgs);
+        }
     }
 }
-

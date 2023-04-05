@@ -7,7 +7,7 @@ namespace CorePackage.EventSystems.Classic
     /// Encapsulates a generic event to allow dynamic instancing for different IEventArgs implementations.
     /// </summary>
     /// <typeparam name="T">Must inherit from IEventArgs. Can be a class or struct.</typeparam>
-    internal class EventHolder<T> : IEventHolderClear where T : IEventArgs
+    internal sealed class EventHolder<T> : IEventHolderClear where T : IEventArgs
     {
         private event Action<T> EventHandler;
 

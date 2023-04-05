@@ -5,6 +5,6 @@
     /// </summary>
     public interface IEventArgs
     {
-        object Sender { get; }
+        
     }
 }

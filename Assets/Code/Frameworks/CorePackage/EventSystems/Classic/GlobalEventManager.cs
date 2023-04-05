@@ -9,7 +9,7 @@ namespace CorePackage.EventSystems.Classic
     /// Manages global events and a list of local event managers. Works better by having only a single instance.
     /// </summary>
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
-    public class GlobalEventManager : ScriptableObject
+    public sealed class GlobalEventManager : ScriptableObject, IEventManager
     {
         private readonly EventHub globalEventHub = new();
 
@@ -56,6 +56,5 @@ namespace CorePackage.EventSystems.Classic
                 localEventHub.Invoke(eventArgs);
             }
         }
-
     }
 }
