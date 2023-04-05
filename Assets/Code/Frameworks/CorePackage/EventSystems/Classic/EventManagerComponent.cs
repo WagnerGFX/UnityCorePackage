@@ -29,37 +29,17 @@ namespace CorePackage.EventSystems.Classic
         }
 
 
-        public void Subscribe<T>(Action<T> listener) where T : IEventArgs
+        public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
-            localEventHub.Subscribe(listener);
-        }
-
-        public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
-        {
-            localEventHub.Unsubscribe(listener);
-        }
-
-        public void UnsubscribeAllOfType<T>() where T : IEventArgs
-        {
-            localEventHub.UnsubscribeAllOfType<T>();
-        }
-
-        public void UnsubscribeAll()
-        {
-            localEventHub.UnsubscribeAll();
-        }
-
-        public void Invoke<T>(T eventArgs, bool sendGoballly = false) where T : IEventArgs
-        {
-            if (sendGoballly)
+            if (globalEventManager)
                 globalEventManager?.Invoke(eventArgs);
             else
                 localEventHub.Invoke(eventArgs);
         }
 
-        public void Invoke<T>(T eventArgs) where T : IEventArgs
+        public void Invoke<T>(T eventArgs, bool sendGoballly = false) where T : IEventArgs
         {
-            if (globalEventManager)
+            if (sendGoballly)
                 globalEventManager?.Invoke(eventArgs);
             else
                 localEventHub.Invoke(eventArgs);
@@ -73,6 +53,26 @@ namespace CorePackage.EventSystems.Classic
         public void InvokeLocal<T>(T eventArgs) where T : IEventArgs
         {
             localEventHub.Invoke(eventArgs);
+        }
+
+        public void Subscribe<T>(Action<T> listener) where T : IEventArgs
+        {
+            localEventHub.Subscribe(listener);
+        }
+
+        public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
+        {
+            localEventHub.Unsubscribe(listener);
+        }
+
+        public void UnsubscribeAll()
+        {
+            localEventHub.UnsubscribeAll();
+        }
+        
+        public void UnsubscribeAllOfType<T>() where T : IEventArgs
+        {
+            localEventHub.UnsubscribeAllOfType<T>();
         }
     }
 }

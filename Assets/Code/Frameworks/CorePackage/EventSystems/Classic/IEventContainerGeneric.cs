@@ -9,9 +9,7 @@ namespace CorePackage.EventSystems.Classic
     internal interface IEventContainer<T> : IEventContainer where T : IEventArgs
     {
         void Invoke(T eventArgs);
-
         void Subscribe(Action<T> listener);
-
         void Unsubscribe(Action<T> listener);
     }
 }

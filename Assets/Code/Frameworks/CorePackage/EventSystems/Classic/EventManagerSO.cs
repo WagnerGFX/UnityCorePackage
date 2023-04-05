@@ -15,6 +15,7 @@ namespace CorePackage.EventSystems.Classic
 
         private readonly List<IEventManager> localEventHubList = new();
 
+
         internal void SubscribeLocalEventHub(IEventManager localEventHub)
         {
             if (!localEventHubList.Contains(localEventHub))
@@ -27,6 +28,16 @@ namespace CorePackage.EventSystems.Classic
         }
 
 
+        public void Invoke<T>(T eventArgs) where T : IEventArgs
+        {
+            globalEventHub.Invoke(eventArgs);
+
+            foreach (IEventManager localEventHub in localEventHubList)
+            {
+                localEventHub.Invoke(eventArgs);
+            }
+        }
+
         public void Subscribe<T>(Action<T> listener) where T : IEventArgs
         {
             globalEventHub.Subscribe(listener);
@@ -37,24 +48,14 @@ namespace CorePackage.EventSystems.Classic
             globalEventHub.Unsubscribe(listener);
         }
 
-        public void UnsubscribeAllOfType<T>() where T : IEventArgs
-        {
-            globalEventHub.UnsubscribeAllOfType<T>();
-        }
-
         public void UnsubscribeAll()
         {
             globalEventHub.UnsubscribeAll();
         }
 
-        public void Invoke<T>(T eventArgs) where T : IEventArgs
+        public void UnsubscribeAllOfType<T>() where T : IEventArgs
         {
-            globalEventHub.Invoke(eventArgs);
-
-            foreach (IEventManager localEventHub in localEventHubList)
-            {
-                localEventHub.Invoke(eventArgs);
-            }
+            globalEventHub.UnsubscribeAllOfType<T>();
         }
     }
 }

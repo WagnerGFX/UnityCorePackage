@@ -25,6 +25,17 @@ namespace CorePackage.EventSystems.Classic
         }
 
 
+        public void Invoke<T>(T eventArgs) where T : IEventArgs
+        {
+            Type eventType = typeof(T);
+
+            if (ContainsEventOfType(eventType))
+            {
+                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                eventContainer.Invoke(eventArgs);
+            }
+        }
+
         public void Subscribe<T>(Action<T> listener) where T : IEventArgs
         {
             Type eventType = typeof(T);
@@ -46,17 +57,6 @@ namespace CorePackage.EventSystems.Classic
             }
         }
 
-        public void UnsubscribeAllOfType<T>() where T : IEventArgs
-        {
-            Type eventType = typeof(T);
-
-            if (ContainsEventOfType(eventType))
-            {
-                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
-                eventContainer.UnsubscribeAll();
-            }
-        }
-
         public void UnsubscribeAll()
         {
             foreach (KeyValuePair<Type, object> entry in eventHolderList)
@@ -66,15 +66,15 @@ namespace CorePackage.EventSystems.Classic
             }
             eventHolderList.Clear();
         }
-        
-        public void Invoke<T>(T eventArgs) where T : IEventArgs
+
+        public void UnsubscribeAllOfType<T>() where T : IEventArgs
         {
             Type eventType = typeof(T);
 
             if (ContainsEventOfType(eventType))
             {
                 IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
-                eventContainer.Invoke(eventArgs);
+                eventContainer.UnsubscribeAll();
             }
         }
     }

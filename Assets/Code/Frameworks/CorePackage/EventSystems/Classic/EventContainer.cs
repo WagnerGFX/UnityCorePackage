@@ -11,6 +11,11 @@ namespace CorePackage.EventSystems.Classic
     {
         private event Action<T> EventHandler;
 
+        public void Invoke(T eventArgs)
+        {
+            EventHandler?.Invoke(eventArgs);
+        }
+
         public void Subscribe(Action<T> listener)
         {
             if (EventHandler == null || !EventHandler.GetInvocationList().Contains(listener))
@@ -22,11 +27,6 @@ namespace CorePackage.EventSystems.Classic
         public void Unsubscribe(Action<T> listener)
         {
             EventHandler -= listener;
-        }
-
-        public void Invoke(T eventArgs)
-        {
-            EventHandler?.Invoke(eventArgs);
         }
 
         public void UnsubscribeAll()
