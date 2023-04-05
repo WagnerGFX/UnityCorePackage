@@ -7,17 +7,17 @@ namespace CorePackage.EventSystems.Classic
     /// <summary>
     /// Instance-based event manager. Can fire and receive events locally or globally.
     /// </summary>
-    public sealed class LocalEventManager : MonoBehaviour, IEventManagerLocal
+    public sealed class EventManagerComponent : MonoBehaviour, IEventManagerLocal
     {
         [SerializeField]
-        private GlobalEventManager globalEventManager = default;
+        private EventManagerSO globalEventManager = default;
 
-        private readonly EventHub localEventHub = new EventHub();
+        private readonly EventManager localEventHub = new EventManager();
 
         private void Awake()
         {
             if (!globalEventManager)
-                globalEventManager = Resources.FindObjectsOfTypeAll<GlobalEventManager>().FirstOrDefault();
+                globalEventManager = Resources.FindObjectsOfTypeAll<EventManagerSO>().FirstOrDefault();
 
             globalEventManager?.SubscribeLocalEventHub(localEventHub);
         }

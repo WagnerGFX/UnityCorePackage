@@ -9,19 +9,19 @@ namespace CorePackage.EventSystems.Classic
     /// Manages global events and a list of local event managers. Works better by having only a single instance.
     /// </summary>
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
-    public sealed class GlobalEventManager : ScriptableObject, IEventManager
+    public sealed class EventManagerSO : ScriptableObject, IEventManager
     {
-        private readonly EventHub globalEventHub = new();
+        private readonly EventManager globalEventHub = new EventManager();
 
-        private readonly List<EventHub> localEventHubList = new();
+        private readonly List<EventManager> localEventHubList = new();
 
-        internal void SubscribeLocalEventHub(EventHub localEventHub)
+        internal void SubscribeLocalEventHub(EventManager localEventHub)
         {
             if (!localEventHubList.Contains(localEventHub))
                 localEventHubList.Add(localEventHub);
         }
 
-        internal void UnsubscribeLocalEventHub(EventHub localEventHub)
+        internal void UnsubscribeLocalEventHub(EventManager localEventHub)
         {
             localEventHubList.Remove(localEventHub);
         }
@@ -51,7 +51,7 @@ namespace CorePackage.EventSystems.Classic
         {
             globalEventHub.Invoke(eventArgs);
 
-            foreach (EventHub localEventHub in localEventHubList)
+            foreach (EventManager localEventHub in localEventHubList)
             {
                 localEventHub.Invoke(eventArgs);
             }

@@ -6,7 +6,7 @@ namespace CorePackage.EventSystems.Classic
     /// <summary>
     /// Manages all listeners from different types
     /// </summary>
-    internal sealed class EventHub : IEventManager
+    public sealed class EventManager : IEventManager
     {
         private readonly Dictionary<Type, object> eventHolderList = new();
 
@@ -20,7 +20,7 @@ namespace CorePackage.EventSystems.Classic
             // Instantiate EventHolder for given type on first use
             if (!eventHolderList.ContainsKey(eventType) || eventHolderList[eventType] == null)
             {
-                eventHolderList[eventType] = new EventHolder<T>();
+                eventHolderList[eventType] = new EventContainer<T>();
             }
         }
 
@@ -31,7 +31,7 @@ namespace CorePackage.EventSystems.Classic
 
             InstantiateListener<T>(eventType);
 
-            EventHolder<T> oEvent = eventHolderList[eventType] as EventHolder<T>;
+            EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
             oEvent.Subscribe(listener);
         }
 
@@ -41,7 +41,7 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                EventHolder<T> oEvent = eventHolderList[eventType] as EventHolder<T>;
+                EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
                 oEvent.Unsubscribe(listener);
             }
         }
@@ -52,7 +52,7 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                EventHolder<T> oEvent = eventHolderList[eventType] as EventHolder<T>;
+                EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
                 oEvent.UnsubscribeAll();
             }
         }
@@ -61,7 +61,7 @@ namespace CorePackage.EventSystems.Classic
         {
             foreach (KeyValuePair<Type, object> entry in eventHolderList)
             {
-                IEventHolderClear oHolder = entry.Value as IEventHolderClear;
+                IEventContainerClear oHolder = entry.Value as IEventContainerClear;
                 oHolder.UnsubscribeAll();
             }
             eventHolderList.Clear();
@@ -73,7 +73,7 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                EventHolder<T> oEvent = eventHolderList[eventType] as EventHolder<T>;
+                EventContainer<T> oEvent = eventHolderList[eventType] as EventContainer<T>;
                 oEvent.Invoke(eventArgs);
             }
         }
