@@ -13,6 +13,10 @@ namespace CorePackage.EventSystems.Classic
         [SerializeField]
         private EventManagerSO globalEventManager;
 
+        [SerializeField]
+        [Tooltip("When the scope is undefined, the manager will send events globally when enabled or locally when disabled.")]
+        private bool prioritizeEventsAsGlobal = true;
+
         private readonly IEventManager eventManager = new EventManager();
 
         private void Awake()
@@ -32,7 +36,7 @@ namespace CorePackage.EventSystems.Classic
 
         public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
-            Invoke(eventArgs, true);
+            Invoke(eventArgs, prioritizeEventsAsGlobal);
         }
 
         public void Invoke<T>(T eventArgs, bool asGlobal) where T : IEventArgs
