@@ -11,69 +11,66 @@ namespace CorePackage.EventSystems.Classic
     public sealed class EventManagerComponent : MonoBehaviour, IEventManagerLocal
     {
         [SerializeField]
-        private EventManagerSO globalEventManager = default;
+        private EventManagerSO globalEventManager;
 
-        private readonly IEventManager localEventHub = new EventManager();
+        private readonly IEventManager eventManager = new EventManager();
 
         private void Awake()
         {
             if (!globalEventManager)
                 globalEventManager = Resources.FindObjectsOfTypeAll<EventManagerSO>().FirstOrDefault();
 
-            globalEventManager?.SubscribeLocalEventHub(localEventHub);
+            globalEventManager?.SubscribeLocalEventManager(eventManager);
         }
 
         private void OnDestroy()
         {
-            globalEventManager?.UnsubscribeLocalEventHub(localEventHub);
+            globalEventManager?.UnsubscribeLocalEventManager(eventManager);
             UnsubscribeAll();
         }
 
 
         public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
-            if (globalEventManager)
-                globalEventManager?.Invoke(eventArgs);
-            else
-                localEventHub.Invoke(eventArgs);
+            Invoke(eventArgs, true);
         }
 
-        public void Invoke<T>(T eventArgs, bool sendGoballly = false) where T : IEventArgs
+        public void Invoke<T>(T eventArgs, bool asGlobal) where T : IEventArgs
         {
-            if (sendGoballly)
-                globalEventManager?.Invoke(eventArgs);
+            if (asGlobal && globalEventManager)
+                globalEventManager.Invoke(eventArgs);
             else
-                localEventHub.Invoke(eventArgs);
+                eventManager.Invoke(eventArgs);
         }
 
         public void InvokeGlobal<T>(T eventArgs) where T : IEventArgs
         {
-            globalEventManager?.Invoke(eventArgs);
+            Invoke(eventArgs, true);
         }
 
         public void InvokeLocal<T>(T eventArgs) where T : IEventArgs
         {
-            localEventHub.Invoke(eventArgs);
+            Invoke(eventArgs, false);
         }
 
         public void Subscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            localEventHub.Subscribe(listener);
+            eventManager.Subscribe(listener);
         }
 
         public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            localEventHub.Unsubscribe(listener);
+            eventManager.Unsubscribe(listener);
         }
 
         public void UnsubscribeAll()
         {
-            localEventHub.UnsubscribeAll();
+            eventManager.UnsubscribeAll();
         }
-        
+
         public void UnsubscribeAllOfType<T>() where T : IEventArgs
         {
-            localEventHub.UnsubscribeAllOfType<T>();
+            eventManager.UnsubscribeAllOfType<T>();
         }
     }
 }

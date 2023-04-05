@@ -8,19 +8,19 @@ namespace CorePackage.EventSystems.Classic
     /// </summary>
     public sealed class EventManager : IEventManager
     {
-        private readonly Dictionary<Type, object> eventHolderList = new();
+        private readonly Dictionary<Type, object> eventContainerList = new();
 
         private bool ContainsEventOfType(Type eventType)
         {
-            return eventHolderList.ContainsKey(eventType);
+            return eventContainerList.ContainsKey(eventType);
         }
 
         private void InstantiateListener<T>(Type eventType) where T : IEventArgs
         {
-            // Instantiate EventHolder for given type on first use
-            if (!eventHolderList.ContainsKey(eventType) || eventHolderList[eventType] == null)
+            /// Instantiate a new container for the given type on first use
+            if (!eventContainerList.ContainsKey(eventType) || eventContainerList[eventType] == null)
             {
-                eventHolderList[eventType] = new EventContainer<T>();
+                eventContainerList[eventType] = new EventContainer<T>();
             }
         }
 
@@ -31,7 +31,7 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                IEventContainer<T> eventContainer = eventContainerList[eventType] as IEventContainer<T>;
                 eventContainer.Invoke(eventArgs);
             }
         }
@@ -42,7 +42,7 @@ namespace CorePackage.EventSystems.Classic
 
             InstantiateListener<T>(eventType);
 
-            IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+            IEventContainer<T> eventContainer = eventContainerList[eventType] as IEventContainer<T>;
             eventContainer.Subscribe(listener);
         }
 
@@ -52,19 +52,19 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                IEventContainer<T> eventContainer = eventContainerList[eventType] as IEventContainer<T>;
                 eventContainer.Unsubscribe(listener);
             }
         }
 
         public void UnsubscribeAll()
         {
-            foreach (KeyValuePair<Type, object> entry in eventHolderList)
+            foreach (KeyValuePair<Type, object> entry in eventContainerList)
             {
                 IEventContainer eventContainer = entry.Value as IEventContainer;
                 eventContainer.UnsubscribeAll();
             }
-            eventHolderList.Clear();
+            eventContainerList.Clear();
         }
 
         public void UnsubscribeAllOfType<T>() where T : IEventArgs
@@ -73,7 +73,7 @@ namespace CorePackage.EventSystems.Classic
 
             if (ContainsEventOfType(eventType))
             {
-                IEventContainer<T> eventContainer = eventHolderList[eventType] as IEventContainer<T>;
+                IEventContainer<T> eventContainer = eventContainerList[eventType] as IEventContainer<T>;
                 eventContainer.UnsubscribeAll();
             }
         }

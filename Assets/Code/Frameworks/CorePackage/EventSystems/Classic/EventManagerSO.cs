@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CorePackage.Common;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using CorePackage.Common;
 
 namespace CorePackage.EventSystems.Classic
 {
@@ -9,53 +9,53 @@ namespace CorePackage.EventSystems.Classic
     /// ScriptableObject-based event manager. Manages global events and a list of local event managers. Works better by having only a single instance.
     /// </summary>
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
-    public sealed class EventManagerSO : ScriptableObject, IEventManager
+    public sealed class EventManagerSO : ScriptableObject
     {
-        private readonly IEventManager globalEventHub = new EventManager();
+        private readonly IEventManager eventManager = new EventManager();
 
-        private readonly List<IEventManager> localEventHubList = new();
+        private readonly List<IEventManager> localEventManagerList = new();
 
 
-        internal void SubscribeLocalEventHub(IEventManager localEventHub)
+        internal void SubscribeLocalEventManager(IEventManager localEventManager)
         {
-            if (!localEventHubList.Contains(localEventHub))
-                localEventHubList.Add(localEventHub);
+            if (!localEventManagerList.Contains(localEventManager))
+                localEventManagerList.Add(localEventManager);
         }
 
-        internal void UnsubscribeLocalEventHub(IEventManager localEventHub)
+        internal void UnsubscribeLocalEventManager(IEventManager localEventManager)
         {
-            localEventHubList.Remove(localEventHub);
+            localEventManagerList.Remove(localEventManager);
         }
 
 
         public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
-            globalEventHub.Invoke(eventArgs);
+            eventManager.Invoke(eventArgs);
 
-            foreach (IEventManager localEventHub in localEventHubList)
+            foreach (IEventManager EventManager in localEventManagerList)
             {
-                localEventHub.Invoke(eventArgs);
+                EventManager.Invoke(eventArgs);
             }
         }
 
         public void Subscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            globalEventHub.Subscribe(listener);
+            eventManager.Subscribe(listener);
         }
 
         public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            globalEventHub.Unsubscribe(listener);
+            eventManager.Unsubscribe(listener);
         }
 
         public void UnsubscribeAll()
         {
-            globalEventHub.UnsubscribeAll();
+            eventManager.UnsubscribeAll();
         }
 
         public void UnsubscribeAllOfType<T>() where T : IEventArgs
         {
-            globalEventHub.UnsubscribeAllOfType<T>();
+            eventManager.UnsubscribeAllOfType<T>();
         }
     }
 }
