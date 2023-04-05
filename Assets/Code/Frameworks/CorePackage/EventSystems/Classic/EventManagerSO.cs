@@ -20,9 +20,16 @@ namespace CorePackage.EventSystems.Classic
         {
             eventManager.Invoke(eventArgs);
 
-            foreach (IEventManager EventManager in localEventManagerList)
+            foreach (IEventManager eventManager in localEventManagerList)
             {
-                EventManager.Invoke(eventArgs);
+                if (eventManager is IEventManagerLocal localEventManager)
+                {
+                    localEventManager.InvokeLocal(eventArgs);
+                }
+                else
+                {
+                    eventManager.Invoke(eventArgs);
+                }
             }
         }
 
