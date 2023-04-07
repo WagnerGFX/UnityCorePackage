@@ -69,7 +69,11 @@ namespace CorePackage.StateMachine.Editor
 		private void OnLostFocus()
 		{
 			ListView listView = rootVisualElement.Q<ListView>(className: "table-list");
-			listView.selectionChanged -= OnListSelectionChanged;
+#if UNITY_2022_2_OR_NEWER
+            listView.selectionChanged -= OnListSelectionChanged;
+#else
+			listView.onSelectionChange -= OnListSelectionChanged;
+#endif
 		}
 
 		private void Update()
@@ -101,8 +105,13 @@ namespace CorePackage.StateMachine.Editor
 			listView.bindItem = (element, i) => ((Label)element).text = assets[i].name;
 			listView.selectionType = SelectionType.Single;
 
-			listView.selectionChanged -= OnListSelectionChanged;
-			listView.selectionChanged += OnListSelectionChanged;
+#if UNITY_2022_2_OR_NEWER
+            listView.selectionChanged -= OnListSelectionChanged;
+            listView.selectionChanged += OnListSelectionChanged;
+#else
+			listView.onSelectionChange -= OnListSelectionChanged;
+            listView.onSelectionChange += OnListSelectionChanged;
+#endif
 
 			if (_transitionTableEditor && _transitionTableEditor.target)
 				listView.selectedIndex = System.Array.IndexOf(assets, _transitionTableEditor.target);
