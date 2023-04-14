@@ -73,3 +73,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Plugins that can be re-imported
+/[Aa]ssets/[Tt]ext[Mm]esh [Pp]ro/
+/[Aa]ssets/[Tt]ext[Mm]esh [Pp]ro.meta
+/[Aa]ssets/[Pp]lugins/[Dd]emigiant/
+/[Aa]ssets/[Pp]lugins/[Dd]emigiant.meta
