@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1608140583911507572}
   - component: {fileID: 4036497080070356174}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1332549462638902351}
   - component: {fileID: 5370156723420378802}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 5763338434323131467}
   - component: {fileID: 666906710473512717}
   - component: {fileID: 4690856458719869335}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: FireEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5067,7 +5067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8750727165079130544}
   - component: {fileID: 7780719793517001363}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: AimCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5138,7 +5138,7 @@ GameObject:
   - component: {fileID: 9187703473379005072}
   - component: {fileID: 2588645145776735406}
   - component: {fileID: 8990122011357663447}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5491,7 +5491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8395737036770490537}
   - component: {fileID: 8570485481100931892}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: BarrelCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
