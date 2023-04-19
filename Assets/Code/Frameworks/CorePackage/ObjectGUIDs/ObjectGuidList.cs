@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace CorePackage.ObjectGUIDs
 {
+    // Why not use the UnityEditor.Editor class?
+    // Because the Editor's events and lifecycle are more related to the Inspector than to the Component itself.
     [ExecuteInEditMode]
     public partial class ObjectGuid
     {
@@ -14,46 +16,103 @@ namespace CorePackage.ObjectGUIDs
 
         private bool IsPrefab => gameObject.scene.name == null || gameObject.scene.name == gameObject.name;
 
+        private Guid _backupGuid;
+
 
         private void Awake()
         {
-            // Adding the component; Dragging the Prefab to scene
-            if (_instanceGuid == Guid.Empty.ToString())
+            // Component added to GO; Prefab added to scene
+            if (_instanceGuid == Guid.Empty)
+            {
                 CreateNewGUID();
+            }
 
-            // Duplicating the GO
+            // Duplicated the GO
             else if (guidList.Contains(_instanceGuid))
+            {
                 CreateNewGUID();
+            }
 
-            // Scene Opened, Undo/Redo
+            // Scene Opened; Delete Undo/Redo
             else
-                guidList.Add(_instanceGuid);
+            {
+                LoadGUID();
+            }
         }
 
         // Called when the Component is reset or added to an existing GO
         private void Reset()
         {
-            if (!IsPrefab && _instanceGuid == Guid.Empty.ToString())
-                CreateNewGUID();
+            if (!IsPrefab && _instanceGuid == Guid.Empty)
+            {
+                // Componenet Reset
+                if (_backupGuid != Guid.Empty)
+                {
+                    RestoreGUID();
+                }
+
+                // Component added to GO
+                else
+                {
+                    CreateNewGUID();
+                }
+            }
         }
 
         private void OnValidate()
         {
-            // When the Prefab is created
-            if (IsPrefab && _instanceGuid != Guid.Empty.ToString())
-                _instanceGuid = Guid.Empty.ToString();
+            // Prefab created
+            if (IsPrefab && _instanceGuid != Guid.Empty)
+            {
+                ClearGUID();
+            }
+
+            // Prefab instance Reverted
+            else if (_instanceGuid == Guid.Empty)
+            {
+                RestoreGUID();
+            }
+
+            // New GUID Button; Edit Undo/Redo
+            if (!IsPrefab && _instanceGuid != Guid.Empty && _instanceGuid != _backupGuid)
+            {
+                LoadGUID();
+            }
         }
 
-        // Called when the Component or GO is removed, also when the Scene is closed
+        // Component or GO removed; Scene closed
         private void OnDestroy()
         {
             guidList.Remove(_instanceGuid);
         }
 
+        private void ClearGUID()
+        {
+            _instanceGuid = Guid.Empty;
+            _backupGuid = _instanceGuid;
+        }
+
         private void CreateNewGUID()
         {
-            _instanceGuid = Guid.NewGuid().ToString();
+            _instanceGuid = Guid.NewGuid();
+            _backupGuid = _instanceGuid;
             guidList.Add(_instanceGuid);
+        }
+
+        private void LoadGUID()
+        {
+            if (_backupGuid != Guid.Empty)
+            {
+                guidList.Remove(_backupGuid.ToString());
+            }
+
+            _backupGuid = _instanceGuid;
+            guidList.Add(_instanceGuid);
+        }
+
+        private void RestoreGUID()
+        {
+            _instanceGuid = _backupGuid;
         }
     }
 }
