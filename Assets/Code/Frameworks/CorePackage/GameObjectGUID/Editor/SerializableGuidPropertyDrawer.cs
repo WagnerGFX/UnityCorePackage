@@ -2,7 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace CorePackage.ObjectGUIDs.Editor
+namespace CorePackage.GameObjectGUID.Editor
 {
     [CustomPropertyDrawer(typeof(SerializableGuid))]
     public class SerializableGuidPropertyDrawer : PropertyDrawer

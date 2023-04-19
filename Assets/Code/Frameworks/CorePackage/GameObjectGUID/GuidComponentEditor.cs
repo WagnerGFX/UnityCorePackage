@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CorePackage.ObjectGUIDs
+namespace CorePackage.GameObjectGUID
 {
     // Why not use the UnityEditor.Editor class?
     // Because the Editor's events and lifecycle are more related to the Inspector than to the Component itself.
     [ExecuteInEditMode]
-    public partial class ObjectGuid
+    public partial class GuidComponent
     {
         // The list will help to enforce new GUIDs when duplicating GOs
         // The list will only hold values for the current scene

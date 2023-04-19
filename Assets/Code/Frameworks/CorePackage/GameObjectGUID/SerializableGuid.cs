@@ -1,11 +1,8 @@
 using System;
 using UnityEngine;
 
-namespace CorePackage.ObjectGUIDs
+namespace CorePackage.GameObjectGUID
 {
-    // Author: Searous
-    // Link: https://forum.unity.com/threads/cannot-serialize-a-guid-field-in-class.156862/#post-6996680
-
     /// <summary>
     /// Serializable wrapper for System.Guid. Can be implicitly converted to/from System.Guid.
     /// </summary>

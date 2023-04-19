@@ -1,12 +1,8 @@
 {
-    "name": "CorePackage.ObjectGUIDs.Editor",
-    "rootNamespace": "CorePackage.ObjectGUIDs.Editor",
-    "references": [
-        "GUID:383979f81636f1e4980c35aab0dc44ed"
-    ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "name": "CorePackage.GameObjectGUID",
+    "rootNamespace": "CorePackage.GameObjectGUID",
+    "references": [],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
