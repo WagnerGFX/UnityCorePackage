@@ -55,8 +55,20 @@ It's not as performant, but it's easily configurable through the Editor and Insp
 ### Extension Methods
 A collection of useful extension methods for Unity classes and types.
 
-### Object GUIDs [^guids]
-A component that holds a unique GUID value. Useful for tracking non-procedural objects in the scene.
+### GameObject GUID [^guids]
+A GUID that can be serialized by Unity and a component that holds it. Useful for tracking non-procedural GameObjects in the scene.
+
+The Component will prevent the GUID from being duplicated or changed arbitrarily by the Editor. This includes:
+- Resetting the Component.
+- Duplicating the GameObject in the same scene.
+- Creating and instatiating Prefabs.
+- Overriding or reverting Prefab data.
+- Undo/Redo.
+
+Limitations:
+ - GUID will always be empty for prefab assets.
+ - Duplicating the scene will also duplicate all GUIDs inside.
+ - Pratically useless for dynamic instancing.
 
 ### Singleton
 Two singleton classes to create objects that require only a single instance to exist.
