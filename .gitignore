@@ -79,3 +79,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Tt]ext[Mm]esh [Pp]ro.meta
 /[Aa]ssets/[Pp]lugins/[Dd]emigiant/
 /[Aa]ssets/[Pp]lugins/[Dd]emigiant.meta
+
+# Folder for testing assets, scripts, scenes, etc.
+/[Aa]ssets/_[Tt]esting[Gg]rounds/*
