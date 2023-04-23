@@ -4,140 +4,230 @@ using CorePackage.Common;
 namespace CorePackage.Utilities
 {
     [AddComponentMenu(Project.MenuName + "/Debug Camera Controller", 0)]
-    [RequireComponent(typeof(Camera))]
     public class DebugCameraController : MonoBehaviour
     {
-        [Header("Movement Settings")]
         [SerializeField]
-        [Tooltip("Speed factor on camera Zoom or FoV, controllable by Z and X.")]
+        private Camera myCamera;
+
+        [Header("Movement")]
+        [SerializeField]
+        [Tooltip("Movement speed.")]
+        private float speedPower = 3.5f;
+
+        [SerializeField]
+        [Tooltip("Movement boost.")]
+        private float speedBoost = 10f;
+
+        [SerializeField]
+        [Tooltip("Makes movement snappier or floaty."), Range(0.001f, 1f)]
+        private float movementSmoothness = 0.2f;
+
+        [SerializeField]
+        [Header("Look Around")]
+
+        [Tooltip("Speed factor for camera Zoom or FoV changes.")]
         private float zoomSpeed = 5f;
-
+        
         [SerializeField]
-        [Tooltip("Exponential boost factor on translation, controllable by mouse wheel.")]
-        private float boost = 3.5f;
-
-        [SerializeField]
-        [Tooltip("Time it takes to interpolate camera position 99% of the way to the target."), Range(0.001f, 1f)]
-        private float positionLerpTime = 0.2f;
-
-        [SerializeField]
-        [Header("Rotation Settings")]
-        [Tooltip("X = Change in mouse position.\nY = Multiplicative factor for camera rotation.")]
+        [Tooltip("Modify mouse speed factor to allow more precision in smaller movements and higher speed in faster movements.\nX = Mouse speed.\nY = Multiplicative factor for mouse speed.")]
         private AnimationCurve mouseSensitivityCurve = new AnimationCurve(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(1f, 2.5f, 0f, 0f));
 
         [SerializeField]
-        [Tooltip("Time it takes to interpolate camera rotation 99% of the way to the target."), Range(0.001f, 1f)]
-        private float rotationLerpTime = 0.01f;
+        [Tooltip("Makes looking around snappier or smoother."), Range(0.001f, 1f)]
+        private float cameraSmoothness = 0.01f;
 
         [SerializeField]
-        [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
-        private bool invertY = false;
+        [Tooltip("Invert Y axis for mouse input.")]
+        private bool invertCameraYAxis = false;
 
         [SerializeField]
-        [Tooltip("Whether or not to rotate the camera when in orthograpic mode.")]
+        [Tooltip("Use the mouse to control the camera's rotation in orthograpic mode.")]
         private bool rotateInOrthograpic = false;
 
-        private CameraState m_TargetCameraState = new CameraState();
-        private CameraState m_InterpolatingCameraState = new CameraState();
-        private Camera myCamera;
+        private readonly CameraState m_TargetCameraState = new();
+        private readonly CameraState m_InterpolatingCameraState = new();
+        private readonly GUIStyle style = new();
+        private Transform cameraTransform;
         private bool isActive = false;
+        private bool showGui = true;
+        private bool enableLookAround = false;
+        private bool enableMoveAround = false;
+        private bool enableBoost = false;
+        private readonly float speedChangeFactor = 0.02f;
+        
+
+        const KeyCode KEY_TOGGLE_CAMERA = KeyCode.Space;
+        const KeyCode KEY_TOGGLE_GUI = KeyCode.Alpha1;
+        const KeyCode KEY_TOGGLE_PROJECTION = KeyCode.Alpha2;
+        const KeyCode KEY_TOGGLE_ORTHO_ROTATION = KeyCode.Alpha3;
+        const KeyCode KEY_QUIT = KeyCode.Escape;
+        const KeyCode KEY_CAMERA_LOOK = KeyCode.Mouse1;
+        const KeyCode KEY_CAMERA_MOVE = KeyCode.Mouse2;
+        const KeyCode KEY_ZOOM_UP = KeyCode.Z;
+        const KeyCode KEY_ZOOM_DOWN = KeyCode.X;
+        const KeyCode KEY_SPEED_BOOST = KeyCode.LeftShift;
+        const KeyCode KEY_MOVE_UP = KeyCode.E;
+        const KeyCode KEY_MOVE_DOWN = KeyCode.Q;
+        const KeyCode KEY_MOVE_FORWARD = KeyCode.W;
+        const KeyCode KEY_MOVE_BACK = KeyCode.S;
+        const KeyCode KEY_MOVE_LEFT = KeyCode.A;
+        const KeyCode KEY_MOVE_RIGHT = KeyCode.D;
 
 
         private void OnEnable()
         {
-            myCamera = GetComponent<Camera>();
+            cameraTransform = myCamera.transform;
 
-            m_TargetCameraState.SetFromTransform(transform);
-            m_InterpolatingCameraState.SetFromTransform(transform);
+            m_TargetCameraState.SetFromTransform(cameraTransform);
+            m_InterpolatingCameraState.SetFromTransform(cameraTransform);
 
-            Debug.Log("DebugCamera is Enabled. Hold RMB to use.\nWASDQE for movement | ZX for zoom | C to switch projection | R to rotate in orthographic");
+            style.normal.textColor = Color.white;
+            style.fontSize = 20;
+        }
+
+        private void OnValidate()
+        {
+            this.AssertObjectField(myCamera, nameof(myCamera));
         }
 
         private void Update()
         {
-            CheckQuitCommand();
-
-            CheckActivation();
+            CheckInputSettings();
 
             if (!isActive)
-                return;
-
+            { return; }
+            
             CameraZoom();
-            CameraRotation();
-            CameraTranslation();
+            CameraLookRotation();
+            CameraMouseMovement();
+            CameraMovement();
             CameraSmooth();
-            CameraSettings();
         }
 
-        private void CheckQuitCommand()
+        private void OnGUI()
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (!showGui)
+            { return; }
+
+            const float lineHeight = 32;
+            const float margin = 5;
+            float nextPos = margin;
+            
+            WriteShortcut("ESC", "Quit");
+            WriteShortcut("SPACE", "Toggle Camera Controller");
+            WriteShortcut("1", "Toggle GUI");
+
+            if (isActive)
+            {
+                WriteShortcut("2", "Toggle Projection Mode");
+                WriteShortcut("3", "Toggle Mouse in Orthographic");
+                WriteShortcut("RMB", "Hold to Look Around");
+                WriteShortcut("MMB", "Hold to Move Around");
+                WriteShortcut("WASD QE", "Movement");
+                WriteShortcut("LSHIFT", "Speed Boost");
+                WriteShortcut("SCROLL", "Speed +/-");
+                WriteShortcut("ZX", "Zoom +/-");
+            }
+
+            void WriteShortcut(string KeyName, string description)
+            {
+                GUI.skin.label.alignment = TextAnchor.MiddleRight;
+                GUI.Label(new Rect(margin, nextPos, 100, lineHeight), new GUIContent(KeyName), style);
+
+                GUI.skin.label.alignment = TextAnchor.MiddleLeft;
+                GUI.Label(new Rect(margin + 110f, nextPos, 500, lineHeight), new GUIContent("| " + description), style);
+
+                nextPos += lineHeight;
+            }
+        }
+
+
+        private void CheckInputSettings()
+        {
+            //Quit
+            if (Input.GetKey(KEY_QUIT))
             {
                 Application.Quit();
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #endif
             }
-        }
 
-        private void CheckActivation()
-        {
-            // Hide and lock cursor when right mouse button pressed
-            if (Input.GetMouseButtonDown(1))
+            // Camera
+            if (Input.GetKeyDown(KEY_TOGGLE_CAMERA))
             {
-                isActive = true;
-                Cursor.lockState = CursorLockMode.Locked;
-
+                isActive = !isActive;
             }
 
-            // Unlock and show cursor when right mouse button released
-            if (Input.GetMouseButtonUp(1))
+            // GUI
+            if (Input.GetKeyDown(KEY_TOGGLE_GUI))
             {
-                isActive = false;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                showGui = !showGui;
             }
-        }
 
-        private void CameraSettings()
-        {
-            if (Input.GetKeyDown(KeyCode.C))
+            // Look Around
+            if (isActive && !enableMoveAround && Input.GetKey(KEY_CAMERA_LOOK))
+            {
+                enableLookAround = !myCamera.orthographic || (myCamera.orthographic && rotateInOrthograpic);
+            }
+            else
+            {
+                enableLookAround = false;
+            }
+
+            //Move Around
+            enableMoveAround = (isActive && !enableLookAround && Input.GetKey(KEY_CAMERA_MOVE));
+
+            // Projection Mode
+            if (isActive && Input.GetKeyDown(KEY_TOGGLE_PROJECTION))
             {
                 myCamera.orthographic = !myCamera.orthographic;
                 Debug.LogFormat("DebugCamera: {0} Projection", (myCamera.orthographic ? "Orthographic" : "Perspective"));
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            // Rotate in Orthographic
+            if (isActive && Input.GetKeyDown(KEY_TOGGLE_ORTHO_ROTATION))
             {
                 rotateInOrthograpic = !rotateInOrthograpic;
-                Debug.LogFormat("DebugCamera: Rotation {0}", (rotateInOrthograpic ? "Enabled" : "Disabled"));
+                Debug.LogFormat("DebugCamera: Orthographic Mouse {0}", (rotateInOrthograpic ? "Enabled" : "Disabled"));
             }
+
+            // Boost
+            enableBoost = isActive && Input.GetKey(KEY_SPEED_BOOST);
+
+            // Speed change
+            if (isActive)
+            {
+                speedPower += Input.mouseScrollDelta.y * speedChangeFactor;
+            }
+
+            MouseDisplay();
         }
 
         private void CameraZoom()
         {
             if (myCamera.orthographic)
             {
-                if (Input.GetKey(KeyCode.Z))
-                    myCamera.orthographicSize += zoomSpeed * Time.deltaTime;
-                if (Input.GetKey(KeyCode.X))
+                if (Input.GetKey(KEY_ZOOM_UP))
                     myCamera.orthographicSize -= zoomSpeed * Time.deltaTime;
+                if (Input.GetKey(KEY_ZOOM_DOWN))
+                    myCamera.orthographicSize += zoomSpeed * Time.deltaTime;
             }
             else
             {
-                if (Input.GetKey(KeyCode.Z))
-                    myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView + zoomSpeed * Time.deltaTime, 5, 160);
-                if (Input.GetKey(KeyCode.X))
+                if (Input.GetKey(KEY_ZOOM_UP))
                     myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView - zoomSpeed * Time.deltaTime, 5, 160);
+                if (Input.GetKey(KEY_ZOOM_DOWN))
+                    myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView + zoomSpeed * Time.deltaTime, 5, 160);
             }
         }
 
-        private void CameraRotation()
+        private void CameraLookRotation()
         {
-            if (myCamera.orthographic && !rotateInOrthograpic)
-                return;
+            if (!enableLookAround)
+            { return; }
 
-            var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertY ? 1 : -1));
+            var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertCameraYAxis ? 1f : -1f));
 
             var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
 
@@ -145,64 +235,99 @@ namespace CorePackage.Utilities
             m_TargetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
         }
 
-        private void CameraTranslation()
+        private void CameraMouseMovement()
         {
-            Vector3 translation;
+            if (!enableMoveAround)
+            { return; }
+
+            var mouseMovement = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y") * (invertCameraYAxis ? -1f : 1f));
+            
+            // Invert and lower the sensitivity
+            mouseMovement *= -0.05f;
+
+            var mouseSensitivityFactor = mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
+            mouseMovement *= mouseSensitivityFactor;
+
+            if (enableBoost)
+                mouseMovement *= speedBoost;
+
+            mouseMovement *= Mathf.Pow(2.0f, speedPower);
+
+            m_TargetCameraState.Translate(mouseMovement);
+        }
+
+        private void CameraMovement()
+        {
+            Vector3 movement;
 
             if (myCamera.orthographic)
-                translation = GetInputTranslationDirection_2D() * Time.deltaTime;
+                movement = GetInputTranslationDirection_2D() * Time.deltaTime;
             else
-                translation = GetInputTranslationDirection_3D() * Time.deltaTime;
+                movement = GetInputTranslationDirection_3D() * Time.deltaTime;
 
-            // Speed up movement when shift key held
-            if (Input.GetKey(KeyCode.LeftShift))
-                translation *= 10.0f;
+            if (enableBoost)
+                movement *= speedBoost;
 
-            // Modify movement by a boost factor (defined in Inspector and modified in play mode through the mouse scroll wheel)
-            boost += Input.mouseScrollDelta.y * 0.2f;
-            translation *= Mathf.Pow(2.0f, boost);
+            
+            movement *= Mathf.Pow(2.0f, speedPower);
 
-            m_TargetCameraState.Translate(translation);
+            m_TargetCameraState.Translate(movement);
         }
 
         private void CameraSmooth()
         {
             // Framerate-independent interpolation
             // Calculate the lerp amount, such that we get 99% of the way to our target in the specified time
-            var positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / positionLerpTime) * Time.deltaTime);
-            var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
+            var positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / movementSmoothness) * Time.deltaTime);
+            var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / cameraSmoothness) * Time.deltaTime);
             m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
 
-            m_InterpolatingCameraState.UpdateTransform(transform);
+            m_InterpolatingCameraState.UpdateTransform(cameraTransform);
+        }
+
+        private void MouseDisplay()
+        {
+            bool hideMouse = isActive && (enableLookAround || enableMoveAround);
+
+            Cursor.visible = !hideMouse;
+
+            if (hideMouse)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
 
 
         Vector3 GetInputTranslationDirection_3D()
         {
             Vector3 direction = Vector3.zero;
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KEY_MOVE_DOWN))
             {
                 direction += Vector3.down;
             }
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KEY_MOVE_UP))
             {
                 direction += Vector3.up;
             }
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KEY_MOVE_FORWARD))
             {
                 direction += Vector3.forward;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KEY_MOVE_BACK))
             {
                 direction += Vector3.back;
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KEY_MOVE_LEFT))
             {
                 direction += Vector3.left;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KEY_MOVE_RIGHT))
             {
                 direction += Vector3.right;
             }
@@ -213,29 +338,29 @@ namespace CorePackage.Utilities
         {
             Vector3 direction = Vector3.zero;
 
-            if (Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KEY_MOVE_DOWN))
             {
                 direction += Vector3.back;
             }
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KEY_MOVE_UP))
             {
                 direction += Vector3.forward;
             }
 
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KEY_MOVE_FORWARD))
             {
                 direction += Vector3.up;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KEY_MOVE_BACK))
             {
                 direction += Vector3.down;
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KEY_MOVE_LEFT))
             {
                 direction += Vector3.left;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KEY_MOVE_RIGHT))
             {
                 direction += Vector3.right;
             }
