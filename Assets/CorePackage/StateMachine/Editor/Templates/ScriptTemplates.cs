@@ -32,7 +32,7 @@ internal class ScriptTemplates : ScriptableObject
     private static string GetStateConditionPath()
     {
         LoadInstance();
-        return AssetDatabase.GetAssetPath(instance.stateAction);
+        return AssetDatabase.GetAssetPath(instance.stateCondition);
     }
 
 
