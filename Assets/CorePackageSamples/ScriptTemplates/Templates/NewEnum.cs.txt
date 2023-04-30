@@ -1,0 +1,11 @@
+using System;
+#USINGDIRECTIVES#
+
+    #ROOTNAMESPACEBEGIN#
+public enum #SCRIPTNAME#
+{
+    ZERO,
+    ONE,
+    TWO
+}
+#ROOTNAMESPACEEND#

@@ -1,0 +1,13 @@
+using UnityEngine;
+#USINGDIRECTIVES#
+
+    #ROOTNAMESPACEBEGIN#
+//[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+public class #SCRIPTNAME# : PropertyAttribute
+{
+    public #SCRIPTNAME#()
+    {
+        #NOTRIM#
+    }
+}
+#ROOTNAMESPACEEND#

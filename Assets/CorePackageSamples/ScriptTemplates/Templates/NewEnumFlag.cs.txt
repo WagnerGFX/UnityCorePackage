@@ -1,0 +1,17 @@
+using System;
+#USINGDIRECTIVES#
+
+    #ROOTNAMESPACEBEGIN#
+// Variables can receive more than one value using bit operators and checked using the HasFlag() method
+[Flags]
+public enum #SCRIPTNAME#
+{
+	//Each value must be a power of 2
+    None = 0,
+    OptionA = 1,
+    OptionB = 2,
+    OptionC = 4,
+    OptionD = 8,
+    OptionE = 16
+}
+#ROOTNAMESPACEEND#

@@ -1,0 +1,33 @@
+#if UNITY_EDITOR
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+#USINGDIRECTIVES#
+
+    #ROOTNAMESPACEBEGIN#
+[ExecuteAlways]
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    void Awake()
+    {
+        #NOTRIM#
+    }
+
+    void OnValidate()
+    {
+        #NOTRIM#
+    }
+
+    void Reset()
+    {
+        #NOTRIM#
+    }
+	
+    void OnGUI()
+    {
+        #NOTRIM#
+    }
+}
+#ROOTNAMESPACEEND#
+#endif

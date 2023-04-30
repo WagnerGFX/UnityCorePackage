@@ -1,0 +1,17 @@
+using UnityEditor;
+#USINGDIRECTIVES#
+
+// Keep this namespace one level deeper than MonoBehaviourScriptBuilder or the submenu might move around
+namespace CorePackage.Utilities.ScriptTemplates.Builders
+{
+    public class #SCRIPTNAME# : ScriptBuilderBase<#SCRIPTNAME#>
+    {
+        [MenuItem(MENU_SCRIPTS_NAME + "#DISPLAYNAME#", false, MENU_SCRIPTS_PRIORITY + 200)]
+        private static void NewScript()
+        {
+            // or use NewScriptDefault();
+            using var instance = CreateInstance();
+            DoCreateNewScriptAsset.CreateScriptAssetFromTemplate(instance.Template, instance.Icon);
+        }
+    }
+}

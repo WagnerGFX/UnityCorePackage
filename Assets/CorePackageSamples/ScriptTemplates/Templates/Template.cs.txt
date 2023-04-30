@@ -1,0 +1,37 @@
+// USINGDIRECTIVES: Will be replaced by any necessary namespaces for the script
+// This is evaluated by taking into considearation:
+//  - The root namespace
+//  - The namespace of CONTEXTSCRIPTNAME
+//  - Any Type manually added by a custom processor script
+
+// ROOTNAMESPACE: Will be replaced by the root namespace of the Project or Assembly Definition
+// Any spaces or tabs before BEGIN will be used as identation for anything inside the namespace
+
+// FILENAME: Will be replaced by the file name with no extra processing
+
+// SCRIPTNAME: Will be replaced by the file name with no spaces
+
+// DISPLAYNAME: Will be replaced by the file name formatted to be Capitalized and readable
+
+// CONTEXTASSETNAME: Will be replaced by the name of any asset selected when the script was created
+
+// CONTEXTSCRIPTNAME: Will be replaced by the Type name of any script asset selected when the script was created
+
+// NOTRIM: Use in empty lines to not lose the identation and any other processes don't trim them
+
+// All lines will be reviewed to match the configuration in Project Settings > Editor > Line Endings
+
+using UnityEngine;
+#USINGDIRECTIVES#
+
+    #ROOTNAMESPACEBEGIN#
+[AddComponentMenu("#DISPLAYNAME#", 0)]
+public class #SCRIPTNAME# : #CONTEXTSCRIPTNAME#
+{
+    public #SCRIPTNAME#()
+    {
+        Debug.Log("#FILENAME# > #CONTEXTASSETNAME#");
+        #NOTRIM#
+    }
+}
+#ROOTNAMESPACEEND#

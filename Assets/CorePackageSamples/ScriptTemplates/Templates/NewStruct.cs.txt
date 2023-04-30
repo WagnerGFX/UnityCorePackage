@@ -1,0 +1,9 @@
+using System;
+#USINGDIRECTIVES#
+
+    #ROOTNAMESPACEBEGIN#
+public struct #SCRIPTNAME#
+{
+    #NOTRIM#
+}
+#ROOTNAMESPACEEND#
