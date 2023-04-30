@@ -40,11 +40,9 @@ namespace Interactions
             if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 damageable.TakeDamage(this);
+                StopCoroutine(m_destructionChecker);
+                Destroy(gameObject);
             }
-
-
-            StopCoroutine(m_destructionChecker);
-            Destroy(gameObject);
         }
 
         private IEnumerator CheckForDestruction()
