@@ -26,7 +26,8 @@ namespace CorePackage.Utilities.ScriptTemplates
         public static void NewScriptDefault()
         {
             using T instance = CreateInstance();
-            DoCreateNewScriptAsset.CreateScriptAssetFromTemplate(instance.Template, instance.Icon);
+
+            DoCreateNewScriptAsset.CreateFromTemplate(new NewScriptData(instance.Template, instance.Icon));
         }
 
         public static T CreateInstance()

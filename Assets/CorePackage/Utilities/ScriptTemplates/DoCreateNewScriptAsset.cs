@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.Compilation;
-using UnityEditor.Experimental;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
@@ -96,178 +96,27 @@ namespace CorePackage.Utilities.ScriptTemplates
         /// </summary>
         public ReadOnlyCollection<Type> TypesList => _typesList.AsReadOnly();
 
-
         private readonly List<Type> _typesList = new();
         private readonly List<Action<DoCreateNewScriptAsset>> _processorList = new();
 
 
         /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Default script name will be inferred from the template file name.</para>
+        /// <para>Will startup the process of creating a new script from a text file template.</para>
         /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate)
+        public static void CreateFromTemplate(INewAssetData assetData)
         {
-            CreateScriptAssetFromTemplate(scriptTemplate, string.Empty, DefaultScriptIcon, true);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Default script name will be inferred from the template file name.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="customScriptIcon">Icon for the new script file.</param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, Texture2D customScriptIcon)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, string.Empty, customScriptIcon, true);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Default script name will be inferred from the template file name.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="customScriptIcon">Icon for the new script file.</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, Texture2D customScriptIcon, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, string.Empty, customScriptIcon, true, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Default script name will be inferred from the template file name.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="customScriptIcon">Icon for the new script file.</param>
-        /// <param name="applyDefaultProcessors"><para>When false, will only apply custom processors.</para>The default processors can still be applied manually as custom processors.</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, Texture2D customScriptIcon, bool applyDefaultProcessors, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, string.Empty, customScriptIcon, applyDefaultProcessors, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Default script name will be inferred from the template file name.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, string.Empty, DefaultScriptIcon, true, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Default script name will be inferred from the template file name.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="applyDefaultProcessors"><para>When false, will only apply custom processors.</para>The default processors can still be applied manually as custom processors.</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, bool applyDefaultProcessors, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, string.Empty, DefaultScriptIcon, applyDefaultProcessors, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="defaulScriptNameWithExtension">Default name with the .cs extension</param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, string defaulScriptNameWithExtension)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, defaulScriptNameWithExtension, DefaultScriptIcon, true);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Can replace the default icon.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="defaulScriptNameWithExtension">Default name with the .cs extension</param>
-        /// <param name="customScriptIcon">Icon for the new script file.</param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, string defaulScriptNameWithExtension, Texture2D customScriptIcon)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, defaulScriptNameWithExtension, customScriptIcon, true);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="defaulScriptNameWithExtension">Default name with the .cs extension</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, string defaulScriptNameWithExtension, Texture2D customScriptIcon, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, defaulScriptNameWithExtension, customScriptIcon, true, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="defaulScriptNameWithExtension">Default name with the .cs extension</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, string defaulScriptNameWithExtension, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, defaulScriptNameWithExtension, DefaultScriptIcon, true, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="defaulScriptNameWithExtension">Default name with the .cs extension</param>
-        /// <param name="applyDefaultProcessors"><para>When false, will only apply custom processors.</para>The default processors can still be applied manually as custom processors.</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, string defaulScriptNameWithExtension, bool applyDefaultProcessors, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            CreateScriptAssetFromTemplate(scriptTemplate, defaulScriptNameWithExtension, DefaultScriptIcon, applyDefaultProcessors, customScriptProcessors);
-        }
-
-        /// <summary>
-        /// <para>Will startup the process of creating a new script from a TXT file template.</para>
-        /// <para>Able to inject custom processors and override default ones.</para>
-        /// </summary>
-        /// <param name="scriptTemplate">Text file with the script template</param>
-        /// <param name="defaulScriptNameWithExtension">Default name with the .cs extension</param>
-        /// <param name="customScriptIcon">Icon for the new script file.</param>
-        /// <param name="applyDefaultProcessors"><para>When false, will only apply custom processors.</para>The default processors can still be applied manually as custom processors.</param>
-        /// <param name="customScriptProcessors"><para>Custom processors to apply on the script content.</para><para>Can override default processors.</para><para>Can also recieve default processors to be applied manually.</para></param>
-        public static void CreateScriptAssetFromTemplate(TextAsset scriptTemplate, string defaulScriptNameWithExtension, Texture2D customScriptIcon, bool applyDefaultProcessors, params Action<DoCreateNewScriptAsset>[] customScriptProcessors)
-        {
-            if (scriptTemplate.IsNull())
-            { throw new FileNotFoundException("Invalid template file."); }
-
-            if (customScriptIcon == null)
-            { customScriptIcon = DefaultScriptIcon; }
-
             DoCreateNewScriptAsset scriptAssetCreator = CreateInstance<DoCreateNewScriptAsset>();
-            scriptAssetCreator.AddStartupData(scriptTemplate, customScriptIcon);
-            scriptAssetCreator.AddProcessors(applyDefaultProcessors, customScriptProcessors);
+            scriptAssetCreator.AddStartupData(assetData.Template, assetData.Icon);
+            scriptAssetCreator.AddProcessors(assetData.ApplyDefaultProcessors, assetData.CustomProcessors.ToArray());
             scriptAssetCreator.AddCurrentContextSelection();
-
-            if (string.IsNullOrEmpty(defaulScriptNameWithExtension))
-            {
-                defaulScriptNameWithExtension = Path.GetFileNameWithoutExtension(scriptAssetCreator.TemplatePath);
-            }
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
                 0,
                 scriptAssetCreator,
-                defaulScriptNameWithExtension,
-                customScriptIcon,
+                assetData.DefaulNameWithExtension,
+                scriptAssetCreator.Icon,
                 scriptAssetCreator.TemplatePath);
         }
-
 
         public override void Action(int instanceId, string pathName, string resourceFile)
         {
@@ -293,7 +142,6 @@ namespace CorePackage.Utilities.ScriptTemplates
         {
             _typesList.AddRange(usingTypes);
         }
-
 
         private void AddAssetData(int instanceId, string pathName, string resourceFile)
         {

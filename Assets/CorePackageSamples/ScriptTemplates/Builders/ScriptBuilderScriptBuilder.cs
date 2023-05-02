@@ -8,9 +8,11 @@ namespace CorePackage.Utilities.ScriptTemplates.Builders
         private static void NewScript()
         {
             using ScriptBuilderScriptBuilder instance = CreateInstance();
-            DoCreateNewScriptAsset.CreateScriptAssetFromTemplate(instance.Template, instance.Icon,
-                ProcessDisplayName,
-                ProcessDefaultScriptName);
+
+            NewScriptData assetData = new(instance.Template, instance.Icon);
+            assetData.AddProcessors(ProcessDisplayName, ProcessDefaultScriptName);
+
+            DoCreateNewScriptAsset.CreateFromTemplate(assetData);
         }
 
         private static void ProcessDisplayName(DoCreateNewScriptAsset instance)

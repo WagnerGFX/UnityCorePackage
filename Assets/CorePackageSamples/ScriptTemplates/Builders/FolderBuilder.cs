@@ -13,13 +13,12 @@ namespace CorePackage.Utilities.ScriptTemplates.Builders
 
             using FolderBuilder instance = CreateInstance();
 
-            DoCreateNewScriptAsset.CreateScriptAssetFromTemplate(
-                instance.Template,
-                "New Folder",
-                emptyFolderIcon,
-                false,
-                CreateFolder,
-                DefaultProcessors.FocusOnAsset);
+            NewScriptData assetData = new(instance.Template, emptyFolderIcon);
+            assetData.DefaulNameWithExtension = "New Folder";
+            assetData.ApplyDefaultProcessors = false;
+            assetData.AddProcessors(CreateFolder, DefaultProcessors.FocusOnAsset);
+
+            DoCreateNewScriptAsset.CreateFromTemplate(assetData);
         }
 
         private static void CreateFolder(DoCreateNewScriptAsset folderAsset)
