@@ -27,10 +27,6 @@ After applying the package, also install any relevant packages listed in the Req
 
 ## Overview
 
-### Common
-Holds value references for the entire project, mostly strings for names and paths.
-In Samples, holds common assets for other samples.
-
 ### Debugging > DrawArrow [^arrow]
 Allows to draw a simple arrow made of lines using Gizmo or Debug.
 
@@ -71,7 +67,7 @@ Limitations:
  - Pratically useless for dynamic instancing.
 
 ### Singleton
-Two singleton classes to create objects that require only a single instance to exist.
+Two singleton classes to create MonoBehaviours or ScriptableObjects that require only a single instance to exist.
 
 When detecting duplicate objects: The MonoBehaviour will delete itself and the Scriptable Object will issue a warning in the console.
 
@@ -80,6 +76,19 @@ Both of them prevent public access to the static instance, avoiding common issue
 ### State Machine [^fsm]
 A State Machine highly configurable through Scriptable Objects.
 
+### Utilities > Debug Camera Controller
+A camera controller useful for moving freelly around the scene during Play Mode.
+
+### Utilities > Extensions
+- **Object:** Validation to check for null, files and prefab files.
+- **MonoBehaviour:** Assert Unity Objects for null values. Useful during OnValidate().
+- **Vector2D/3D:** A collection of methods to convert analog movement into discrete. Great for grid movement.
+
+### Utilities > Script Templates
+- Fully customized script template creation.
+- Uses individual methods for each template tag.
+- Allows to use your own tags or override existing behavior.
+- Can cange the default script creation behavior from beggining to end.
 
 ## Other recommended libraries
 Need more? Take a look at these free libraries to help in your gamedev journey.
