@@ -2,7 +2,7 @@
 using CorePackage.EventSystems.Unity;
 using System.Runtime.CompilerServices;
 
-namespace MyProjectName.Events
+namespace CorePackageSamples.UnityEvents
 {
     /// <summary>
     /// Event SO that allows two arguments: boolean, object

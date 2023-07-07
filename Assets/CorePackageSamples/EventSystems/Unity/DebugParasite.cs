@@ -1,5 +1,5 @@
 using CorePackage.EventSystems.Unity.Debugging;
-using MyProjectName.Events;
+using CorePackageSamples.UnityEvents;
 using UnityEngine;
 using UnityEngine.Events;
 

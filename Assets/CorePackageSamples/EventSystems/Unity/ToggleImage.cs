@@ -1,4 +1,4 @@
-using MyProjectName.Events;
+using CorePackageSamples.UnityEvents;
 using UnityEngine;
 
 public class ToggleImage : MonoBehaviour

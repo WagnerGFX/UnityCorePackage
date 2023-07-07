@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using CorePackage.EventSystems.Unity;
 
-namespace MyProjectName.Events
+namespace CorePackageSamples.UnityEvents
 {
     /// <summary>
     /// Event SO that allows two arguments: string, object

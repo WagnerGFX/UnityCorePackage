@@ -1,7 +1,7 @@
 using UnityEngine;
 using CorePackage.EventSystems.Unity;
 
-namespace MyProjectName.Events
+namespace CorePackageSamples.UnityEvents
 {
     /// <summary>
     /// Listener for events with no arguments.

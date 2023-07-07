@@ -1,5 +1,5 @@
 ﻿
-namespace MyProjectName.Events
+namespace CorePackageSamples.UnityEvents
 {
     public static class EventsConsts
     {
