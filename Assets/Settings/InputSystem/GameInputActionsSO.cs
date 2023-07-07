@@ -1,7 +1,6 @@
 using UnityEngine;
-using CorePackage.Common;
 
-[CreateAssetMenu(fileName = "newGameInput", menuName = Project.MenuName + "/Game Input SO")]
+[CreateAssetMenu(fileName = "newGameInput", menuName = "CorePackageSamples/Game Input SO")]
 public class GameInputActionsSO : ScriptableObject
 {
     public GameInputActions Input { get; private set; }

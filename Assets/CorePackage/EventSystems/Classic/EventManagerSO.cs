@@ -1,5 +1,4 @@
-﻿using CorePackage.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace CorePackage.EventSystems.Classic
     /// <summary>
     /// ScriptableObject-based event manager. Manages global events and a list of local event managers. Works better by having only a single instance.
     /// </summary>
-    [CreateAssetMenu(fileName = "GlobalEventManager", menuName = Project.MenuName + "/Managers/GlobalEventManager", order = 1)]
+    [CreateAssetMenu(fileName = "GlobalEventManager", menuName = "CorePackage/Global Event Manager", order = 1)]
     public sealed class EventManagerSO : ScriptableObject, IEventManagerGlobal
     {
         private readonly IEventManager eventManager = new EventManager();

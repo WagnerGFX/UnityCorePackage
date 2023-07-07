@@ -3,7 +3,6 @@ using System.Text;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
-using CorePackage.Common;
 
 internal class ScriptTemplates : ScriptableObject
 {
@@ -36,7 +35,7 @@ internal class ScriptTemplates : ScriptableObject
     }
 
 
-    [MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Action Script", false, 1)]
+    [MenuItem("Assets/Create/CorePackage/State Machine/Action Script", false, 1)]
 	public static void CreateActionScript() =>
 		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
 			0,
@@ -45,7 +44,7 @@ internal class ScriptTemplates : ScriptableObject
 			(Texture2D)EditorGUIUtility.IconContent("cs Script Icon").image,
             GetStateActionPath());
 
-	[MenuItem("Assets/Create/" + Project.MenuName + "/State Machine/Condition Script", false, 1)]
+	[MenuItem("Assets/Create/CorePackage/State Machine/Condition Script", false, 1)]
 	public static void CreateConditionScript() =>
 		ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
 			0,

@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using CorePackage.Common;
 
 namespace CorePackage.Utilities
 {
-    [AddComponentMenu(Project.MenuName + "/Debug Camera Controller", 0)]
+    [AddComponentMenu("CorePackage/Debug Camera Controller", 0)]
     public class DebugCameraController : MonoBehaviour
     {
         [SerializeField]

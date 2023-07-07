@@ -1,18 +1,12 @@
 using System;
 using UnityEngine;
 
-// TODO: Review git changes and commit
-// TODO: Review template files for any issues
-// TODO: Decide if builders and templates should be samples (recommended)
-// TODO: Move files and commit
-// TODO: Add sample of "Class of..." or anything with validation
-
 namespace CorePackage.Utilities.ScriptTemplates
 {
     public abstract class ScriptBuilderBase<T> : ScriptableObject, IDisposable where T : ScriptBuilderBase<T>
     {
         public const int MENU_SCRIPTS_PRIORITY = -1;
-        public const string MENU_SCRIPTS_NAME = "Assets/Add Script/";
+        public const string MENU_SCRIPTS_NAME = "Assets/Create Script/";
 
         [field: SerializeField]
         public TextAsset Template { get; private set; }

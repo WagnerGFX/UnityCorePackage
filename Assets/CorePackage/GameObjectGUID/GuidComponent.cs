@@ -6,7 +6,7 @@ namespace CorePackage.GameObjectGUID
     /// <summary>
     /// Simple component to hold the Guid value. Internal behavior is controlled through Editor only classes.
     /// </summary>
-    [AddComponentMenu("GUID")]
+    [AddComponentMenu("CorePackage/GUID", 0)]
     [DisallowMultipleComponent]
     public partial class GuidComponent : MonoBehaviour
     {

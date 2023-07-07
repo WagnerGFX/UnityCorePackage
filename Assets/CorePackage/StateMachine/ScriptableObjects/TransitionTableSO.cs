@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using CorePackage.Common;
 
 namespace CorePackage.StateMachine.ScriptableObjects
 {
-	[CreateAssetMenu(fileName = "NewTransitionTable", menuName = Project.MenuName + "/State Machine/Transition Table", order = 1)]
+	[CreateAssetMenu(fileName = "NewTransitionTable", menuName = "CorePackage/State Machine/Transition Table", order = 1)]
 	public class TransitionTableSO : ScriptableObject
 	{
 		[SerializeField] private TransitionItem[] _transitions = default;
