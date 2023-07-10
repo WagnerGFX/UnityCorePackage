@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CorePackage.Utilities.ScriptTemplates
+namespace CorePackage.ScriptTemplates
 {
     public abstract class ScriptBuilderBase<T> : ScriptableObject, IDisposable where T : ScriptBuilderBase<T>
     {

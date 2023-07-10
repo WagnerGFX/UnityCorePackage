@@ -2,7 +2,7 @@
 using UnityEditor.Experimental;
 using UnityEngine;
 
-namespace CorePackage.Utilities.ScriptTemplates.Builders
+namespace CorePackage.ScriptTemplates.Builders
 {
     public class FolderBuilder : ScriptBuilderBase<FolderBuilder>
     {

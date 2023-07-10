@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
-namespace CorePackage.Utilities.ScriptTemplates
+namespace CorePackage.ScriptTemplates
 {
     /// <summary>
     /// Contains all default processors, tag constants and some helper methods.

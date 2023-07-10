@@ -1,9 +1,8 @@
-﻿using CorePackage.Utilities.ScriptTemplates;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
-namespace CorePackage.Utilities
+namespace CorePackage.ScriptTemplates
 {
     /// <summary>
     /// Interface for basic data to startup the process of creating a new asset.

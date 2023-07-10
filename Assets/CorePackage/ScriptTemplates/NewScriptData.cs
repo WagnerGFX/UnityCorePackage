@@ -5,7 +5,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace CorePackage.Utilities.ScriptTemplates
+namespace CorePackage.ScriptTemplates
 {
     /// <summary>
     /// Contains the basic data to startup the process of creating a new script asset.

@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace CorePackage.Utilities.ScriptTemplates.Builders
+namespace CorePackage.ScriptTemplates.Builders
 {
     public class InterfaceScriptBuilder : ScriptBuilderBase<InterfaceScriptBuilder>
     {

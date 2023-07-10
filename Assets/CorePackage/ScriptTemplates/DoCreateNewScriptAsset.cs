@@ -8,7 +8,7 @@ using UnityEditor.Compilation;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
-namespace CorePackage.Utilities.ScriptTemplates
+namespace CorePackage.ScriptTemplates
 {
     public class DoCreateNewScriptAsset : EndNameEditAction
     {
