@@ -1,9 +1,8 @@
 using UnityEngine;
-using CorePackage.Common;
 #USINGDIRECTIVES#
 
     #ROOTNAMESPACEBEGIN#
-[CreateAssetMenu(fileName = "New#SCRIPTNAME#", menuName = Project.MenuName + "/#DISPLAYNAME#")]
+[CreateAssetMenu(fileName = "New#SCRIPTNAME#", menuName = "#DISPLAYNAME#")]
 public class #SCRIPTNAME# : ScriptableObject
 {
     [field:SerializeField]
