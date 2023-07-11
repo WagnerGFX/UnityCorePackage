@@ -1,4 +1,4 @@
-﻿namespace CorePackageSamples
+﻿namespace CorePackageSamples.Singleton
 {
     public enum GameState
     {

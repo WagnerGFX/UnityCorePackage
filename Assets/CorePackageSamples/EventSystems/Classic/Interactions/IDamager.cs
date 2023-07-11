@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Interactions
+namespace CorePackageSamples.ClassicEvents.Interactions
 {
     public interface IDamager
     {
@@ -8,5 +8,5 @@ namespace Interactions
         float Force { get; }
         float Speed { get; }
         Vector2 Direction { get; }
-    } 
+    }
 }

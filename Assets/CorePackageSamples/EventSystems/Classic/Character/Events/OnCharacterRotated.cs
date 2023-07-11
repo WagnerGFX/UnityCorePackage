@@ -1,7 +1,7 @@
 using CorePackage.EventSystems.Classic;
 using UnityEngine;
 
-namespace Character.Events
+namespace CorePackageSamples.ClassicEvents.Events
 {
     public struct OnCharacterRotated : IEventArgs
     {

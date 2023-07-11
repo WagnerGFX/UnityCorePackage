@@ -1,9 +1,9 @@
-using Character.Events;
+using CorePackageSamples.ClassicEvents.Events;
 using CorePackage.EventSystems.Classic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Character.Components
+namespace CorePackageSamples.ClassicEvents.Components
 {
     [RequireComponent(typeof(IEventManager))]
     public sealed class Aim : MonoBehaviour, ICharacterComponent

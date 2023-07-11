@@ -1,20 +1,23 @@
 using UnityEditor;
 using CorePackage.Debugging;
 
-[CustomEditor(typeof(ArrowSample))]
-public class ArrowSampleEditor : Editor
+namespace CorePackageSamples.Debugging
 {
-    [DrawGizmo(GizmoType.Selected | GizmoType.Active | GizmoType.NotInSelectionHierarchy)]
-    static void OnDrawGizmos(ArrowSample myScript, GizmoType gizmoType)
+    [CustomEditor(typeof(ArrowSample))]
+    public class ArrowSampleEditor : Editor
     {
-        if (myScript.Target != null)
+        [DrawGizmo(GizmoType.Selected | GizmoType.Active | GizmoType.NotInSelectionHierarchy)]
+        static void OnDrawGizmos(ArrowSample myScript, GizmoType gizmoType)
         {
-            DrawArrow.ForGizmoTwoPoints(
-                myScript.transform.position,
-                myScript.Target.position,
-                DrawArrow.defaultArrowHeadLength,
-                DrawArrow.defaultArrowHeadAngle,
-                0.5f);
+            if (myScript.Target != null)
+            {
+                DrawArrow.ForGizmoTwoPoints(
+                    myScript.transform.position,
+                    myScript.Target.position,
+                    DrawArrow.defaultArrowHeadLength,
+                    DrawArrow.defaultArrowHeadAngle,
+                    0.5f);
+            }
         }
-    }
+    } 
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Interactions
+namespace CorePackageSamples.ClassicEvents.Interactions
 {
     public sealed class Bullet : MonoBehaviour, IDamager
     {

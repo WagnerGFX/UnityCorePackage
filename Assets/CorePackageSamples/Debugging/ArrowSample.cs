@@ -1,12 +1,15 @@
 using UnityEngine;
 
-/// <summary>
-/// Sample with only a target transform. Arrow is drawn in ArrowSampleEditor.
-/// </summary>
-public class ArrowSample : MonoBehaviour
+namespace CorePackageSamples.Debugging
 {
-    [SerializeField]
-    Transform target;
-    public Transform Target => target;
+    /// <summary>
+    /// Sample with only a target transform. Arrow is drawn in ArrowSampleEditor.
+    /// </summary>
+    public class ArrowSample : MonoBehaviour
+    {
+        [SerializeField]
+        Transform target;
+        public Transform Target => target;
 
+    }
 }

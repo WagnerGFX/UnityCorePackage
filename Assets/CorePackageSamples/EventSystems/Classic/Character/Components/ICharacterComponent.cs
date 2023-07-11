@@ -1,4 +1,4 @@
-namespace Character.Components
+namespace CorePackageSamples.ClassicEvents.Components
 {
     public interface ICharacterComponent
     {

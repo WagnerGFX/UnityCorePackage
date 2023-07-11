@@ -1,9 +1,9 @@
-using Character.Events;
+using CorePackageSamples.ClassicEvents.Events;
 using CorePackage.EventSystems.Classic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Character
+namespace CorePackageSamples.ClassicEvents.Character
 {
     public class WeaponChargeUI : MonoBehaviour
     {

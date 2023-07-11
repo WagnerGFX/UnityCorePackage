@@ -1,6 +1,6 @@
 using CorePackage.EventSystems.Classic;
 
-namespace Character.Events
+namespace CorePackageSamples.ClassicEvents.Events
 {
     public struct OnWeaponCharging : IEventArgs
     {

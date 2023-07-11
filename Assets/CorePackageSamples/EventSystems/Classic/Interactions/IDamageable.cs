@@ -1,6 +1,6 @@
-namespace Interactions
+namespace CorePackageSamples.ClassicEvents.Interactions
 {
-	public interface IDamageable
+    public interface IDamageable
 	{
 		void TakeDamage(IDamager damageSource);
 	}

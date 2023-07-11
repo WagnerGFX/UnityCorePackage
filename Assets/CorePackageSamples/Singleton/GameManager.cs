@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using CorePackage.Singleton;
 
-namespace CorePackageSamples
+namespace CorePackageSamples.Singleton
 {
     [CreateAssetMenu(fileName = "GameManager", menuName = "CorePackageSamples/GameManager", order = 1)]
     public sealed class GameManager : ScriptableSingletonObject<GameManager>

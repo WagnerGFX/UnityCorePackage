@@ -1,29 +1,30 @@
 using CorePackage.EventSystems.Unity.Debugging;
-using CorePackageSamples.UnityEvents;
 using UnityEngine;
-using UnityEngine.Events;
 
-/// <summary>
-/// Attaches to the event channel like a parasite to debug information.
-/// </summary>
-public class DebugParasite : MonoBehaviour
+namespace CorePackageSamples.UnityEvents
 {
-    [SerializeField]
-    BasicGameObjectEventChannelSO OnToggle;
-
-    void OnEnable()
+    /// <summary>
+    /// Attaches to the event channel like a parasite to debug information.
+    /// </summary>
+    public class DebugParasite : MonoBehaviour
     {
-        OnToggle.OnEventRaised += EventDebugUtilities.DebugRaisedEvent;
-        OnToggle.OnEventRaisedWithNoListeners += EventDebugUtilities.DebugRaisedEventWithNoListeners;
-        OnToggle.OnEventSubscribed += EventDebugUtilities.DebugSubscribed;
-        OnToggle.OnEventUnsubscribed += EventDebugUtilities.DebugUnsubscribed;
-    }
+        [SerializeField]
+        BasicGameObjectEventChannelSO OnToggle;
 
-    void OnDisable()
-    {
-        OnToggle.OnEventRaised -= EventDebugUtilities.DebugRaisedEvent;
-        OnToggle.OnEventRaisedWithNoListeners -= EventDebugUtilities.DebugRaisedEventWithNoListeners;
-        OnToggle.OnEventSubscribed -= EventDebugUtilities.DebugSubscribed;
-        OnToggle.OnEventUnsubscribed -= EventDebugUtilities.DebugUnsubscribed;
+        void OnEnable()
+        {
+            OnToggle.OnEventRaised += EventDebugUtilities.DebugRaisedEvent;
+            OnToggle.OnEventRaisedWithNoListeners += EventDebugUtilities.DebugRaisedEventWithNoListeners;
+            OnToggle.OnEventSubscribed += EventDebugUtilities.DebugSubscribed;
+            OnToggle.OnEventUnsubscribed += EventDebugUtilities.DebugUnsubscribed;
+        }
+
+        void OnDisable()
+        {
+            OnToggle.OnEventRaised -= EventDebugUtilities.DebugRaisedEvent;
+            OnToggle.OnEventRaisedWithNoListeners -= EventDebugUtilities.DebugRaisedEventWithNoListeners;
+            OnToggle.OnEventSubscribed -= EventDebugUtilities.DebugSubscribed;
+            OnToggle.OnEventUnsubscribed -= EventDebugUtilities.DebugUnsubscribed;
+        }
     }
 }

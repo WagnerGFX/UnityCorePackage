@@ -1,8 +1,8 @@
-using Character.Events;
+using CorePackageSamples.ClassicEvents.Events;
 using CorePackage.EventSystems.Classic;
 using UnityEngine;
 
-namespace Character.Components
+namespace CorePackageSamples.ClassicEvents.Components
 {
     [RequireComponent(typeof(IEventManager))]
     public sealed class Fire : MonoBehaviour, ICharacterComponent

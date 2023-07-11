@@ -1,34 +1,36 @@
-using CorePackageSamples.UnityEvents;
 using UnityEngine;
 
-public class ToggleImage : MonoBehaviour
+namespace CorePackageSamples.UnityEvents
 {
-    [SerializeField]
-    BasicGameObjectEventChannelSO OnToggle;
-
-    [SerializeField]
-    private bool startDisabled = false;
-    
-    private void Start()
+    public class ToggleImage : MonoBehaviour
     {
-        if (startDisabled)
-            gameObject.SetActive(false);
-    }
+        [SerializeField]
+        BasicGameObjectEventChannelSO OnToggle;
 
-    public void ToggleObject(GameObject sender)
-    {
-        gameObject.SetActive(!gameObject.activeSelf);
-    }
+        [SerializeField]
+        private bool startDisabled = false;
 
-    public void ToggleConnection(bool connect)
-    {
-        if (connect)
+        private void Start()
         {
-            OnToggle.Subscribe(ToggleObject);
+            if (startDisabled)
+                gameObject.SetActive(false);
         }
-        else
+
+        public void ToggleObject(GameObject sender)
         {
-            OnToggle.Unsubscribe(ToggleObject);
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
+
+        public void ToggleConnection(bool connect)
+        {
+            if (connect)
+            {
+                OnToggle.Subscribe(ToggleObject);
+            }
+            else
+            {
+                OnToggle.Unsubscribe(ToggleObject);
+            }
         }
     }
 }
