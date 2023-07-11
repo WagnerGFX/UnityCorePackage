@@ -1,10 +1,12 @@
 {
-    "name": "CorePackage.Utilities",
-    "rootNamespace": "CorePackage.Utilities",
+    "name": "CorePackage.ScriptTemplates",
+    "rootNamespace": "CorePackage.ScriptTemplates",
     "references": [
         "GUID:e615df826e3f24748925d48668b18544"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
