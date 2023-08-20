@@ -25,6 +25,9 @@ The project can be installed in an existing Unity project using the .unitypackag
 
 After applying the package, also install any relevant packages listed in the Requirements.
 
+## Compilation
+If you forked or cloned the whole project, then use the menu **Tools > Export UnityPackages** to automatically generate all unitypackage files.
+
 ## Overview
 
 ### Debugging > DrawArrow [^arrow]
