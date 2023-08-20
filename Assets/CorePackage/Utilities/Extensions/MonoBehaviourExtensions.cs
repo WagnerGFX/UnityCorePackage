@@ -8,7 +8,7 @@ public static class MonoBehaviourExtensions
 
     /// <summary>
     /// <para>Use to check for unassigned [<see cref="SerializeField"/>] members during <c>OnValidate()</c>.</para>
-    /// Accepts only Unity Objects like <see cref="GameObject"/> prefabs, <see cref="MonoBehaviour"/> components and <see cref="ScriptableObject"/>.
+    /// Accepts only Unity Objects like <see cref="GameObject"/> prefabs, <see cref="MonoBehaviour"/> components and <see cref="ScriptableObject"/> instances.
     /// </summary>
     public static void AssertObjectField(this MonoBehaviour component, Object fieldObject, string fieldName)
     {
