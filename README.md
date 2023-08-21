@@ -2,7 +2,7 @@
 [![Unity 2020 LTS+](https://img.shields.io/badge/Unity-2020%20LTS%20%2B-blue.svg)](https://unity3d.com/get-unity/download)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/WagnerGFX/UnityCorePackage/blob/main/LICENSE.md)
 
-A collection of small, but useful libraries for Unity. Many were collected, improved or re-implemented, check the credits section for their respective original works.
+A collection of small, but useful libraries for Unity. Many were collected from open sources, then improved or re-implemented, check the credits section for their respective original works.
 
 ## Requirements
 
