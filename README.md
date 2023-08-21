@@ -51,9 +51,6 @@ An alternative event system made with UnityEvents and Scriptable Objects.
 
 It's not as performant, but it's easily configurable through the Editor and Inspector with minimal code.
 
-### Extension Methods
-A collection of useful extension methods for Unity classes and types.
-
 ### GameObject GUID [^guids]
 A GUID that can be serialized by Unity and a component that holds it. Useful for tracking non-procedural GameObjects in the scene.
 
@@ -68,6 +65,13 @@ Limitations:
  - GUID will always be empty for prefab assets.
  - Duplicating the scene will also duplicate all GUIDs inside.
  - Pratically useless for dynamic instancing.
+
+### Script Templates
+- Fully customized script template creation.
+- Uses individual methods for each template tag.
+- Allows to use your own tags or override existing behavior.
+- Can change the default script creation behavior from beggining to end.
+- I highly suggest keeping the sample files as a base.
 
 ### Singleton
 Two singleton classes to create MonoBehaviours or ScriptableObjects that require only a single instance to exist.
@@ -86,12 +90,6 @@ A camera controller useful for moving freelly around the scene during Play Mode.
 - **Object:** Validation to check for null, files and prefab files.
 - **MonoBehaviour:** Assert Unity Objects for null values. Useful during OnValidate().
 - **Vector2D/3D:** A collection of methods to convert analog movement into discrete. Great for grid movement.
-
-### Utilities > Script Templates
-- Fully customized script template creation.
-- Uses individual methods for each template tag.
-- Allows to use your own tags or override existing behavior.
-- Can cange the default script creation behavior from beggining to end.
 
 ## Other recommended libraries
 Need more? Take a look at these free libraries to help in your gamedev journey.
