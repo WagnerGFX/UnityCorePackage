@@ -14,20 +14,20 @@ namespace CorePackage.GameObjectGUID
     {
         // The list will help to enforce new GUIDs when duplicating GOs
         // The list will only hold values for the current scene
-        private static readonly List<string> guidList = new();
+        private static readonly List<string> _guidList = new();
 
         private bool IsPrefab => gameObject.scene.name == null || gameObject.scene.name == gameObject.name;
 
         private bool IsSceneLoaded => gameObject.scene.isLoaded;
 
-        private bool m_isAwake = false;
+        private bool _isAwake = false;
 
-        private Guid m_backupGuid;
+        private Guid _backupGuid;
 
 
         private void Awake()
         {
-            if (Application.isPlaying || m_isAwake)
+            if (Application.isPlaying || _isAwake)
             { return; }
 
             if (IsPrefab)
@@ -39,7 +39,7 @@ namespace CorePackage.GameObjectGUID
                 //Component added to GameObject; Prefab added to scene
                 CreateNewGUID();
             }
-            else if (guidList.Contains(_instanceGuid))
+            else if (_guidList.Contains(_instanceGuid))
             {
                 //Duplicated the GameObject
                 CreateNewGUID();
@@ -50,7 +50,7 @@ namespace CorePackage.GameObjectGUID
                 LoadGUID();
             }
 
-            m_isAwake = true;
+            _isAwake = true;
         }
 
         private void Reset()
@@ -58,7 +58,7 @@ namespace CorePackage.GameObjectGUID
             if (Application.isPlaying)
             { return; }
 
-            if (!IsPrefab && _instanceGuid == Guid.Empty && m_backupGuid != Guid.Empty)
+            if (!IsPrefab && _instanceGuid == Guid.Empty && _backupGuid != Guid.Empty)
             {
                 //Component Reset
                 RestoreGUID();
@@ -71,14 +71,14 @@ namespace CorePackage.GameObjectGUID
             { return; }
 
             //Scene Opened: Prevents validating instances before awaking
-            if (!m_isAwake)
+            if (!_isAwake)
             {
                 Awake();
             }
 
             if (IsPrefab)
             {
-                if(_instanceGuid != Guid.Empty)
+                if (_instanceGuid != Guid.Empty)
                 {
                     //Prefab created; Applied to prefab; Edited prefab
                     ClearGUID();
@@ -89,9 +89,9 @@ namespace CorePackage.GameObjectGUID
                 //Prefab instance reverted
                 RestoreGUID();
             }
-            else if (_instanceGuid != m_backupGuid)
+            else if (_instanceGuid != _backupGuid)
             {
-                if (m_backupGuid == Guid.Empty)
+                if (_backupGuid == Guid.Empty)
                 {
                     //Project Recompiled
                     LoadGUID();
@@ -116,12 +116,12 @@ namespace CorePackage.GameObjectGUID
             else if (IsSceneLoaded)
             {
                 //Component or GO removed
-                guidList.Remove(_instanceGuid);
+                _guidList.Remove(_instanceGuid);
             }
             else
             {
                 //Scene closed
-                guidList.Remove(_instanceGuid);
+                _guidList.Remove(_instanceGuid);
             }
         }
 
@@ -129,30 +129,30 @@ namespace CorePackage.GameObjectGUID
         private void ClearGUID()
         {
             _instanceGuid = Guid.Empty;
-            m_backupGuid = _instanceGuid;
+            _backupGuid = _instanceGuid;
         }
 
         private void CreateNewGUID()
         {
             _instanceGuid = Guid.NewGuid();
-            m_backupGuid = _instanceGuid;
-            guidList.Add(_instanceGuid);
+            _backupGuid = _instanceGuid;
+            _guidList.Add(_instanceGuid);
         }
 
         private void LoadGUID()
         {
-            if (m_backupGuid != Guid.Empty)
+            if (_backupGuid != Guid.Empty)
             {
-                guidList.Remove(m_backupGuid.ToString());
+                _guidList.Remove(_backupGuid.ToString());
             }
 
-            m_backupGuid = _instanceGuid;
-            guidList.Add(_instanceGuid);
+            _backupGuid = _instanceGuid;
+            _guidList.Add(_instanceGuid);
         }
 
         private void RestoreGUID()
         {
-            _instanceGuid = m_backupGuid;
+            _instanceGuid = _backupGuid;
         }
     }
 }

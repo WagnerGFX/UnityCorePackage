@@ -9,49 +9,89 @@ namespace CorePackage.GameObjectGUID
     [Serializable]
     public struct SerializableGuid : ISerializationCallbackReceiver
     {
-        [SerializeField] string serializedGuid;
+        [SerializeField] private string _serializedGuid;
 
-        private Guid guid;
-        private const int arbitraryHashNumber = -1324198676;
+        private Guid _guid;
+        private const int ARBITRARY_HASH_NUMBER = -1324198676;
 
         public SerializableGuid(Guid guid)
         {
-            this.guid = guid;
-            serializedGuid = null;
+            this._guid = guid;
+            _serializedGuid = null;
         }
 
         public void OnAfterDeserialize()
         {
             try
             {
-                guid = Guid.Parse(serializedGuid);
+                _guid = Guid.Parse(_serializedGuid);
             }
             catch
             {
-                guid = Guid.Empty;
-                Debug.LogWarning($"Attempted to parse invalid GUID string '{serializedGuid}'. GUID will set to System.Guid.Empty");
+                _guid = Guid.Empty;
+                Debug.LogWarning($"Attempted to parse invalid GUID string '{_serializedGuid}'. GUID will set to System.Guid.Empty");
             }
         }
 
         public void OnBeforeSerialize()
         {
-            serializedGuid = guid.ToString();
+            _serializedGuid = _guid.ToString();
         }
 
         public override bool Equals(object obj)
-            => obj is SerializableGuid guid
-               && this.guid.Equals(guid.guid);
+        {
+            return obj is SerializableGuid guid
+                       && this._guid.Equals(guid._guid);
+        }
 
-        public override int GetHashCode() => arbitraryHashNumber + guid.GetHashCode();
-        public override string ToString() => guid.ToString();
+        public override int GetHashCode()
+        {
+            return ARBITRARY_HASH_NUMBER + _guid.GetHashCode();
+        }
 
-        public static bool operator ==(SerializableGuid a, SerializableGuid b) => a.guid == b.guid;
-        public static bool operator !=(SerializableGuid a, SerializableGuid b) => a.guid != b.guid;
-        public static bool operator ==(SerializableGuid a, Guid b) => a.guid == b;
-        public static bool operator !=(SerializableGuid a, Guid b) => a.guid != b;
-        public static implicit operator SerializableGuid(Guid guid) => new(guid);
-        public static implicit operator SerializableGuid(string serializedGuid) => new(Guid.Parse(serializedGuid));
-        public static implicit operator Guid(SerializableGuid serializable) => serializable.guid;
-        public static implicit operator string(SerializableGuid serializedGuid) => serializedGuid.ToString();
+        public override string ToString()
+        {
+            return _guid.ToString();
+        }
+
+        public static bool operator ==(SerializableGuid a, SerializableGuid b)
+        {
+            return a._guid == b._guid;
+        }
+
+        public static bool operator !=(SerializableGuid a, SerializableGuid b)
+        {
+            return a._guid != b._guid;
+        }
+
+        public static bool operator ==(SerializableGuid a, Guid b)
+        {
+            return a._guid == b;
+        }
+
+        public static bool operator !=(SerializableGuid a, Guid b)
+        {
+            return a._guid != b;
+        }
+
+        public static implicit operator SerializableGuid(Guid guid)
+        {
+            return new(guid);
+        }
+
+        public static implicit operator SerializableGuid(string serializedGuid)
+        {
+            return new(Guid.Parse(serializedGuid));
+        }
+
+        public static implicit operator Guid(SerializableGuid serializable)
+        {
+            return serializable._guid;
+        }
+
+        public static implicit operator string(SerializableGuid serializedGuid)
+        {
+            return serializedGuid.ToString();
+        }
     }
 }

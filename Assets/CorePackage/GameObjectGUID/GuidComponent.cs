@@ -10,7 +10,7 @@ namespace CorePackage.GameObjectGUID
     [DisallowMultipleComponent]
     public partial class GuidComponent : MonoBehaviour
     {
-        [SerializeField] SerializableGuid _instanceGuid;
+        [SerializeField] private SerializableGuid _instanceGuid;
         public Guid InstanceGuid => _instanceGuid;
     }
 }

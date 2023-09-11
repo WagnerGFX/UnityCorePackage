@@ -9,21 +9,21 @@ namespace CorePackage.GameObjectGUID.Editor
     {
         private const string SHOW_LABEL_PREF = "serialized_guid_show_label";
         private const string SHOW_BUTTONS_PREF = "serialized_guid_show_buttons";
-        private static bool s_showLabel;
-        private static bool s_showButtons;
+        private static bool _showLabel;
+        private static bool _showButtons;
 
-        private bool m_createNewGuid = false;
+        private bool _createNewGuid = false;
 
 
         static SerializableGuidPropertyDrawer()
         {
-            s_showLabel = EditorPrefs.GetBool(SHOW_LABEL_PREF, true);
-            s_showButtons = EditorPrefs.GetBool(SHOW_BUTTONS_PREF, true);
+            _showLabel = EditorPrefs.GetBool(SHOW_LABEL_PREF, true);
+            _showButtons = EditorPrefs.GetBool(SHOW_BUTTONS_PREF, true);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            SerializedProperty serializedGuid = property.FindPropertyRelative("serializedGuid");
+            SerializedProperty serializedGuid = property.FindPropertyRelative("_serializedGuid");
 
             //Context Menu
             Event e = Event.current;
@@ -32,16 +32,16 @@ namespace CorePackage.GameObjectGUID.Editor
             {
                 GenericMenu context = new();
                 context.AddItem(new GUIContent("Copy GUID"), false, CopyGuidToClipboard, serializedGuid.stringValue);
-                context.AddItem(new GUIContent("New GUID"), false, () => m_createNewGuid = true);
+                context.AddItem(new GUIContent("New GUID"), false, () => _createNewGuid = true);
                 context.AddSeparator(string.Empty);
-                context.AddItem(new GUIContent("Show Label"), s_showLabel, SwitchCompactView);
-                context.AddItem(new GUIContent("Show Buttons"), s_showButtons, SwitchHideButtons);
+                context.AddItem(new GUIContent("Show Label"), _showLabel, SwitchCompactView);
+                context.AddItem(new GUIContent("Show Buttons"), _showButtons, SwitchHideButtons);
 
                 context.ShowAsContext();
             }
 
             //GUID Display
-            if (s_showLabel)
+            if (_showLabel)
             {
                 EditorGUI.LabelField(position, label.text, serializedGuid.stringValue);
             }
@@ -51,7 +51,7 @@ namespace CorePackage.GameObjectGUID.Editor
             }
 
             //Buttons
-            if (s_showButtons)
+            if (_showButtons)
             {
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Copy GUID"))
@@ -61,15 +61,15 @@ namespace CorePackage.GameObjectGUID.Editor
 
                 if (GUILayout.Button("New GUID"))
                 {
-                    m_createNewGuid = true;
+                    _createNewGuid = true;
                 }
                 GUILayout.EndHorizontal();
             }
 
             // Create new GUID when requested
-            if (m_createNewGuid)
+            if (_createNewGuid)
             {
-                m_createNewGuid = false;
+                _createNewGuid = false;
                 serializedGuid.stringValue = Guid.NewGuid().ToString();
                 serializedGuid.serializedObject.ApplyModifiedProperties();
             }
@@ -77,14 +77,14 @@ namespace CorePackage.GameObjectGUID.Editor
 
         private void SwitchCompactView()
         {
-            s_showLabel = !s_showLabel;
-            EditorPrefs.SetBool(SHOW_LABEL_PREF, s_showLabel);
+            _showLabel = !_showLabel;
+            EditorPrefs.SetBool(SHOW_LABEL_PREF, _showLabel);
         }
 
         private void SwitchHideButtons()
         {
-            s_showButtons = !s_showButtons;
-            EditorPrefs.SetBool(SHOW_BUTTONS_PREF, s_showButtons);
+            _showButtons = !_showButtons;
+            EditorPrefs.SetBool(SHOW_BUTTONS_PREF, _showButtons);
         }
 
         private void CopyGuidToClipboard(object guidString)
