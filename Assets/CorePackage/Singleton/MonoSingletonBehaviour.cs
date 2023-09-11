@@ -9,7 +9,7 @@ namespace CorePackage.Singleton
     public abstract class MonoSingletonBehaviour<T> : MonoBehaviour where T : MonoSingletonBehaviour<T>
     {
         [SerializeField][Tooltip("When active, the GameObject must be at the root of the scene.")]
-        private bool ActivateDontDestroyOnLoad = true;
+        private bool _activateDontDestroyOnLoad = true;
 
         // The object can only be found by searching the scene, preventing static access.
         private static T Instance { get; set; }
@@ -21,12 +21,12 @@ namespace CorePackage.Singleton
 
                 Instance = this as T;
 
-                if (ActivateDontDestroyOnLoad)
+                if (_activateDontDestroyOnLoad)
                 {
                     if (transform.parent == null)
-                        DontDestroyOnLoad(gameObject);
+                    { DontDestroyOnLoad(gameObject); }
                     else
-                        Debug.LogWarning($"The MonoSingletonBehaviour {typeof(T)} must be at the scene's root to call DontDestroyOnLoad()!", this);
+                    { Debug.LogWarning($"The MonoSingletonBehaviour {typeof(T)} must be at the scene's root to call DontDestroyOnLoad()!", this); }
                 }
 
                 AwakeSingleton();

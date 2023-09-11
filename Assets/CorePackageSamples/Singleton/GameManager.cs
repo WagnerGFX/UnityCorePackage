@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.Singleton;
+﻿using CorePackage.Singleton;
+using UnityEngine;
 
 namespace CorePackageSamples.Singleton
 {

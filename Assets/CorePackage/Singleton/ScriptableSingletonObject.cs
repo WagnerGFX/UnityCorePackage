@@ -19,7 +19,7 @@ namespace CorePackage.Singleton
                 Instance = Resources.FindObjectsOfTypeAll<T>().FirstOrDefault();
                 OnEnableSingleton();
             }
-            else if (Resources.FindObjectsOfTypeAll<T>().Count() > 1)
+            else if (Resources.FindObjectsOfTypeAll<T>().Length > 1)
             {
                 Debug.LogWarning($"Multiple instances of the ScriptableSingletonObject {typeof(T)} detected!");
             }
@@ -29,5 +29,5 @@ namespace CorePackage.Singleton
         /// Replacement for OnEnable(). Only called when the instance is valid.
         /// </summary>
         protected virtual void OnEnableSingleton() { }
-    } 
+    }
 }
