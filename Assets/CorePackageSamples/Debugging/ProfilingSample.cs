@@ -1,31 +1,33 @@
+using CorePackage.Debugging.ProfilerAPI;
 using System.Collections;
 using UnityEngine;
-using CorePackage.Debugging.ProfilerAPI;
 
 namespace CorePackageSamples.Debugging
 {
     public class ProfilingSample : MonoBehaviour
     {
-        private WaitForSeconds waitSeconds = new(1f);
+        public float Result { get; private set; }
 
-        void Start()
+        private readonly WaitForSeconds _waitSeconds = new(1f);
+
+        private void Start()
         {
             StartCoroutine(HeavyProcess());
         }
 
-        IEnumerator HeavyProcess()
+        private IEnumerator HeavyProcess()
         {
             while (true)
             {
-                yield return waitSeconds;
+                yield return _waitSeconds;
 
                 ScriptWatcher.Begin(this);
 
-                float result = 0f;
+                Result = 0f;
 
                 for (int i = 0; i < 1000; i++)
                 {
-                    result = Mathf.Sqrt(i) / 7;
+                    Result += Mathf.Sqrt(i) / 7;
                 }
 
                 ScriptWatcher.End();

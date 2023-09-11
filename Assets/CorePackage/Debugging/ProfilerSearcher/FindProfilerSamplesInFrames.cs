@@ -3,18 +3,17 @@
 #if UNITY_2020_1_OR_NEWER
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Profiling;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityEditor.Profiling;
 
 namespace CorePackage.Debugging.ProfilerSearcher
 {
     public class FindProfilerSamplesInFrames : EditorWindow
     {
-        string m_SampleName = "";
-        string previousSearch = string.Empty;
-
-        List<Vector2Int> m_FoundFrames = new List<Vector2Int>();
+        private string _sampleName = "";
+        private string _previousSearch = string.Empty;
+        private readonly List<Vector2Int> _foundFrames = new();
 
 
         [MenuItem("Window/Analysis/Profiler Marker Search")]
@@ -22,7 +21,7 @@ namespace CorePackage.Debugging.ProfilerSearcher
         {
             GetWindow<FindProfilerSamplesInFrames>("Profiler Marker Search");
         }
-        
+
         private void OnGUI()
         {
             EditorGUILayout.LabelField("Use the textbox to search for an specific Marker in all sampled frames.");
@@ -31,33 +30,33 @@ namespace CorePackage.Debugging.ProfilerSearcher
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.PrefixLabel("Marker:");
-            m_SampleName = EditorGUILayout.TextField(m_SampleName);
+            _sampleName = EditorGUILayout.TextField(_sampleName);
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
             bool searchPressed = GUILayout.Button("Search");
 
             if (searchPressed)
             {
-                previousSearch = m_SampleName;
+                _previousSearch = _sampleName;
 
-                m_FoundFrames.Clear();
+                _foundFrames.Clear();
                 for (int frame = ProfilerDriver.firstFrameIndex; frame < ProfilerDriver.lastFrameIndex; frame++)
                 {
-                    var threadIndex = 0;
-                    var frameData = ProfilerDriver.GetRawFrameDataView(frame, threadIndex);
+                    int threadIndex = 0;
+                    RawFrameDataView frameData = ProfilerDriver.GetRawFrameDataView(frame, threadIndex);
 
                     while (frameData.valid)
                     {
-                        var markerId = frameData.GetMarkerId(m_SampleName);
+                        int markerId = frameData.GetMarkerId(_sampleName);
 
-                        if (markerId  == FrameDataView.invalidMarkerId)
-                            break;
+                        if (markerId == FrameDataView.invalidMarkerId)
+                        { break; }
 
                         for (int sampleIndex = 0; sampleIndex < frameData.sampleCount; sampleIndex++)
                         {
                             if (frameData.GetSampleMarkerId(sampleIndex) == markerId)
                             {
-                                m_FoundFrames.Add(new Vector2Int(frame, threadIndex));
+                                _foundFrames.Add(new Vector2Int(frame, threadIndex));
                                 break;
                             }
                         }
@@ -71,15 +70,15 @@ namespace CorePackage.Debugging.ProfilerSearcher
 
 #if UNITY_2021_1_OR_NEWER
 
-            if (previousSearch != string.Empty)
+            if (_previousSearch != string.Empty)
             {
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
                 EditorGUILayout.Space();
-                EditorGUILayout.LabelField($"{m_FoundFrames.Count} result(s) found for: \"{previousSearch}\"");
+                EditorGUILayout.LabelField($"{_foundFrames.Count} result(s) found for: \"{_previousSearch}\"");
             }
 
             GUILayout.BeginHorizontal();
-            for (int i = 0; i < m_FoundFrames.Count; i++)
+            for (int i = 0; i < _foundFrames.Count; i++)
             {
                 if (i % 10 == 0)
                 {
@@ -87,14 +86,12 @@ namespace CorePackage.Debugging.ProfilerSearcher
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
                 }
-                if (GUILayout.Button($"Frame: { m_FoundFrames[i].x} - Thread: { m_FoundFrames[i].y}"))
+                if (GUILayout.Button($"Frame: {_foundFrames[i].x} - Thread: {_foundFrames[i].y}"))
                 {
-                    var window = GetWindow<ProfilerWindow>();
-                    var cpuModule = window.GetFrameTimeViewSampleSelectionController(ProfilerWindow.cpuModuleIdentifier);
-                    using (var frameData = ProfilerDriver.GetRawFrameDataView(m_FoundFrames[i].x, m_FoundFrames[i].y))
-                    {
-                        cpuModule.SetSelection(m_SampleName, m_FoundFrames[i].x, threadId: frameData.threadId);
-                    }
+                    ProfilerWindow window = GetWindow<ProfilerWindow>();
+                    IProfilerFrameTimeViewSampleSelectionController cpuModule = window.GetFrameTimeViewSampleSelectionController(ProfilerWindow.cpuModuleIdentifier);
+                    using RawFrameDataView frameData = ProfilerDriver.GetRawFrameDataView(_foundFrames[i].x, _foundFrames[i].y);
+                    cpuModule.SetSelection(_sampleName, _foundFrames[i].x, threadId: frameData.threadId);
                 }
             }
             GUILayout.EndHorizontal();

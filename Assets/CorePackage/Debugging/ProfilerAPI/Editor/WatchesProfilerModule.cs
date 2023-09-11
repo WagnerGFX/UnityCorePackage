@@ -11,11 +11,11 @@ namespace CorePackage.Debugging.ProfilerAPI.Editor
     [ProfilerModuleMetadata("Watches")]
     public class WatchesProfilerModule : ProfilerModule
     {
-        private static readonly ProfilerCounterDescriptor[] k_Counters =
+        private static readonly ProfilerCounterDescriptor[] _counters =
         {
             new("WatchedScript Calls", ProfilerCategory.Scripts)
         };
 
-        public WatchesProfilerModule() : base(k_Counters) { }
+        public WatchesProfilerModule() : base(_counters) { }
     }
 }

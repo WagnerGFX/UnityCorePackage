@@ -8,8 +8,7 @@ namespace CorePackageSamples.Debugging
     public class ArrowSample : MonoBehaviour
     {
         [SerializeField]
-        Transform target;
-        public Transform Target => target;
-
+        private Transform _target;
+        public Transform Target => _target;
     }
 }

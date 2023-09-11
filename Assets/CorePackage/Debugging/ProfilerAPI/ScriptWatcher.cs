@@ -20,41 +20,41 @@ namespace CorePackage.Debugging.ProfilerAPI
     /// </summary>
     public static class ScriptWatcher
     {
-        private static readonly ProfilerCounterValue<int> profilerMarkerCounter;
-        private static readonly ProfilerMarker profilerMarker;
+        private static readonly ProfilerCounterValue<int> _profilerMarkerCounter;
+        private static readonly ProfilerMarker _profilerMarker;
 
         static ScriptWatcher()
         {
-            profilerMarkerCounter = new(ProfilerCategory.Scripts,
-                                        "WatchedScript Calls",
-                                        ProfilerMarkerDataUnit.Count,
-                                        ProfilerCounterOptions.FlushOnEndOfFrame | ProfilerCounterOptions.ResetToZeroOnFlush);
+            _profilerMarkerCounter = new(ProfilerCategory.Scripts,
+                                         "WatchedScript Calls",
+                                         ProfilerMarkerDataUnit.Count,
+                                         ProfilerCounterOptions.FlushOnEndOfFrame | ProfilerCounterOptions.ResetToZeroOnFlush);
 
-            profilerMarker = new(ProfilerCategory.Scripts,
-                                 "WatchedScript");
+            _profilerMarker = new(ProfilerCategory.Scripts,
+                                  "WatchedScript");
         }
 
         public static void Begin()
         {
-            profilerMarkerCounter.Value++;
-            profilerMarker.Begin();
+            _profilerMarkerCounter.Value++;
+            _profilerMarker.Begin();
         }
 
         public static void Begin(Object contextUnityObject)
         {
-            profilerMarkerCounter.Value++;
-            profilerMarker.Begin(contextUnityObject);
+            _profilerMarkerCounter.Value++;
+            _profilerMarker.Begin(contextUnityObject);
         }
 
         public static void End()
         {
-            profilerMarker.End();
+            _profilerMarker.End();
         }
 
         public static ProfilerMarker.AutoScope Auto()
         {
-            profilerMarkerCounter.Value++;
-            return profilerMarker.Auto();
+            _profilerMarkerCounter.Value++;
+            return _profilerMarker.Auto();
         }
     }
 }
