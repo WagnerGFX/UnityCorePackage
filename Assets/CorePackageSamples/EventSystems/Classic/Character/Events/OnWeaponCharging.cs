@@ -2,7 +2,7 @@ using CorePackage.EventSystems.Classic;
 
 namespace CorePackageSamples.ClassicEvents.Events
 {
-    public struct OnWeaponCharging : IEventArgs
+    public readonly struct OnWeaponCharging : IEventArgs
     {
         /// <summary>
         /// Projectiles per second.
@@ -36,7 +36,7 @@ namespace CorePackageSamples.ClassicEvents.Events
 
             ChargedTime = ChargeCompleteTime * ChargedTimeNormalized;
 
-            IsReady = (ChargedTimeNormalized >= 1f);
+            IsReady = ChargedTimeNormalized >= 1f;
         }
     }
 }

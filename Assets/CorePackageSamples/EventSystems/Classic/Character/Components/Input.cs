@@ -1,5 +1,5 @@
-using CorePackageSamples.ClassicEvents.Events;
 using CorePackage.EventSystems.Classic;
+using CorePackageSamples.ClassicEvents.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,51 +9,51 @@ namespace CorePackageSamples.ClassicEvents.Components
     public sealed class Input : MonoBehaviour, ICharacterComponent
     {
         [SerializeField]
-        private GameInputActionsSO m_gameInput;
+        private GameInputActionsSO _gameInput;
 
-        private IEventManager m_eventManager;
+        private IEventManager _eventManager;
 
 
         private void Awake()
         {
-            m_eventManager = GetComponent<IEventManager>();
+            _eventManager = GetComponent<IEventManager>();
 
-            m_gameInput.PlayerActions.Enable();
+            _gameInput.PlayerActions.Enable();
         }
 
         private void OnEnable()
         {
-            m_gameInput.PlayerActions.Fire.performed += OnFire;
-            m_gameInput.PlayerActions.Fire.canceled += OnFire;
-            m_gameInput.PlayerActions.Move.performed += OnMove;
-            m_gameInput.PlayerActions.Move.canceled += OnMove;
-            m_gameInput.PlayerActions.Pointer.performed += OnPointerMove;
-            m_gameInput.PlayerActions.Exit.performed += OnExit;
+            _gameInput.PlayerActions.Fire.performed += OnFire;
+            _gameInput.PlayerActions.Fire.canceled += OnFire;
+            _gameInput.PlayerActions.Move.performed += OnMove;
+            _gameInput.PlayerActions.Move.canceled += OnMove;
+            _gameInput.PlayerActions.Pointer.performed += OnPointerMove;
+            _gameInput.PlayerActions.Exit.performed += OnExit;
         }
 
         private void OnDisable()
         {
-            m_gameInput.PlayerActions.Fire.performed -= OnFire;
-            m_gameInput.PlayerActions.Fire.canceled -= OnFire;
-            m_gameInput.PlayerActions.Move.performed -= OnMove;
-            m_gameInput.PlayerActions.Move.canceled -= OnMove;
-            m_gameInput.PlayerActions.Pointer.performed += OnPointerMove;
-            m_gameInput.PlayerActions.Exit.performed -= OnExit;
+            _gameInput.PlayerActions.Fire.performed -= OnFire;
+            _gameInput.PlayerActions.Fire.canceled -= OnFire;
+            _gameInput.PlayerActions.Move.performed -= OnMove;
+            _gameInput.PlayerActions.Move.canceled -= OnMove;
+            _gameInput.PlayerActions.Pointer.performed += OnPointerMove;
+            _gameInput.PlayerActions.Exit.performed -= OnExit;
         }
 
         private void OnFire(InputAction.CallbackContext context)
         {
-            m_eventManager.Invoke(new OnInputFireTriggered(context.performed));
+            _eventManager.Invoke(new OnInputFireTriggered(context.performed));
         }
 
         private void OnMove(InputAction.CallbackContext context)
         {
-            m_eventManager.Invoke(new OnInputMoveChanged(context.ReadValue<Vector2>()));
+            _eventManager.Invoke(new OnInputMoveChanged(context.ReadValue<Vector2>()));
         }
 
         private void OnPointerMove(InputAction.CallbackContext context)
         {
-            m_eventManager.Invoke(new OnInputPointerChanged(context.ReadValue<Vector2>()));
+            _eventManager.Invoke(new OnInputPointerChanged(context.ReadValue<Vector2>()));
         }
 
         private void OnExit(InputAction.CallbackContext context)

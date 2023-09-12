@@ -6,24 +6,25 @@ namespace CorePackageSamples.ClassicEvents.Interactions
     public class Bystander : MonoBehaviour, IDamageable
     {
         [SerializeField]
-        private Color m_flashingColor = Color.red;
+        private Color _flashingColor = Color.red;
 
         [SerializeField]
         [Range(0.01f, 5f)]
-        private float m_flashingTime = 0.1f;
+        private float _flashingTime = 0.1f;
 
-        private SpriteRenderer m_renderer;
+        private SpriteRenderer _renderer;
 
-        void Awake()
+        private void Awake()
         {
-            m_renderer = GetComponent<SpriteRenderer>();
+            _renderer = GetComponent<SpriteRenderer>();
         }
 
         public void TakeDamage(IDamager damageSource)
         {
-            m_renderer.DOBlendableColor(m_flashingColor, m_flashingTime)
+            _renderer
+                .DOBlendableColor(_flashingColor, _flashingTime)
                 .SetEase(Ease.InQuad)
                 .SetLoops(2, LoopType.Yoyo);
         }
-    } 
+    }
 }

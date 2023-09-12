@@ -18,29 +18,29 @@ namespace CorePackageSamples.ClassicEvents.Interactions
 
         public Vector2 Direction { get; private set; }
 
-        private Renderer m_renderer;
-        private Rigidbody2D m_rigidbody;
-        private WaitForSeconds m_sleepForOneSec = new(1);
-        private Coroutine m_destructionChecker;
+        private Renderer _renderer;
+        private Rigidbody2D _rigidbody;
+        private readonly WaitForSeconds _sleepForOneSec = new(1);
+        private Coroutine _destructionChecker;
 
 
         private void Awake()
         {
-            m_renderer = GetComponent<Renderer>();
-            m_rigidbody = GetComponent<Rigidbody2D>();
-            m_rigidbody.velocity = transform.right * Speed;
+            _renderer = GetComponent<Renderer>();
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _rigidbody.velocity = transform.right * Speed;
 
-            Direction = m_rigidbody.velocity.normalized;
+            Direction = _rigidbody.velocity.normalized;
 
-            m_destructionChecker = StartCoroutine(CheckForDestruction());
+            _destructionChecker = StartCoroutine(CheckForDestruction());
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 damageable.TakeDamage(this);
-                StopCoroutine(m_destructionChecker);
+                StopCoroutine(_destructionChecker);
                 Destroy(gameObject);
             }
         }
@@ -51,9 +51,9 @@ namespace CorePackageSamples.ClassicEvents.Interactions
 
             for (int i = 0; i < attemptsLimit; i++)
             {
-                yield return m_sleepForOneSec;
+                yield return _sleepForOneSec;
 
-                if (!m_renderer.isVisible)
+                if (!_renderer.isVisible)
                 {
                     Destroy(gameObject);
                     break;

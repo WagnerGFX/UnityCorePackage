@@ -10,7 +10,6 @@ namespace CorePackageSamples.ClassicEvents.Events
         /// </summary>
         public Vector2 AimOrigin { get; private set; }
 
-
         public Vector2 AimDirection { get; private set; }
 
         /// <summary>
@@ -18,8 +17,6 @@ namespace CorePackageSamples.ClassicEvents.Events
         /// </summary>
         public float AimAngle { get; private set; }
 
-        
-        
 
         public OnCharacterRotated(Vector2 originDirection, Vector2 aimDirection, float aimAngle)
         {

@@ -11,40 +11,43 @@ namespace CorePackage.EventSystems.Classic
     public sealed class EventManagerComponent : MonoBehaviour, IEventManagerLocal
     {
         [SerializeField]
-        private EventManagerSO globalEventManager;
+        private EventManagerSO _globalEventManager;
 
         [SerializeField]
         [Tooltip("When the scope is undefined, the manager will send events globally when enabled or locally when disabled.")]
-        private bool prioritizeEventsAsGlobal = true;
+        private bool _prioritizeEventsAsGlobal = true;
 
-        private readonly IEventManager eventManager = new EventManager();
+        private readonly IEventManager _eventManager = new EventManager();
 
         private void Awake()
         {
-            if (!globalEventManager)
-                globalEventManager = Resources.FindObjectsOfTypeAll<EventManagerSO>().FirstOrDefault();
+            if (!_globalEventManager)
+            { _globalEventManager = Resources.FindObjectsOfTypeAll<EventManagerSO>().FirstOrDefault(); }
 
-            globalEventManager?.SubscribeLocalEventManager(eventManager);
+            if (_globalEventManager)
+            { _globalEventManager.SubscribeLocalEventManager(_eventManager); }
         }
 
         private void OnDestroy()
         {
-            globalEventManager?.UnsubscribeLocalEventManager(eventManager);
+            if (_globalEventManager)
+            { _globalEventManager.UnsubscribeLocalEventManager(_eventManager); }
+
             UnsubscribeAll();
         }
 
 
         public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
-            Invoke(eventArgs, prioritizeEventsAsGlobal);
+            Invoke(eventArgs, _prioritizeEventsAsGlobal);
         }
 
         public void Invoke<T>(T eventArgs, bool asGlobal) where T : IEventArgs
         {
-            if (asGlobal && globalEventManager)
-                globalEventManager.Invoke(eventArgs);
+            if (asGlobal && _globalEventManager)
+            { _globalEventManager.Invoke(eventArgs); }
             else
-                eventManager.Invoke(eventArgs);
+            { _eventManager.Invoke(eventArgs); }
         }
 
         public void InvokeGlobal<T>(T eventArgs) where T : IEventArgs
@@ -59,22 +62,22 @@ namespace CorePackage.EventSystems.Classic
 
         public void Subscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            eventManager.Subscribe(listener);
+            _eventManager.Subscribe(listener);
         }
 
         public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            eventManager.Unsubscribe(listener);
+            _eventManager.Unsubscribe(listener);
         }
 
         public void UnsubscribeAll()
         {
-            eventManager.UnsubscribeAll();
+            _eventManager.UnsubscribeAll();
         }
 
         public void UnsubscribeAllOfType<T>() where T : IEventArgs
         {
-            eventManager.UnsubscribeAllOfType<T>();
+            _eventManager.UnsubscribeAllOfType<T>();
         }
     }
 }

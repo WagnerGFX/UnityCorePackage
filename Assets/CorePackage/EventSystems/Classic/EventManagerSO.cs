@@ -10,16 +10,16 @@ namespace CorePackage.EventSystems.Classic
     [CreateAssetMenu(fileName = "GlobalEventManager", menuName = "CorePackage/Global Event Manager", order = 1)]
     public sealed class EventManagerSO : ScriptableObject, IEventManagerGlobal
     {
-        private readonly IEventManager eventManager = new EventManager();
+        private readonly IEventManager _eventManager = new EventManager();
 
-        private readonly List<IEventManager> localEventManagerList = new();
+        private readonly List<IEventManager> _localEventManagerList = new();
 
 
         public void Invoke<T>(T eventArgs) where T : IEventArgs
         {
-            eventManager.Invoke(eventArgs);
+            _eventManager.Invoke(eventArgs);
 
-            foreach (IEventManager eventManager in localEventManagerList)
+            foreach (IEventManager eventManager in _localEventManagerList)
             {
                 if (eventManager is IEventManagerLocal localEventManager)
                 {
@@ -34,34 +34,33 @@ namespace CorePackage.EventSystems.Classic
 
         public void Subscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            eventManager.Subscribe(listener);
+            _eventManager.Subscribe(listener);
         }
 
         public void SubscribeLocalEventManager(IEventManager localEventManager)
         {
-            if (!localEventManagerList.Contains(localEventManager))
-                localEventManagerList.Add(localEventManager);
+            if (!_localEventManagerList.Contains(localEventManager))
+            { _localEventManagerList.Add(localEventManager); }
         }
 
         public void Unsubscribe<T>(Action<T> listener) where T : IEventArgs
         {
-            eventManager.Unsubscribe(listener);
+            _eventManager.Unsubscribe(listener);
         }
 
         public void UnsubscribeAll()
         {
-            eventManager.UnsubscribeAll();
+            _eventManager.UnsubscribeAll();
         }
 
         public void UnsubscribeAllOfType<T>() where T : IEventArgs
         {
-            eventManager.UnsubscribeAllOfType<T>();
+            _eventManager.UnsubscribeAllOfType<T>();
         }
 
         public void UnsubscribeLocalEventManager(IEventManager localEventManager)
         {
-            localEventManagerList.Remove(localEventManager);
+            _localEventManagerList.Remove(localEventManager);
         }
-
     }
 }

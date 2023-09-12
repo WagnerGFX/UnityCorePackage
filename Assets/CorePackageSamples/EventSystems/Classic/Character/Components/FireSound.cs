@@ -1,5 +1,5 @@
-using CorePackageSamples.ClassicEvents.Events;
 using CorePackage.EventSystems.Classic;
+using CorePackageSamples.ClassicEvents.Events;
 using UnityEngine;
 
 namespace CorePackageSamples.ClassicEvents.Components
@@ -9,11 +9,11 @@ namespace CorePackageSamples.ClassicEvents.Components
         [SerializeField]
         private AudioSource _audioSource;
 
-        private IEventManager m_eventManager;
+        private IEventManager _eventManager;
 
         private void Awake()
         {
-            m_eventManager = GetComponent<IEventManager>();
+            _eventManager = GetComponent<IEventManager>();
         }
 
         private void OnValidate()
@@ -23,12 +23,12 @@ namespace CorePackageSamples.ClassicEvents.Components
 
         private void OnEnable()
         {
-            m_eventManager.Subscribe<OnWeaponFired>(PlayWeaponSound);
+            _eventManager.Subscribe<OnWeaponFired>(PlayWeaponSound);
         }
 
         private void OnDisable()
         {
-            m_eventManager.Unsubscribe<OnWeaponFired>(PlayWeaponSound);
+            _eventManager.Unsubscribe<OnWeaponFired>(PlayWeaponSound);
         }
 
         private void PlayWeaponSound(OnWeaponFired eArgs)

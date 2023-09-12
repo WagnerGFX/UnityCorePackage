@@ -1,5 +1,5 @@
-using CorePackageSamples.ClassicEvents.Events;
 using CorePackage.EventSystems.Classic;
+using CorePackageSamples.ClassicEvents.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,49 +9,49 @@ namespace CorePackageSamples.ClassicEvents.Components
     public sealed class Aim : MonoBehaviour, ICharacterComponent
     {
         [SerializeField]
-        private Rigidbody2D m_turretRotator;
+        private Rigidbody2D _turretRotator;
 
-        private IEventManager m_eventManager;
-        private Vector3 m_mouseWorldPosition;
-        private Transform m_turretTransform;
-        private Camera m_mainCamera;
+        private IEventManager _eventManager;
+        private Vector3 _mouseWorldPosition;
+        private Transform _turretTransform;
+        private Camera _mainCamera;
 
 
         private void Awake()
         {
-            m_eventManager = GetComponent<IEventManager>();
-            m_mainCamera = Camera.main;
+            _eventManager = GetComponent<IEventManager>();
+            _mainCamera = Camera.main;
 
-            m_turretTransform = m_turretRotator.transform;
-            m_mouseWorldPosition = m_turretTransform.position + Vector3.right;
+            _turretTransform = _turretRotator.transform;
+            _mouseWorldPosition = _turretTransform.position + Vector3.right;
         }
 
         private void OnValidate()
         {
-            this.AssertObjectField(m_turretRotator, "Turret Rotator");
+            this.AssertObjectField(_turretRotator, "Turret Rotator");
         }
 
         private void OnEnable()
         {
-            m_eventManager.Subscribe<OnInputPointerChanged>(OnPointerMoved);
+            _eventManager.Subscribe<OnInputPointerChanged>(OnPointerMoved);
         }
 
         private void OnDisable()
         {
-            m_eventManager.Unsubscribe<OnInputPointerChanged>(OnPointerMoved);
+            _eventManager.Unsubscribe<OnInputPointerChanged>(OnPointerMoved);
         }
 
         private void FixedUpdate()
         {
-            m_turretTransform.right = m_mouseWorldPosition - m_turretTransform.position;
+            _turretTransform.right = _mouseWorldPosition - _turretTransform.position;
 
-            m_eventManager.Invoke(new OnCharacterRotated(Vector2.right, m_turretTransform.right, m_turretTransform.rotation.eulerAngles.z));
+            _eventManager.Invoke(new OnCharacterRotated(Vector2.right, _turretTransform.right, _turretTransform.rotation.eulerAngles.z));
         }
 
         private void OnPointerMoved(OnInputPointerChanged eArgs)
         {
-            m_mouseWorldPosition = m_mainCamera.ScreenToWorldPoint(Mouse.current.position.value);
-            m_mouseWorldPosition.z = m_turretTransform.position.z;
+            _mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Mouse.current.position.value);
+            _mouseWorldPosition.z = _turretTransform.position.z;
         }
     }
 }
