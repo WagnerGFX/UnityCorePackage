@@ -156,7 +156,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 536678144}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -213,8 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119d1a693af561747be539aea9598298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnToggle: {fileID: 11400000, guid: c56f25d4dec5383438f50186428e6414, type: 2}
-  startDisabled: 1
+  _onToggle: {fileID: 11400000, guid: c56f25d4dec5383438f50186428e6414, type: 2}
+  _startDisabled: 1
 --- !u!114 &373482590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,11 +228,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _channel: {fileID: 11400000, guid: 162a3988a67ada6479a9109fda2b6e09, type: 2}
   _disableWithObject: 0
-  OnEventRaised:
+  _onEventRaised:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 373482589}
-        m_TargetAssemblyTypeName: ToggleImage, Assembly-CSharp
+        m_TargetAssemblyTypeName: CorePackageSamples.UnityEvents.ToggleImage, Assembly-CSharp
         m_MethodName: ToggleConnection
         m_Mode: 0
         m_Arguments:
@@ -275,7 +274,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1717998392}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -414,7 +412,6 @@ RectTransform:
   m_Children:
   - {fileID: 1854667928}
   m_Father: {fileID: 536678144}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -617,7 +614,6 @@ RectTransform:
   - {fileID: 2069937648}
   - {fileID: 373482586}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -673,6 +669,7 @@ MonoBehaviour:
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
@@ -752,13 +749,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019569629}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.0904906, y: -0.47072065, z: 1.1924251}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1260692955
 GameObject:
@@ -793,7 +790,6 @@ RectTransform:
   - {fileID: 2136963085}
   - {fileID: 1722973719}
   m_Father: {fileID: 536678144}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -872,7 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291bb1bf66227ef408276f7e28ea0450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnToggle: {fileID: 11400000, guid: c56f25d4dec5383438f50186428e6414, type: 2}
+  _onToggle: {fileID: 11400000, guid: c56f25d4dec5383438f50186428e6414, type: 2}
 --- !u!1 &1308295348
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,13 +909,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308295348}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1308295352
 MonoBehaviour:
@@ -993,7 +989,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2136963085}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1069,7 +1064,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2060015535}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1206,7 +1200,6 @@ RectTransform:
   m_Children:
   - {fileID: 404212256}
   m_Father: {fileID: 536678144}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1338,7 +1331,6 @@ RectTransform:
   m_Children:
   - {fileID: 1996107166}
   m_Father: {fileID: 1260692956}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1376,7 +1368,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 435586389}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1511,7 +1502,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1722973719}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1648,7 +1638,6 @@ RectTransform:
   m_Children:
   - {fileID: 1471722537}
   m_Father: {fileID: 536678144}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1783,7 +1772,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 536678144}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1840,8 +1828,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119d1a693af561747be539aea9598298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnToggle: {fileID: 11400000, guid: c56f25d4dec5383438f50186428e6414, type: 2}
-  startDisabled: 0
+  _onToggle: {fileID: 11400000, guid: c56f25d4dec5383438f50186428e6414, type: 2}
+  _startDisabled: 0
 --- !u!114 &2069937652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,11 +1844,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _channel: {fileID: 11400000, guid: 162a3988a67ada6479a9109fda2b6e09, type: 2}
   _disableWithObject: 0
-  OnEventRaised:
+  _onEventRaised:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2069937651}
-        m_TargetAssemblyTypeName: ToggleImage, Assembly-CSharp
+        m_TargetAssemblyTypeName: CorePackageSamples.UnityEvents.ToggleImage, Assembly-CSharp
         m_MethodName: ToggleConnection
         m_Mode: 0
         m_Arguments:
@@ -1903,7 +1891,6 @@ RectTransform:
   m_Children:
   - {fileID: 1360172216}
   m_Father: {fileID: 1260692956}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1948,3 +1935,10 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136963084}
   m_CullTransparentMesh: 1
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1019569633}
+  - {fileID: 536678144}
+  - {fileID: 1308295351}

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -7,5 +7,6 @@ namespace CorePackageSamples.UnityEvents
     /// Event SO that allows one argument: float
     /// </summary>
     [CreateAssetMenu(menuName = EventsConsts.MENU_EVENT_CHANNELS + "Basic Float Event", order = 18)]
-    public class BasicFloatEventChannelSO : BaseEventChannelSO<float> { } 
+    public class BasicFloatEventChannelSO : BaseEventChannelSO<float>
+    { }
 }

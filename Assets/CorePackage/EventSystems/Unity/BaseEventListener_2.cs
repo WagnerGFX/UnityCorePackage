@@ -15,7 +15,7 @@ namespace CorePackage.EventSystems.Unity
         private bool _disableWithObject;
 
         [SerializeField]
-        private UnityEvent<TValue, TSender> OnEventRaised;
+        private UnityEvent<TValue, TSender> _onEventRaised;
 
         private void OnEnable()
         {
@@ -25,18 +25,18 @@ namespace CorePackage.EventSystems.Unity
         private void OnDisable()
         {
             if (_disableWithObject)
-                _channel?.Unsubscribe(Respond);
+            { _channel?.Unsubscribe(Respond); }
         }
 
         private void OnDestroy()
         {
             if (!_disableWithObject)
-                _channel?.Unsubscribe(Respond);
+            { _channel?.Unsubscribe(Respond); }
         }
 
         private void Respond(TValue value, TSender sender)
         {
-            OnEventRaised?.Invoke(value, sender);
+            _onEventRaised?.Invoke(value, sender);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -8,7 +8,5 @@ namespace CorePackageSamples.UnityEvents
     /// </summary>
     [AddComponentMenu(EventsConsts.MENU_EVENT_LISTENERS + "Bool Listener", 1)]
     public class BoolEventListener : BaseEventListener<BoolEventChannelSO, bool, object>
-    {
-
-    }
+    { }
 }

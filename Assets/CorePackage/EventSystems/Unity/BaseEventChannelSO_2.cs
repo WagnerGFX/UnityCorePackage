@@ -8,11 +8,12 @@ namespace CorePackage.EventSystems.Unity
     /// <summary>
     /// Event channel with dedicated parameters for value and sender. Can't be connected directly from the inspector.
     /// </summary>
-    public abstract class BaseEventChannelSO<TValue,TSender> : ScriptableObject
+    public abstract class BaseEventChannelSO<TValue, TSender> : ScriptableObject
     {
 #if UNITY_EDITOR
-        [SerializeField] [TextArea]
-        private string editorDescription;
+        [SerializeField]
+        [TextArea]
+        private string _editorDescription;
 #endif
 
         private event UnityAction<TValue, TSender> EventChannel;
@@ -31,7 +32,7 @@ namespace CorePackage.EventSystems.Unity
                 OnEventRaised?.Invoke(this, value, sender, EventChannel.GetInvocationList());
             }
             else
-                OnEventRaisedWithNoListeners?.Invoke(this, value, sender);
+            { OnEventRaisedWithNoListeners?.Invoke(this, value, sender); }
         }
 
         public bool Subscribe(UnityAction<TValue, TSender> action)
@@ -39,7 +40,7 @@ namespace CorePackage.EventSystems.Unity
             bool canSubscribe = !IsSubscribed(action);
 
             if (canSubscribe)
-                EventChannel += action;
+            { EventChannel += action; }
 
             OnEventSubscribed?.Invoke(this, action, canSubscribe);
             return canSubscribe;
@@ -50,7 +51,7 @@ namespace CorePackage.EventSystems.Unity
             bool wasSubscribed = IsSubscribed(action);
 
             if (wasSubscribed)
-                EventChannel -= action;
+            { EventChannel -= action; }
 
             OnEventUnsubscribed?.Invoke(this, action, wasSubscribed);
             return wasSubscribed;
@@ -61,7 +62,7 @@ namespace CorePackage.EventSystems.Unity
             if (EventChannel != null && EventChannel.GetInvocationList() != null)
             {
                 foreach (Delegate eventDelegate in EventChannel.GetInvocationList())
-                    EventChannel -= eventDelegate as UnityAction<TValue, TSender>;
+                { EventChannel -= eventDelegate as UnityAction<TValue, TSender>; }
             }
 
             OnEventListenersCleared?.Invoke(this, sender);
@@ -72,8 +73,10 @@ namespace CorePackage.EventSystems.Unity
             bool isSubscribed = false;
 
             if (EventChannel != null && EventChannel.GetInvocationList() != null)
+            {
                 if (EventChannel.GetInvocationList().Contains(action))
-                    isSubscribed = true;
+                { isSubscribed = true; }
+            }
 
             return isSubscribed;
         }

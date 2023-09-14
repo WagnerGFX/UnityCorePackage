@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -7,5 +7,6 @@ namespace CorePackageSamples.UnityEvents
     /// Event SO that allows one argument: object. Useful to send the event caller as argument.
     /// </summary>
     [CreateAssetMenu(menuName = EventsConsts.MENU_EVENT_CHANNELS + "Basic Object Event", order = 19)]
-    public class BasicObjectEventChannelSO : BaseEventChannelSO<object> { } 
+    public class BasicObjectEventChannelSO : BaseEventChannelSO<object>
+    { }
 }

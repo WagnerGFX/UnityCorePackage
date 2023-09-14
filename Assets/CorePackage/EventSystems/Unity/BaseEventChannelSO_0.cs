@@ -12,7 +12,7 @@ namespace CorePackage.EventSystems.Unity
     {
 #if UNITY_EDITOR
         [SerializeField] [TextArea]
-        private string editorDescription;
+        private string _editorDescription;
 #endif
 
         private event UnityAction EventChannel;
@@ -31,7 +31,7 @@ namespace CorePackage.EventSystems.Unity
                 OnEventRaised?.Invoke(this, EventChannel.GetInvocationList());
             }
             else
-                OnEventRaisedWithNoListeners?.Invoke(this);
+            { OnEventRaisedWithNoListeners?.Invoke(this); }
         }
 
         public bool Subscribe(UnityAction action)
@@ -39,7 +39,7 @@ namespace CorePackage.EventSystems.Unity
             bool canSubscribe = !IsSubscribed(action);
 
             if (canSubscribe)
-                EventChannel += action;
+            { EventChannel += action; }
 
             OnEventSubscribed?.Invoke(this, action, canSubscribe);
             return canSubscribe;
@@ -50,7 +50,7 @@ namespace CorePackage.EventSystems.Unity
             bool wasSubscribed = IsSubscribed(action);
 
             if (wasSubscribed)
-                EventChannel -= action;
+            { EventChannel -= action; }
 
             OnEventUnsubscribed?.Invoke(this, action, wasSubscribed);
             return wasSubscribed;
@@ -61,7 +61,7 @@ namespace CorePackage.EventSystems.Unity
             if (EventChannel != null && EventChannel.GetInvocationList() != null)
             {
                 foreach (Delegate eventDelegate in EventChannel.GetInvocationList())
-                    EventChannel -= eventDelegate as UnityAction;
+                { EventChannel -= eventDelegate as UnityAction; }
             }
 
             OnEventListenersCleared?.Invoke(this, sender);
@@ -72,8 +72,10 @@ namespace CorePackage.EventSystems.Unity
             bool isSubscribed = false;
 
             if (EventChannel != null && EventChannel.GetInvocationList() != null)
+            {
                 if (EventChannel.GetInvocationList().Contains(action))
-                    isSubscribed = true;
+                { isSubscribed = true; }
+            }
 
             return isSubscribed;
         }

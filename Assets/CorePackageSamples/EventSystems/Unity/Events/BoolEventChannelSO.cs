@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
-using System.Runtime.CompilerServices;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -9,11 +8,5 @@ namespace CorePackageSamples.UnityEvents
     /// </summary>
     [CreateAssetMenu(menuName = EventsConsts.MENU_EVENT_CHANNELS + "Bool Event", order = 1)]
     public class BoolEventChannelSO : BaseEventChannelSO<bool, object>
-    {
-        public void RaiseEvent(bool value, [CallerMemberName] string ttt ="")
-        {
-            Debug.Log(ttt);
-            RaiseEvent(value, ttt);
-        }
-    } 
+    { }
 }

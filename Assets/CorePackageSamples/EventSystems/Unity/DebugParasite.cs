@@ -9,22 +9,22 @@ namespace CorePackageSamples.UnityEvents
     public class DebugParasite : MonoBehaviour
     {
         [SerializeField]
-        BasicGameObjectEventChannelSO OnToggle;
+        BasicGameObjectEventChannelSO _onToggle;
 
         void OnEnable()
         {
-            OnToggle.OnEventRaised += EventDebugUtilities.DebugRaisedEvent;
-            OnToggle.OnEventRaisedWithNoListeners += EventDebugUtilities.DebugRaisedEventWithNoListeners;
-            OnToggle.OnEventSubscribed += EventDebugUtilities.DebugSubscribed;
-            OnToggle.OnEventUnsubscribed += EventDebugUtilities.DebugUnsubscribed;
+            _onToggle.OnEventRaised += EventDebugUtilities.DebugRaisedEvent;
+            _onToggle.OnEventRaisedWithNoListeners += EventDebugUtilities.DebugRaisedEventWithNoListeners;
+            _onToggle.OnEventSubscribed += EventDebugUtilities.DebugSubscribed;
+            _onToggle.OnEventUnsubscribed += EventDebugUtilities.DebugUnsubscribed;
         }
 
         void OnDisable()
         {
-            OnToggle.OnEventRaised -= EventDebugUtilities.DebugRaisedEvent;
-            OnToggle.OnEventRaisedWithNoListeners -= EventDebugUtilities.DebugRaisedEventWithNoListeners;
-            OnToggle.OnEventSubscribed -= EventDebugUtilities.DebugSubscribed;
-            OnToggle.OnEventUnsubscribed -= EventDebugUtilities.DebugUnsubscribed;
+            _onToggle.OnEventRaised -= EventDebugUtilities.DebugRaisedEvent;
+            _onToggle.OnEventRaisedWithNoListeners -= EventDebugUtilities.DebugRaisedEventWithNoListeners;
+            _onToggle.OnEventSubscribed -= EventDebugUtilities.DebugSubscribed;
+            _onToggle.OnEventUnsubscribed -= EventDebugUtilities.DebugUnsubscribed;
         }
     }
 }

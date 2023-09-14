@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -7,5 +7,6 @@ namespace CorePackageSamples.UnityEvents
     /// Event SO that allows two arguments: object, object
     /// </summary>
     [CreateAssetMenu(menuName = EventsConsts.MENU_EVENT_CHANNELS + "Object Event", order = 2)]
-    public class ObjectEventChannelSO : BaseEventChannelSO<object, object> { } 
+    public class ObjectEventChannelSO : BaseEventChannelSO<object, object>
+    { }
 }

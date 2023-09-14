@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -7,5 +7,6 @@ namespace CorePackageSamples.UnityEvents
     /// Event SO with no arguments.
     /// </summary>
     [CreateAssetMenu(menuName = EventsConsts.MENU_EVENT_CHANNELS + "Anonymous Event", order = 21)]
-    public class AnonymousEventChannelSO : BaseEventChannelSO { } 
+    public class AnonymousEventChannelSO : BaseEventChannelSO
+    { }
 }

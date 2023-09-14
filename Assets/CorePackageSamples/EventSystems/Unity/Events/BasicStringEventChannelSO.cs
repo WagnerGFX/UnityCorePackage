@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using CorePackage.EventSystems.Unity;
+﻿using CorePackage.EventSystems.Unity;
+using UnityEngine;
 
 namespace CorePackageSamples.UnityEvents
 {
@@ -7,5 +7,6 @@ namespace CorePackageSamples.UnityEvents
     /// Event SO that allows one argument: string
     /// </summary>
     [CreateAssetMenu(menuName = EventsConsts.MENU_EVENT_CHANNELS + "Basic String Event", order = 18)]
-    public class BasicStringEventChannelSO : BaseEventChannelSO<string> { } 
+    public class BasicStringEventChannelSO : BaseEventChannelSO<string>
+    { }
 }

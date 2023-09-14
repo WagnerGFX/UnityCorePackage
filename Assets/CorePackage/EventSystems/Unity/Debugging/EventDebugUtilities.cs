@@ -1,9 +1,7 @@
 using System;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// Used to debug events by subscribing to BaseEventChannelSO debugging events.
@@ -51,38 +49,68 @@ namespace CorePackage.EventSystems.Unity.Debugging
 
         private static void InnerDebugRaisedEvent(ScriptableObject eventChannel, object value, object sender, Delegate[] invocationList)
         {
-            var debugInfo = new StringBuilder();
+            StringBuilder debugInfo = new();
 
             //Event Channel
-            debugInfo.Append($"Event Channel: {GetUnityObjectInfo(eventChannel)}");
+            debugInfo
+                .Append("Event Channel: ")
+                .Append(GetUnityObjectInfo(eventChannel));
 
             //Status
             if (invocationList is not null)
-                debugInfo.Append($"\nRaised event with {invocationList.Length} listener(s)");
+            {
+                debugInfo
+                    .Append("\nRaised event with ")
+                    .Append(invocationList.Length)
+                    .Append(" listener(s)");
+            }
             else
+            {
                 debugInfo.Append("\nRaised event with no listeners");
+            }
 
             //Sender
             if (sender is not null and UnityEngine.Object)
-                debugInfo.Append($"\nSender: {GetUnityObjectInfo(sender)}");
+            {
+                debugInfo
+                    .Append("\nSender: ")
+                    .Append(GetUnityObjectInfo(sender));
+            }
             else if (sender is not null)
-                debugInfo.Append($"\nSender: {sender}");
+            {
+                debugInfo
+                    .Append("\nSender: ")
+                    .Append(sender);
+            }
 
             //Value
             if (value is not null and UnityEngine.Object)
-                debugInfo.Append($"\nValue: {GetUnityObjectInfo(value)}");
+            {
+                debugInfo
+                    .Append("\nValue: ")
+                    .Append(GetUnityObjectInfo(value));
+            }
             else if (value is not null)
-                debugInfo.Append($"\nValue: {value}");
+            {
+                debugInfo
+                    .Append("\nValue: ")
+                    .Append(value);
+            }
 
             //Invocation List
             if (invocationList is not null)
             {
-                debugInfo.Append($"\nInvocation List:");
+                debugInfo.Append("\nInvocation List:");
 
                 foreach (Delegate del in invocationList)
                 {
                     string targetOwnerInfo = GetUnityObjectInfo(del.Target);
-                    debugInfo.Append($"\n    => {targetOwnerInfo}{del.Target.GetType().FullName} :: {del.Method}");
+                    debugInfo
+                        .Append("\n    => ")
+                        .Append(targetOwnerInfo)
+                        .Append(del.Target.GetType().FullName)
+                        .Append(" :: ")
+                        .Append(del.Method);
                 }
             }
 
@@ -91,19 +119,27 @@ namespace CorePackage.EventSystems.Unity.Debugging
 
         private static void InnerDebugSubscription(ScriptableObject eventChannel, bool isSubscribing, Delegate action, bool success)
         {
-            var debugInfo = new StringBuilder();
+            StringBuilder debugInfo = new();
 
             //Event Channel
-            debugInfo.Append($"Event Channel: {GetUnityObjectInfo(eventChannel)}");
+            debugInfo
+                .Append("Event Channel: ")
+                .Append(GetUnityObjectInfo(eventChannel));
 
             //Subscription State
-            debugInfo.Append(isSubscribing ? "\nSubscribed" : "\nUnsubscribed");
-            debugInfo.Append(" with the status: ");
-            debugInfo.Append(success ? "Success" : "Failed");
+            debugInfo
+                .Append(isSubscribing ? "\nSubscribed" : "\nUnsubscribed")
+                .Append(" with the status: ")
+                .Append(success ? "Success" : "Failed");
 
             //Action
             string targetOwnerInfo = GetUnityObjectInfo(action.Target);
-            debugInfo.Append($"\n    => {targetOwnerInfo}{action.Target.GetType().FullName} :: {action.Method}");
+            debugInfo
+                .Append("\n    => ")
+                .Append(targetOwnerInfo)
+                .Append(action.Target.GetType().FullName)
+                .Append(" :: ")
+                .Append(action.Method);
 
             Debug.Log(debugInfo.ToString());
         }
@@ -111,12 +147,16 @@ namespace CorePackage.EventSystems.Unity.Debugging
 
         private static string GetUnityObjectInfo(object target) => target switch
         {   // Extension methods don't follow Inheritance. Actual class must be defined.
-            MonoBehaviour typedTarget => typedTarget.GetDebugInfo(),
-            GameObject typedTarget => typedTarget.GetDebugInfo(),
-            ScriptableObject typedTarget => typedTarget.GetDebugInfo(),
-            UnityEngine.Object typedTarget => typedTarget.GetDebugInfo(),
-            _ => target.GetDebugInfo(),
+            MonoBehaviour typedTarget
+                => typedTarget.GetDebugInfo(),
+            GameObject typedTarget
+                => typedTarget.GetDebugInfo(),
+            ScriptableObject typedTarget
+                => typedTarget.GetDebugInfo(),
+            UnityEngine.Object typedTarget
+                => typedTarget.GetDebugInfo(),
+            _
+                => target.GetDebugInfo()
         };
-
     }
 }

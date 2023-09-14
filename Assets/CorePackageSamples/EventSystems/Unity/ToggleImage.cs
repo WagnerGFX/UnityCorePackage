@@ -5,15 +5,15 @@ namespace CorePackageSamples.UnityEvents
     public class ToggleImage : MonoBehaviour
     {
         [SerializeField]
-        BasicGameObjectEventChannelSO OnToggle;
+        private BasicGameObjectEventChannelSO _onToggle;
 
         [SerializeField]
-        private bool startDisabled = false;
+        private bool _startDisabled = false;
 
         private void Start()
         {
-            if (startDisabled)
-                gameObject.SetActive(false);
+            if (_startDisabled)
+            { gameObject.SetActive(false); }
         }
 
         public void ToggleObject(GameObject sender)
@@ -24,13 +24,9 @@ namespace CorePackageSamples.UnityEvents
         public void ToggleConnection(bool connect)
         {
             if (connect)
-            {
-                OnToggle.Subscribe(ToggleObject);
-            }
+            { _onToggle.Subscribe(ToggleObject); }
             else
-            {
-                OnToggle.Unsubscribe(ToggleObject);
-            }
+            { _onToggle.Unsubscribe(ToggleObject); }
         }
     }
 }
