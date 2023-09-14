@@ -4,6 +4,10 @@ root = true
 # C# files
 [*.cs]
 
+# IDE0017 Use object initializers
+# Reason: Simple style choice.
+dotnet_diagnostic.IDE0017.severity = silent
+
 # Roslynator Analyzer supressors
 # It's a great Analyzer, but does not understand Unity very well
 

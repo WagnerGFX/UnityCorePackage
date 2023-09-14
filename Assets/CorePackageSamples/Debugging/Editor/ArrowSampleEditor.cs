@@ -7,7 +7,9 @@ namespace CorePackageSamples.Debugging
     public class ArrowSampleEditor : Editor
     {
         [DrawGizmo(GizmoType.Selected | GizmoType.Active | GizmoType.NotInSelectionHierarchy)]
+#pragma warning disable IDE0060, IDE0051 // Unused private member and parameter, used by DrawGizmo
         private static void OnDrawGizmos(ArrowSample myScript, GizmoType gizmoType)
+#pragma warning restore IDE0060, IDE0051
         {
             if (myScript.Target != null)
             {
