@@ -3,39 +3,40 @@ using UnityEngine;
 
 namespace CorePackage.StateMachine.ScriptableObjects
 {
-	[CreateAssetMenu(fileName = "NewState", menuName = "CorePackage/State Machine/State", order = 1)]
-	public class StateSO : ScriptableObject
-	{
-		[SerializeField] private StateActionSO[] _actions = null;
+    [CreateAssetMenu(fileName = "NewState", menuName = "CorePackage/State Machine/State", order = 1)]
+    public class StateSO : ScriptableObject
+    {
+        [SerializeField] private StateActionSO[] _actions = null;
 
-		/// <summary>
-		/// Will create a new state or return an existing one inside <paramref name="createdInstances"/>.
-		/// </summary>
-		internal State GetState(StateMachine stateMachine, Dictionary<ScriptableObject, object> createdInstances)
-		{
-			if (createdInstances.TryGetValue(this, out var obj))
-				return (State)obj;
+        /// <summary>
+        /// Will create a new state or return an existing one inside <paramref name="createdInstances"/>.
+        /// </summary>
+        internal State GetState(StateMachine stateMachine, Dictionary<ScriptableObject, object> createdInstances)
+        {
+            if (createdInstances.TryGetValue(this, out object obj))
+            { return (State)obj; }
 
-			var state = new State();
-			createdInstances.Add(this, state);
+            State state = new();
+            createdInstances.Add(this, state);
 
-			state._originSO = this;
-			state._stateMachine = stateMachine;
-			state._transitions = new StateTransition[0];
-			state._actions = GetActions(_actions, stateMachine, createdInstances);
+            state._originSO = this;
+            state._stateMachine = stateMachine;
+            state._transitions = new StateTransition[0];
+            state._actions = GetActions(_actions, stateMachine, createdInstances);
 
-			return state;
-		}
+            return state;
+        }
 
-		private static StateAction[] GetActions(StateActionSO[] scriptableActions,
-			StateMachine stateMachine, Dictionary<ScriptableObject, object> createdInstances)
-		{
-			int count = scriptableActions.Length;
-			var actions = new StateAction[count];
-			for (int i = 0; i < count; i++)
-				actions[i] = scriptableActions[i].GetAction(stateMachine, createdInstances);
+        private static StateAction[] GetActions(StateActionSO[] scriptableActions,
+            StateMachine stateMachine, Dictionary<ScriptableObject, object> createdInstances)
+        {
+            int count = scriptableActions.Length;
+            StateAction[] actions = new StateAction[count];
 
-			return actions;
-		}
-	}
+            for (int i = 0; i < count; i++)
+            { actions[i] = scriptableActions[i].GetAction(stateMachine, createdInstances); }
+
+            return actions;
+        }
+    }
 }

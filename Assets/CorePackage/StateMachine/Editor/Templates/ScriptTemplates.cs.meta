@@ -4,8 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - stateAction: {fileID: 4900000, guid: 75abba5076537d04c8de8828c9480707, type: 3}
-  - stateCondition: {fileID: 4900000, guid: f6f5484924a0d694aaf7463d23e6c1b0, type: 3}
+  - _stateAction: {fileID: 4900000, guid: 75abba5076537d04c8de8828c9480707, type: 3}
+  - _stateCondition: {fileID: 4900000, guid: f6f5484924a0d694aaf7463d23e6c1b0, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

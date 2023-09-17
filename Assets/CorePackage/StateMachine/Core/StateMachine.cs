@@ -8,95 +8,96 @@ namespace CorePackage.StateMachine
     /// The main FSM component. Holds the <see cref="TransitionTableSO"/> and caches component requests
     /// </summary>
     public class StateMachine : MonoBehaviour
-	{
-		[Tooltip("Set the initial state of this StateMachine")]
-		[SerializeField] private ScriptableObjects.TransitionTableSO _transitionTableSO = default;
+    {
+        [Tooltip("Set the initial state of this StateMachine")]
+        [SerializeField] private ScriptableObjects.TransitionTableSO _transitionTableSO = default;
 
 #if UNITY_EDITOR
-		[Space]
-		[SerializeField]
-		internal Debugging.StateMachineDebugger _debugger = default;
+        [Space]
+        [SerializeField]
+        internal Debugging.StateMachineDebugger _debugger = default;
 #endif
 
-		private readonly Dictionary<Type, Component> _cachedComponents = new Dictionary<Type, Component>();
-		internal State _currentState;
+        private readonly Dictionary<Type, Component> _cachedComponents = new();
+        internal State _currentState;
 
-		private void Awake()
-		{
-			_currentState = _transitionTableSO.GetInitialState(this);
+        private void Awake()
+        {
+            _currentState = _transitionTableSO.GetInitialState(this);
 #if UNITY_EDITOR
-			_debugger.Awake(this);
+            _debugger.Awake(this);
 #endif
-		}
+        }
 
 #if UNITY_EDITOR
-		private void OnEnable()
-		{
-			UnityEditor.AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
-		}
+        private void OnEnable()
+        {
+            UnityEditor.AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
+        }
 
-		private void OnAfterAssemblyReload()
-		{
-			_currentState = _transitionTableSO.GetInitialState(this);
-			_debugger.Awake(this);
-		}
+        private void OnAfterAssemblyReload()
+        {
+            _currentState = _transitionTableSO.GetInitialState(this);
+            _debugger.Awake(this);
+        }
 
-		private void OnDisable()
-		{
-			UnityEditor.AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
-		}
+        private void OnDisable()
+        {
+            UnityEditor.AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
+        }
 #endif
 
-		private void Start()
-		{
-			_currentState.OnStateEnter();
-		}
+        private void Start()
+        {
+            _currentState.OnStateEnter();
+        }
 
-		public new bool TryGetComponent<T>(out T component) where T : Component
-		{
-			var type = typeof(T);
-			if (!_cachedComponents.TryGetValue(type, out var value))
-			{
-				if (base.TryGetComponent<T>(out component))
-					_cachedComponents.Add(type, component);
+        public new bool TryGetComponent<T>(out T component) where T : Component
+        {
+            Type type = typeof(T);
+            if (!_cachedComponents.TryGetValue(type, out Component value))
+            {
+                if (base.TryGetComponent<T>(out component))
+                { _cachedComponents.Add(type, component); }
 
-				return component != null;
-			}
+                return component != null;
+            }
 
-			component = (T)value;
-			return true;
-		}
+            component = (T)value;
+            return true;
+        }
 
-		public T GetOrAddComponent<T>() where T : Component
-		{
-			if (!TryGetComponent<T>(out var component))
-			{
-				component = gameObject.AddComponent<T>();
-				_cachedComponents.Add(typeof(T), component);
-			}
+        public T GetOrAddComponent<T>() where T : Component
+        {
+            if (!TryGetComponent<T>(out T component))
+            {
+                component = gameObject.AddComponent<T>();
+                _cachedComponents.Add(typeof(T), component);
+            }
 
-			return component;
-		}
+            return component;
+        }
 
-		public new T GetComponent<T>() where T : Component
-		{
-			return TryGetComponent(out T component)
-				? component : throw new InvalidOperationException($"{typeof(T).Name} not found in {name}.");
-		}
+        public new T GetComponent<T>() where T : Component
+        {
+            return TryGetComponent(out T component)
+                ? component
+                : throw new InvalidOperationException($"{typeof(T).Name} not found in {name}.");
+        }
 
-		private void Update()
-		{
-			if (_currentState.TryGetTransition(out var transitionState))
-				Transition(transitionState);
+        private void Update()
+        {
+            if (_currentState.TryGetTransition(out State transitionState))
+            { Transition(transitionState); }
 
-			_currentState.OnUpdate();
-		}
+            _currentState.OnUpdate();
+        }
 
-		private void Transition(State transitionState)
-		{
-			_currentState.OnStateExit();
-			_currentState = transitionState;
-			_currentState.OnStateEnter();
-		}
-	}
+        private void Transition(State transitionState)
+        {
+            _currentState.OnStateExit();
+            _currentState = transitionState;
+            _currentState.OnStateEnter();
+        }
+    }
 }
