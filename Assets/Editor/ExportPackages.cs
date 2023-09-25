@@ -5,7 +5,6 @@ namespace CorePackage
 {
     public static class ExportPackages
     {
-        //TODO: Add dependencies to Utilities
         private static string _outputFolder;
 
         [MenuItem("Tools/Export UnityPackages")]
@@ -56,7 +55,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - Debugging.unitypackage",
+                _outputFolder + "CorePackage_Debugging.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -72,7 +71,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - EventSystems Classic.unitypackage",
+                _outputFolder + "CorePackage_EventSystems Classic.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -85,7 +84,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - EventSystems Unity.unitypackage",
+                _outputFolder + "CorePackage_EventSystems Unity.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -98,7 +97,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - GameObjectGUID.unitypackage",
+                _outputFolder + "CorePackage_GameObjectGUID.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -112,7 +111,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - ScriptTemplates.unitypackage",
+                _outputFolder + "CorePackage_ScriptTemplates.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -125,7 +124,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - Singleton.unitypackage",
+                _outputFolder + "CorePackage_Singleton.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -137,7 +136,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - StateMachine.unitypackage",
+                _outputFolder + "CorePackage_StateMachine.unitypackage",
                 ExportPackageOptions.Recurse);
         }
 
@@ -149,7 +148,7 @@ namespace CorePackage
 
             AssetDatabase.ExportPackage(
                 exportAssets,
-                _outputFolder + "CorePackage - Utilities.unitypackage",
+                _outputFolder + "CorePackage_Utilities.unitypackage",
                 ExportPackageOptions.Recurse);
         }
     }
