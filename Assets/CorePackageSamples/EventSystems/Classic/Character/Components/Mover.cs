@@ -42,14 +42,22 @@ namespace CorePackageSamples.ClassicEvents.Components
         {
             if (_rigidbody.position != _previousPosition)
             {
+#if UNITY_6000_0_OR_NEWER
+                _eventManager.Invoke(new OnCharacterMoved(_rigidbody.position, _rigidbody.linearVelocity.normalized, _rigidbody.linearVelocity.magnitude));
+#else
                 _eventManager.Invoke(new OnCharacterMoved(_rigidbody.position, _rigidbody.velocity.normalized, _rigidbody.velocity.magnitude));
+#endif
                 _previousPosition = _rigidbody.position;
             }
         }
 
         private void OnMoveChanged(OnInputMoveChanged eArgs)
         {
+#if UNITY_6000_0_OR_NEWER
+            _rigidbody.linearVelocity = _movementSpeed * eArgs.MoveDirection;
+#else
             _rigidbody.velocity = _movementSpeed * eArgs.MoveDirection;
+#endif
         }
     }
 }

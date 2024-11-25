@@ -28,9 +28,14 @@ namespace CorePackageSamples.ClassicEvents.Interactions
         {
             _renderer = GetComponent<Renderer>();
             _rigidbody = GetComponent<Rigidbody2D>();
-            _rigidbody.velocity = transform.right * Speed;
 
+#if UNITY_6000_0_OR_NEWER
+            _rigidbody.linearVelocity = transform.right * Speed;
+            Direction = _rigidbody.linearVelocity.normalized;
+#else
+            _rigidbody.velocity = transform.right * Speed;
             Direction = _rigidbody.velocity.normalized;
+#endif
 
             _destructionChecker = StartCoroutine(CheckForDestruction());
         }
