@@ -25,10 +25,18 @@ The project can be installed in an existing Unity project using the .unitypackag
 
 After applying the package, also install any relevant packages listed in the Requirements.
 
-## Compilation
+## Project Compilation
 If you forked or cloned the whole project, then use the menu **Tools > Export UnityPackages** to automatically generate all unitypackage files.
 
-## Overview
+## User Contributions
+> ⚠ This is a personal project that I am sharing with the community and have little intention to actively maintain with new features.
+> 
+> Consider this plugin as one to apply in your project and improve for your own needs.
+
+You are free to open new issues/PRs for bugfixes or features, but be aware that I might deny them.
+</br>If the influx is too big I might decide to disable Issues and PRs altogether.
+
+## Features Overview
 
 ### Debugging > DrawArrow [^arrow]
 Allows to draw a simple arrow made of lines using Gizmo or Debug.
@@ -68,9 +76,9 @@ Limitations:
 
 ### Script Templates
 - Fully customized script template creation.
-- Uses individual methods for each template tag.
-- Allows to use your own tags or override existing behavior.
-- Can change the default script creation behavior from beggining to end.
+- Uses individual methods to process each tag in a template.
+- Can inject your own behavior to process tags or override existing behaviors.
+- Can change the default script creation behavior from start to end.
 - I highly suggest keeping the sample files as a base.
 
 ### Singleton
@@ -78,7 +86,7 @@ Two singleton classes to create MonoBehaviours or ScriptableObjects that require
 
 When detecting duplicate objects: The MonoBehaviour will delete itself and the Scriptable Object will issue a warning in the console.
 
-Both of them prevent public access to the static instance, avoiding common issues with singletons.
+Both of them prevent public access to the static instance, avoiding some clean code issues with singletons.
 
 ### State Machine [^fsm]
 A State Machine highly configurable through Scriptable Objects.
@@ -90,14 +98,6 @@ A camera controller useful for moving freelly around the scene during Play Mode.
 - **Object:** Validation to check for null, files and prefab files.
 - **MonoBehaviour:** Assert Unity Objects for null values. Useful during OnValidate().
 - **Vector2D/3D:** A collection of methods to convert analog movement into discrete. Great for grid movement.
-
-## Other recommended libraries
-Need more? Take a look at these free libraries to help in your gamedev journey.
-
-[**NaughtyAttributes**](https://github.com/dbrizov/NaughtyAttributes) is quite an useful extension to supplement the default Unity attributes.
-
-[**Code Monkey Utilities**](https://unitycodemonkey.com/utils.php) contains a bunch of useful classes like displaying UI in the world space and extension methods with helper functions.
-
 
 ## Credits and References
 [^arrow]: *Original idea discussed and implemented in the Unity Forums* | [link](https://forum.unity.com/threads/debug-drawarrow.85980/) |
