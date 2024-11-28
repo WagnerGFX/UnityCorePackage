@@ -40,6 +40,7 @@ You are free to open new issues/PRs for bugfixes or features, but be aware that 
 
 ### Debugging > DrawArrow [^arrow]
 Allows to draw a simple arrow made of lines using Gizmo or Debug.
+- The arrowhead can be placed anywhere in the line, not just at the end.
 
 ### Debugging > ProfilerAPI
 Uses the **Unity Profiling Core API** package to create an easy way to track specific blocks of code in the Profiler.
@@ -47,7 +48,7 @@ Uses the **Unity Profiling Core API** package to create an easy way to track spe
 ### Debugging > ProfilerSearch [^profiler]
 Window that helps to find functions in the Profiler. Useful when it's not clear on what frame the function was called.
 
-It's useful if you are not allowed to install the **Unity Profiling Core API** package, otherwise I strongly suggest using the ProfilerAPI above.
+It's useful if you can't use the **Unity Profiling Core API** package, use the **ProfilerAPI** otherwise.
 
 ### EventSystem > Classic [^cevent]
 A centralized event system made with pure C# events and custom event args.
@@ -75,7 +76,7 @@ Limitations:
  - Pratically useless for dynamic instancing.
 
 ### Script Templates
-- Fully customized script template creation.
+A fully customizable script template creation.
 - Uses individual methods to process each tag in a template.
 - Can inject your own behavior to process tags or override existing behaviors.
 - Can change the default script creation behavior from start to end.
@@ -92,7 +93,7 @@ Both of them prevent public access to the static instance, avoiding some clean c
 A State Machine highly configurable through Scriptable Objects.
 
 ### Utilities > Debug Camera Controller
-A camera controller useful for moving freelly around the scene during Play Mode.
+A camera controller useful for moving freely around the scene during Play Mode.
 
 ### Utilities > Extensions
 - **Object:** Validation to check for null, files and prefab files.
