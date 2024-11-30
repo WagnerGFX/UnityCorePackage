@@ -29,12 +29,14 @@ After applying the package, also install any relevant packages listed in the Req
 If you forked or cloned the whole project, then use the menu **Tools > Export UnityPackages** to automatically generate all unitypackage files.
 
 ## User Contributions
-> ⚠ This is a personal project that I am sharing with the community and have little intention to actively maintain with new features.
+> ⚠ This is not a project created with the intention of being actively maintain with frequent updates and new features.
+>
+> Instead, this is a personal project that I am sharing with the community.
 > 
 > Consider this plugin as one to apply in your project and improve for your own needs.
 
-You are free to open new issues/PRs for bugfixes or features, but be aware that I might deny them.
-</br>If the influx is too big I might decide to disable Issues and PRs altogether.
+You are free to open new issues/PRs for bug fixes or features, but be aware that I might take a long time to reply and may deny them.
+</br>If the influx is too big, I might even decide to disable Issues and PRs altogether.
 
 ## Features Overview
 
