@@ -3,11 +3,11 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// Used to debug events by subscribing to BaseEventChannelSO debugging events.
-/// </summary>
 namespace CorePackage.EventSystems.Unity.Debugging
 {
+    /// <summary>
+    /// Used to debug events by subscribing to BaseEventChannelSO debugging events.
+    /// </summary>
     public static class EventDebugUtilities
     {
         public static void DebugRaisedEventWithNoListeners(ScriptableObject eventChannel)

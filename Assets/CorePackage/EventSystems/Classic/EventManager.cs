@@ -17,7 +17,7 @@ namespace CorePackage.EventSystems.Classic
 
         private void InstantiateListener<T>(Type eventType) where T : IEventArgs
         {
-            /// Instantiate a new container for the given type on first use
+            // Instantiate a new container for the given type on first use
             if (!_eventContainerList.ContainsKey(eventType) || _eventContainerList[eventType] == null)
             {
                 _eventContainerList[eventType] = new EventContainer<T>();

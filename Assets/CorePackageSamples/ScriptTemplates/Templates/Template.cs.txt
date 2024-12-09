@@ -1,11 +1,11 @@
 // USINGDIRECTIVES: Will be replaced by any necessary namespaces for the script
-// This is evaluated by taking into considearation:
+// This is evaluated by taking into consideration:
 //  - The root namespace
 //  - The namespace of CONTEXTSCRIPTNAME
 //  - Any Type manually added by a custom processor script
 
 // ROOTNAMESPACE: Will be replaced by the root namespace of the Project or Assembly Definition
-// Any spaces or tabs before BEGIN will be used as identation for anything inside the namespace
+// Any spaces or tabs before BEGIN will be used as indentation for anything inside the namespace
 
 // FILENAME: Will be replaced by the file name with no extra processing
 

@@ -26,6 +26,7 @@ namespace CorePackage.ScriptTemplates
         /// <summary>
         /// Optional default name and extension.
         /// <para>When undefined, the template file will be use to identifiy the name and extension</para>
+        /// <para>When undefined, the template file will be used to identify the name and extension</para>
         /// </summary>
         public string DefaulNameWithExtension { get; set; }
 

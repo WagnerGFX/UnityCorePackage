@@ -8,7 +8,7 @@ root = true
 # Reason: Simple style choice.
 dotnet_diagnostic.IDE0017.severity = silent
 
-# Roslynator Analyzer supressors
+# Roslynator Analyzer suppressors
 # It's a great Analyzer, but does not understand Unity very well
 
 # RCS1036 Remove unnecessary blank line.
@@ -20,7 +20,7 @@ dotnet_diagnostic.RCS1036.severity = none
 dotnet_diagnostic.RCS1146.severity = silent
 
 # RCS1158 Static member in generic type should use a type parameter.
-# Reson: Not always needed
+# Reason: Not always needed
 dotnet_diagnostic.RCS1158.severity = silent
 
 # RCS1163 Unused parameter 'isActive'.
