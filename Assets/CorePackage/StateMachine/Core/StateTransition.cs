@@ -29,7 +29,7 @@
         /// </summary>
         /// <param name="state">Returns the state to transition to. Null if the conditions aren't met.</param>
         /// <returns>True if the conditions are met.</returns>
-        public bool TryGetTransiton(out State state)
+        public bool TryGetTransition(out State state)
         {
             state = ShouldTransition() ? _targetState : null;
             return state != null;

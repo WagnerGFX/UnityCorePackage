@@ -25,10 +25,9 @@ namespace CorePackage.ScriptTemplates
 
         /// <summary>
         /// Optional default name and extension.
-        /// <para>When undefined, the template file will be use to identifiy the name and extension</para>
         /// <para>When undefined, the template file will be used to identify the name and extension</para>
         /// </summary>
-        public string DefaulNameWithExtension { get; set; }
+        public string DefaultNameWithExtension { get; set; }
 
         /// <summary>
         /// When false, will only apply custom processors.
@@ -59,7 +58,7 @@ namespace CorePackage.ScriptTemplates
             Template = template;
 
             //Removes the TextAsset extension, keeping the expected extension, if any.
-            DefaulNameWithExtension = Path.GetFileNameWithoutExtension(AssetDatabase.GetAssetPath(template));
+            DefaultNameWithExtension = Path.GetFileNameWithoutExtension(AssetDatabase.GetAssetPath(template));
 
             //Default script icon
             if (icon.IsNull())

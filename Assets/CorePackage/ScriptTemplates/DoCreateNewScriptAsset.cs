@@ -113,7 +113,7 @@ namespace CorePackage.ScriptTemplates
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
                 0,
                 scriptAssetCreator,
-                assetData.DefaulNameWithExtension,
+                assetData.DefaultNameWithExtension,
                 scriptAssetCreator.Icon,
                 scriptAssetCreator.TemplatePath);
         }
@@ -160,10 +160,10 @@ namespace CorePackage.ScriptTemplates
             Icon = icon;
         }
 
-        private void AddProcessors(bool disableDefaultProcessors, Action<DoCreateNewScriptAsset>[] customScriptProcessors)
+        private void AddProcessors(bool applyDefaultProcessors, Action<DoCreateNewScriptAsset>[] customScriptProcessors)
         {
             _processorList.AddRange(customScriptProcessors);
-            ApplyDefaultProcessors = disableDefaultProcessors;
+            ApplyDefaultProcessors = applyDefaultProcessors;
         }
 
         private void AddCurrentContextSelection()

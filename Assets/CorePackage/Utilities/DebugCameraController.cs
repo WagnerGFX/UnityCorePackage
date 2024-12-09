@@ -40,8 +40,8 @@ namespace CorePackage.Utilities
         private bool _invertCameraYAxis = false;
 
         [SerializeField]
-        [Tooltip("Use the mouse to control the camera's rotation in orthograpic mode.")]
-        private bool _rotateInOrthograpic = false;
+        [Tooltip("Use the mouse to control the camera's rotation in orthographic mode.")]
+        private bool _rotateInOrthographic = false;
 
         private readonly CameraState _targetCameraState = new();
         private readonly CameraState _interpolatingCameraState = new();
@@ -165,7 +165,7 @@ namespace CorePackage.Utilities
             // Look Around
             if (_isActive && !_enableMoveAround && Input.GetKey(KEY_CAMERA_LOOK))
             {
-                _enableLookAround = !_myCamera.orthographic || (_myCamera.orthographic && _rotateInOrthograpic);
+                _enableLookAround = !_myCamera.orthographic || (_myCamera.orthographic && _rotateInOrthographic);
             }
             else
             {
@@ -185,8 +185,8 @@ namespace CorePackage.Utilities
             // Rotate in Orthographic
             if (_isActive && Input.GetKeyDown(KEY_TOGGLE_ORTHO_ROTATION))
             {
-                _rotateInOrthograpic = !_rotateInOrthograpic;
-                Debug.LogFormat("DebugCamera: Orthographic Mouse {0}", _rotateInOrthograpic ? "Enabled" : "Disabled");
+                _rotateInOrthographic = !_rotateInOrthographic;
+                Debug.LogFormat("DebugCamera: Orthographic Mouse {0}", _rotateInOrthographic ? "Enabled" : "Disabled");
             }
 
             // Boost

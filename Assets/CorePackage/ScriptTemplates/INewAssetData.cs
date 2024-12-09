@@ -11,7 +11,7 @@ namespace CorePackage.ScriptTemplates
     {
         TextAsset Template { get; }
         Texture2D Icon { get; }
-        string DefaulNameWithExtension { get; }
+        string DefaultNameWithExtension { get; }
         bool ApplyDefaultProcessors { get; }
         ReadOnlyCollection<Action<DoCreateNewScriptAsset>> CustomProcessors { get; }
 

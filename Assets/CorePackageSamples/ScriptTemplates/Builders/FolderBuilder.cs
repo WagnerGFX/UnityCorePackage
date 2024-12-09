@@ -14,7 +14,7 @@ namespace CorePackage.ScriptTemplates.Builders
             using FolderBuilder instance = CreateInstance();
 
             NewScriptData assetData = new(instance.Template, emptyFolderIcon);
-            assetData.DefaulNameWithExtension = "New Folder";
+            assetData.DefaultNameWithExtension = "New Folder";
             assetData.ApplyDefaultProcessors = false;
             assetData.AddProcessors(CreateFolder, DefaultProcessors.FocusOnAsset);
 
