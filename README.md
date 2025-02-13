@@ -6,43 +6,12 @@ A collection of small, but useful libraries for Unity. Many were collected from 
 
 ## Table of Content
 
+### [Features Overview](#features-overview)
 ### [Requirements](#requirements)
 ### [Installation](#installation)
 ### [Project Compilation](#project-compilation)
 ### [User Contributions](user-contributions)
-### [Features Overview](#features-overview)
 ### [Credits and References](credist-and-references)
-
-## Requirements
-
-### The Core Package
-- Unity Editor 2020 LTS or above. Older versions may be compatible, but are not supported.
-- **ProfilerAPI:** Requires the [Unity Profiling Core API](https://docs.unity3d.com/Manual/com.unity.profiling.core.html) package.
-- **ProfilerSearch:** Requires Unity 2021 LTS or above for full functionality.
-- **StateMachine:** Editor window uses the [UI Toolkit](https://docs.unity3d.com/Manual/UIElements.html).
-
-### Samples
-The samples may use some of these packages/assets for demonstration purposes.
-- [2D Packages](https://docs.unity3d.com/Manual/2DFeature.html#)
-- [Cinemachine](https://docs.unity3d.com/Manual/com.unity.cinemachine.html)
-- [Input System](https://docs.unity3d.com/Manual/com.unity.inputsystem.html)
-- [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) + TMP Essentials
-- [DOTween Free](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676)
-
-## Installation
-The project can be installed in an existing Unity project using the .unitypackage files available in the ***Releases*** section.
-
-After applying the package, also install any relevant packages listed in the Requirements.
-
-## Project Compilation
-If you forked or cloned the whole project, then use the menu **Tools > Export UnityPackages** to automatically generate all unitypackage files.
-
-## User Contributions
-> ⚠ This is not a project created with the intention of being actively maintained with frequent updates and new features.
-
-You are free to open new issues/PRs for bug fixes or features, but be aware that I might take a long time to reply and may deny them if they diverge too wildly from the intended scope.
-
-If you want to fork the project for your own use, I just politely ask to attribute me and the [other creators](#credits-and-references) in your credits section.
 
 ## Features Overview
 
@@ -107,6 +76,37 @@ A camera controller useful for moving freely around the scene during Play Mode.
 - **Object:** Validation to check for null, files and prefab files.
 - **MonoBehaviour:** Assert Unity Objects for null values. Useful during OnValidate().
 - **Vector2D/3D:** A collection of methods to convert analog movement into discrete. Great for grid movement.
+
+## Requirements
+
+### The Core Package
+- Unity Editor 2020 LTS or above. Older versions may be compatible, but are not supported.
+- **ProfilerAPI:** Requires the [Unity Profiling Core API](https://docs.unity3d.com/Manual/com.unity.profiling.core.html) package.
+- **ProfilerSearch:** Requires Unity 2021 LTS or above for full functionality.
+- **StateMachine:** Editor window uses the [UI Toolkit](https://docs.unity3d.com/Manual/UIElements.html).
+
+### Samples
+The samples may use some of these packages/assets for demonstration purposes.
+- [2D Packages](https://docs.unity3d.com/Manual/2DFeature.html#)
+- [Cinemachine](https://docs.unity3d.com/Manual/com.unity.cinemachine.html)
+- [Input System](https://docs.unity3d.com/Manual/com.unity.inputsystem.html)
+- [TextMeshPro](https://docs.unity3d.com/Manual/com.unity.textmeshpro.html) + TMP Essentials
+- [DOTween Free](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676)
+
+## Installation
+The project can be installed in an existing Unity project using the .unitypackage files available in the ***Releases*** section.
+
+After applying the package, also install any relevant packages listed in the Requirements.
+
+## Project Compilation
+If you forked or cloned the whole project, then use the menu **Tools > Export UnityPackages** to automatically generate all unitypackage files.
+
+## User Contributions
+> ⚠ This is not a project created with the intention of being actively maintained with frequent updates and new features.
+
+You are free to open new issues/PRs for bug fixes or features, but be aware that I might take a long time to reply and may deny them if they diverge too wildly from the intended scope.
+
+If you want to fork the project for your own use, I just politely ask to attribute me and the [other creators](#credits-and-references) in your credits section.
 
 ## Credits and References
 [^arrow]: *Original idea discussed and implemented in the Unity Forums* | [link](https://forum.unity.com/threads/debug-drawarrow.85980/) |
