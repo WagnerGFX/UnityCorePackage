@@ -21,7 +21,7 @@ The samples may use some of these packages/assets for demonstration purposes.
 - [DOTween Free](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676)
 
 ## Installation
-The project can be installed in an existing Unity project using the .unitypackage files available in the [Releases](https://github.com/WagnerGFX/UnityCorePackage/releases/latest) section.
+The project can be installed in an existing Unity project using the .unitypackage files available in the ***Releases*** section.
 
 After applying the package, also install any relevant packages listed in the Requirements.
 
@@ -29,14 +29,11 @@ After applying the package, also install any relevant packages listed in the Req
 If you forked or cloned the whole project, then use the menu **Tools > Export UnityPackages** to automatically generate all unitypackage files.
 
 ## User Contributions
-> ⚠ This is not a project created with the intention of being actively maintain with frequent updates and new features.
->
-> Instead, this is a personal project that I am sharing with the community.
-> 
-> Consider this plugin as one to apply in your project and improve for your own needs.
+> ⚠ This is not a project created with the intention of being actively maintained with frequent updates and new features.
 
-You are free to open new issues/PRs for bug fixes or features, but be aware that I might take a long time to reply and may deny them.
-</br>If the influx is too big, I might even decide to disable Issues and PRs altogether.
+You are free to open new issues/PRs for bug fixes or features, but be aware that I might take a long time to reply and may deny them if they diverge too wildly from the intended scope.
+
+If you want to fork the project for your own use, I just politely ask to attribute me and the [other creators](#credits-and-references) in your credits section.
 
 ## Features Overview
 
