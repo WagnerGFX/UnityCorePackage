@@ -4,6 +4,15 @@
 
 A collection of small, but useful libraries for Unity. Many were collected from open sources, then improved or re-implemented, check the credits section for their respective original works.
 
+## Table of Content
+
+### [Requirements](#requirements)
+### [Installation](#installation)
+### [Project Compilation](#project-compilation)
+### [User Contributions](user-contributions)
+### [Features Overview](#features-overview)
+### [Credits and References](credist-and-references)
+
 ## Requirements
 
 ### The Core Package
